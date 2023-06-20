@@ -19,7 +19,6 @@ export class TopbarComponent implements OnInit {
 
   @Input() layoutType: string = '';
   @Input() leftSidebarTheme: string = 'light';
-  createMenuOptions: CreateNewMenuOption[] = [];
   megaMenuItems: MegaMenuItem[] = [];
   notificationList: NotificationItem[] = [];
   languages: Language[] = [];
@@ -63,31 +62,7 @@ export class TopbarComponent implements OnInit {
    * fetches menu options
    */
   _fetchMenus(): void {
-    this.createMenuOptions = [{
-      id: 1,
-      label: 'New Projects',
-      icon: 'fe-briefcase',
-    },
-    {
-      id: 2,
-      label: 'Create Users',
-      icon: 'fe-user',
-    },
-    {
-      id: 3,
-      label: 'Revenue Report',
-      icon: 'fe-bar-chart-line-',
-    },
-    {
-      id: 4,
-      label: 'Settings',
-      icon: 'fe-settings',
-    },
-    {
-      id: 4,
-      label: 'Help & Support',
-      icon: 'fe-headphones',
-    }];
+  
 
     this.megaMenuItems = [
       {

@@ -219,53 +219,9 @@
                 <!-- End mobile menu toggle-->
             </li>
 
-            <li class="d-none d-xl-block" ngbDropdown>
-                <a class="nav-link waves-effect waves-light" href="javascript:void(0)" role="button" ngbDropdownToggle>
-                    Create New
-                    <i class="mdi mdi-chevron-down"></i>
-                </a>
-                <div ngbDropdownMenu>
-                    <!-- item-->
-                    <ng-container *ngFor="let option of createMenuOptions;let i=index">
-                        <div class="dropdown-divider" *ngIf="i===createMenuOptions.length-1"></div>
-                        <a href="javascript:void(0);" ngbDropdownItem>
-                            <i class="{{option.icon}} me-1"></i>
-                            <span>{{option.label}}</span>
-                        </a>
-                    </ng-container>
-                </div>
-            </li>
+       
 
-            <li class="dropdown-mega d-none d-xl-block" ngbDropdown>
-                <a class="nav-link waves-effect waves-light" href="javascript:void(0)" role="button" ngbDropdownToggle>
-                    Mega Menu
-                    <i class="mdi mdi-chevron-down"></i>
-                </a>
-                <div class="dropdown-megamenu" ngbDropdownMenu>
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="row">
-                                <div class="col-md-4" *ngFor="let menu of megaMenuItems">
-                                    <h5 class="text-dark mt-0">{{menu.menuTitle}}</h5>
-                                    <ul class="list-unstyled megamenu-list" *ngIf="menu.menuItems">
-                                        <li *ngFor="let item of menu.menuItems">
-                                            <a href="javascript:void(0);">{{item}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="text-center mt-3">
-                                <h3 class="text-dark">Special Discount Sale!</h3>
-                                <h4>Save up to 70% off.</h4>
-                                <button class="btn btn-primary rounded-pill mt-3">Download Now</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </li>
+         
         </ul>
         <div class="clearfix"></div>
     </div>
