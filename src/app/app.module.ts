@@ -9,6 +9,8 @@ import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { FakeBackendProvider } from './core/helpers/fake-backend';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { LayoutModule } from './layout/layout.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { LayoutModule } from './layout/layout.module';
     SweetAlert2Module.forRoot(),
     AppRoutingModule,
     LayoutModule,
+    BrowserAnimationsModule
 
   ],
   providers: [
