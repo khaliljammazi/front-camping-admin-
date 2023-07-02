@@ -84,6 +84,15 @@ const MENU_ITEMS: MenuItem[] = [
             }
         ]
     },
+    {
+        key: 'reservation ',
+        label: 'reservation',
+        isTitle: false,
+        icon: 'layers',
+        collapsed: true,
+        link: '/reservation',
+        
+    },
 
     
     
