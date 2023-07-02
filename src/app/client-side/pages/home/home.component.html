@@ -1,0 +1,195 @@
+
+<section class="banner-section centred">
+    <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-1.png);"></div>
+<owl-carousel-o [options]="carouselOptions" class="banner-carousel">
+  <ng-container *ngFor="let slide of slidesStore">
+    <ng-template  carouselSlide ="slide.id">
+        <div class="slide-item">
+
+      <img class="image-layer"  [src]="slide.image"  >
+      <div class="auto-container">
+        <div class="content-box">
+          <div class="shape" style="background-image: url(assets/images/shape/shape-2.png);"></div>
+          <span>{{ slide.caption }}</span>
+          <h2>{{ slide.heading }}</h2>
+          <div class="btn-box">
+            <a [href]="slide.link" class="theme-btn btn-one">{{ slide.buttonText }}</a>
+          </div>
+        </div>
+      </div>
+      
+      </div>
+    </ng-template>
+  </ng-container>
+
+</owl-carousel-o>
+
+<div class="media-partner">
+    <ul class="media-links clearfix">
+        <li><h6>Follow on social media</h6></li>
+        <li><a href="index.html"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="index.html"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a href="index.html"><i class="fab fa-pinterest-p"></i></a></li>
+        <li><a href="index.html"><i class="fab fa-instagram"></i></a></li>
+    </ul>
+</div>
+</section>
+
+        <!-- about-section -->
+        <section class="about-section bg-color-1">
+            <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-4.png);"></div>
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-6 col-md-12 col-sm-12 image-column">
+                        <div class="image_block_one">
+                            <div class="image-box">
+                                <div class="text">amping</div>
+                                <div class="shape" style="background-image: url(assets/images/shape/shape-3.png);"></div>
+                                <figure class="image"><img src="assets/images/resource/about-1.jpg" alt=""></figure>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 content-column">
+                        <div class="content_block_one">
+                            <div class="content-box">
+                                <div class="sec-title">
+                                    <span class="sub-title">Our Introductions</span>
+                                    <h2>Welcome to Camp of Summers</h2>
+                                </div>
+                                <div class="text">
+                                    <div class="icon-box"><i class="flaticon-camping"></i></div>
+                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                </div>
+                                <ul class="list-style-one clearfix">
+                                    <li>Refresing to get such a personal touch.</li>
+                                    <li>Duis aute irure dolor in reprehenderit in voluptate.</li>
+                                    <li>Velit esse cillum dolore eu fugiat nulla pariatur.</li>
+                                </ul>
+                                <div class="btn-box">
+                                    <a href="about.html" class="theme-btn btn-one">Discover More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- about-section end -->
+
+          <!-- feature-style-two -->
+         <section class="feature-style-two centred">
+            <div class="upper-box centred">
+                <div class="sec-title">
+                    <span class="sub-title">What We’re Offering</span>
+                    <h2>Our Camping centers</h2>
+                </div>
+            </div>
+  <div class="auto-container">
+    <owl-carousel-o  [options]="carouselOptions1">
+      <ng-container *ngFor="let c of camps">
+        <ng-template carouselSlide [id]="c.id">
+          <div class="feature-block-two">
+            <div class="inner-box">
+                <a [routerLink]="['camping-details', c.id]">
+              <figure class="image-box">
+                <img [src]="c.imageSrc" [alt]="c.imageAlt">
+              </figure>
+              </a>
+              <div class="lower-content">
+                <h3><a [routerLink]="['camping-details', c.id]">{{ c.title }}</a></h3>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+</section>
+        <!-- feature-style-two end -->
+        
+        <section class="video-section">
+            <div class="bg-layer parallax-bg" [attr.data-parallax]="{ 'y': 100 }" [style.background-image]="'url(https://scontent.ftun4-2.fna.fbcdn.net/v/t1.15752-9/348384311_1400661240725311_8549735458525197456_n.jpg?_nc_cat=103&cb=99be929b-59f725be&ccb=1-7&_nc_sid=ae9488&_nc_ohc=OKEk7JHVfSUAX-g0n3q&_nc_ht=scontent.ftun4-2.fna&oh=03_AdSzoRID-9QINx7Rzcc5QItS-RxY8SzSjjWKPFcA6Y2pzg&oe=64C84A90)'"></div>
+            <div class="auto-container">
+              <div class="inner-box">
+                <div class="sec-title light">
+                  <span class="sub-title">Camping That’s Right For You</span>
+                  <h2>Get Now Memorable Wonderful Outdoor Experiences</h2>
+                </div>
+                <div class="video-btn">
+                    <a
+                      href="https://scontent.ftun4-2.fna.fbcdn.net/v/t1.15752-9/348384311_1400661240725311_8549735458525197456_n.jpg?_nc_cat=103&cb=99be929b-59f725be&ccb=1-7&_nc_sid=ae9488&_nc_ohc=OKEk7JHVfSUAX-g0n3q&_nc_ht=scontent.ftun4-2.fna&oh=03_AdSzoRID-9QINx7Rzcc5QItS-RxY8SzSjjWKPFcA6Y2pzg&oe=64C84A90"
+                      data-fancybox
+                      data-caption=""
+                      style="background-image: url(assets/images/shape/shape-7.png);"
+                    >
+                      <i class="fas fa-play"></i>
+                    </a>
+                  </div>
+              </div>
+            </div>
+          </section>
+            <!-- news-section -->
+        <section class="news-section sec-pad">
+            <div class="auto-container">
+                <div class="sec-title centred">
+                    <span class="sub-title">What’s Happening</span>
+                    <h2>News & Articles</h2>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                        <div class="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <figure class="image-box"><a href="blog-details.html"><img src="assets/images/news/news-1.jpg" alt=""></a></figure>
+                                <div class="lower-content">
+                                    <span class="post-date">20 oct, 2021</span>
+                                    <ul class="post-info clearfix">
+                                        <li><i class="far fa-user"></i><a href="blog-details.html">by Admin</a></li>
+                                        <li><i class="far fa-comments"></i><a href="blog-details.html">2 Comments</a></li>
+                                    </ul>
+                                    <h3><a href="blog-details.html">Get Ready for the Summer Camp</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                        <div class="news-block-one wow fadeInUp animated" data-wow-delay="300ms" data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <figure class="image-box"><a href="blog-details.html"><img src="assets/images/news/news-2.jpg" alt=""></a></figure>
+                                <div class="lower-content">
+                                    <span class="post-date">19 oct, 2021</span>
+                                    <ul class="post-info clearfix">
+                                        <li><i class="far fa-user"></i><a href="blog-details.html">by Admin</a></li>
+                                        <li><i class="far fa-comments"></i><a href="blog-details.html">5 Comments</a></li>
+                                    </ul>
+                                    <h3><a href="blog-details.html">Duis Laoreet Cursus Justo, sed</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 news-block">
+                        <div class="news-block-one wow fadeInUp animated" data-wow-delay="600ms" data-wow-duration="1500ms">
+                            <div class="inner-box">
+                                <figure class="image-box"><a href="blog-details.html"><img src="assets/images/news/news-3.jpg" alt=""></a></figure>
+                                <div class="lower-content">
+                                    <span class="post-date">18 oct, 2021</span>
+                                    <ul class="post-info clearfix">
+                                        <li><i class="far fa-user"></i><a href="blog-details.html">by Admin</a></li>
+                                        <li><i class="far fa-comments"></i><a href="blog-details.html">4 Comments</a></li>
+                                    </ul>
+                                    <h3><a href="blog-details.html">Morbi nec Finibus mi Cras Risus</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- news-section end -->
+
+
+          
+
+
+
+
+

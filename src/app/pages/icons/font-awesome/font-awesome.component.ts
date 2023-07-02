@@ -7,7 +7,8 @@ import { FAICONS } from './data';
   templateUrl: './font-awesome.component.html',
   styleUrls: ['./font-awesome.component.scss']
 })
-export class FontAwesomeComponent implements OnInit {
+export class 
+FontAwesomeComponent implements OnInit {
 
   pageTitle: BreadcrumbItem[] = [];
   solidIconList: any[] = [];
