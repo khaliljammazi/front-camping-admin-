@@ -1,0 +1,101 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?596d74531051f4496894a459a5e15ecb") format("truetype"),
+url("./flaticon.woff?596d74531051f4496894a459a5e15ecb") format("woff"),
+url("./flaticon.woff2?596d74531051f4496894a459a5e15ecb") format("woff2"),
+url("./flaticon.eot?596d74531051f4496894a459a5e15ecb#iefix") format("embedded-opentype"),
+url("./flaticon.svg?596d74531051f4496894a459a5e15ecb#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "chat": "\f101",
+    "magnifying-glass": "\f102",
+    "shopping-cart": "\f103",
+    "camping": "\f104",
+    "climbing": "\f105",
+    "adventurer": "\f106",
+    "tent": "\f107",
+    "quote": "\f108",
+    "cottage": "\f109",
+    "tent-1": "\f10a",
+    "military": "\f10b",
+    "fire": "\f10c",
+    "plus": "\f10d",
+    "dive": "\f10e",
+    "parachute": "\f10f",
+    "axes": "\f110",
+    "phone-call": "\f111",
+    "open-envelope": "\f112",
+    "phone": "\f113",
+);
+
+.flaticon-chat:before {
+    content: map-get($flaticon-map, "chat");
+}
+.flaticon-magnifying-glass:before {
+    content: map-get($flaticon-map, "magnifying-glass");
+}
+.flaticon-shopping-cart:before {
+    content: map-get($flaticon-map, "shopping-cart");
+}
+.flaticon-camping:before {
+    content: map-get($flaticon-map, "camping");
+}
+.flaticon-climbing:before {
+    content: map-get($flaticon-map, "climbing");
+}
+.flaticon-adventurer:before {
+    content: map-get($flaticon-map, "adventurer");
+}
+.flaticon-tent:before {
+    content: map-get($flaticon-map, "tent");
+}
+.flaticon-quote:before {
+    content: map-get($flaticon-map, "quote");
+}
+.flaticon-cottage:before {
+    content: map-get($flaticon-map, "cottage");
+}
+.flaticon-tent-1:before {
+    content: map-get($flaticon-map, "tent-1");
+}
+.flaticon-military:before {
+    content: map-get($flaticon-map, "military");
+}
+.flaticon-fire:before {
+    content: map-get($flaticon-map, "fire");
+}
+.flaticon-plus:before {
+    content: map-get($flaticon-map, "plus");
+}
+.flaticon-dive:before {
+    content: map-get($flaticon-map, "dive");
+}
+.flaticon-parachute:before {
+    content: map-get($flaticon-map, "parachute");
+}
+.flaticon-axes:before {
+    content: map-get($flaticon-map, "axes");
+}
+.flaticon-phone-call:before {
+    content: map-get($flaticon-map, "phone-call");
+}
+.flaticon-open-envelope:before {
+    content: map-get($flaticon-map, "open-envelope");
+}
+.flaticon-phone:before {
+    content: map-get($flaticon-map, "phone");
+}

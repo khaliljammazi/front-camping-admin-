@@ -15,7 +15,8 @@ const routes: Routes = [{
   { path: 'invoice', loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule) },
   { path: 'faq', loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule) },
   { path: 'pricing', loadChildren: () => import('./pricing/pricing.module').then(m => m.PricingModule) },
-  { path: 'error-404-alt', loadChildren: () => import('./error404-alt/error404-alt.module').then(m => m.Error404AltModule) }];
+
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
