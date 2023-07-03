@@ -33,6 +33,7 @@ const routes: Routes = [
   { path: 'tables', loadChildren: () => import('./tables/tables.module').then(m => m.TablesModule) },
   { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) },
   { path: 'camping-center', loadChildren: () => import('./camping-center/camping-center.module').then(m => m.CampingCenterModule) },
+  { path: 'camping-center-feedbaks', loadChildren: () => import('./camping-center-feedback/camping-center-feedback.module').then(m => m.CampingCenterFeedbackModule) }
 ];
 
 @NgModule({
