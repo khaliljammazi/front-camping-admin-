@@ -1,3 +1,4 @@
+import { Reservation } from 'src/app/models/Reservation';
 import { ReservationService } from './../../../services/reservation.service';
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
@@ -21,7 +22,7 @@ pageTitle: BreadcrumbItem[] = [];
  editReservation!: FormGroup;
  files: File[] = [];
  activity: Select2Data = [];
-
+Reservation: Reservation=new Reservation();
  selectedActivity: any[] = [];
  constructor(
    private fb: FormBuilder,
@@ -36,7 +37,11 @@ pageTitle: BreadcrumbItem[] = [];
    this.route.params.subscribe(params => {
     this.ReservationService.getReservationById(params['id']).subscribe(
       {
-        next: (data) => { data},
+        next: (Reservation: Reservation) => {
+          this.Reservation = Reservation;
+          this.editReservation.patchValue(this.Reservation);
+    
+        },
         error: (error) => console.log(error)
       }
     )
@@ -44,7 +49,6 @@ pageTitle: BreadcrumbItem[] = [];
   )
 // product form
 this.editReservation = this.fb.group({ 
-  id: ['', Validators.required],
   numberReserved: ['', Validators.required],
   totalAmount: ['', Validators.required],
   dateStart: ['', Validators.required],

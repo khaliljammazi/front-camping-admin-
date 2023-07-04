@@ -104,28 +104,17 @@ export class ReservationComponent implements OnInit {
 
     ];
   }
-  // action cell formatter
-  customerActionFormatter(): any {
-    //to check
-    // const reservationId =  this.route.params.subscribe(params => {
-    //   this.reservationservice.getReservationById(params['id']).subscribe(
-    //     {
-    //       next: () =>  console.log("valid"),
-    //       error: (error) => console.log(error)
-    //     }
-    //   )
-   // routerLink="/reservation/updatereservation/{{reservationId}}"
-    // });
+
+
+  customerActionFormatter(record: Reservation): any {
     return this.sanitizer.bypassSecurityTrustHtml(
-      ` <div class="button-list">
-      <button type="button" class="btn btn-success waves-effect waves-light"><i
-              class="mdi mdi-list-status"></i></button>
-     
-      <button type="button" class="btn btn-blue waves-effect waves-light"  ><i
-              class="mdi mdi-book-edit"></i></button>
+      `<div class="button-list">
+      <a  href="/reservation/updatereservation/${record.id}" class="btn btn-blue waves-effect waves-light"><i
+              class="mdi mdi-book-edit"></i></a>
   </div>`
     );
   }
+  
   
 
 /**
