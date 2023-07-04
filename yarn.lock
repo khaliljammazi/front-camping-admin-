@@ -192,7 +192,6 @@
     symbol-observable "4.0.0"
     uuid "8.3.2"
 
-"@angular/common@ ^13.0.0-rc.0 || ^13.0.0", "@angular/common@^11.0.0", "@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^8.1.3 || ^9.0 || ^10.0", "@angular/common@^9.1.0 || ^10.0.0", "@angular/common@>=10.0.0", "@angular/common@>=11.0.0", "@angular/common@>=12.0.0", "@angular/common@>=13.0.0", "@angular/common@>=6.1.0", "@angular/common@>=8.2.14", "@angular/common@~13.2.5", "@angular/common@13.2.5", "@angular/common@9 - 13":
   version "13.2.5"
   resolved "https://registry.npmjs.org/@angular/common/-/common-13.2.5.tgz"
   integrity sha512-px2qZP8Fd2qYbCVWmgLmop2OBQ/LKU2Oq8U/La2EEo8kgVuNWNTxmIh826cgZK/v9VQw8b/EoU7PeEjSWz0Zow==
@@ -222,7 +221,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^11.0.0", "@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^13.0.0-rc.0 || ^13.0.0", "@angular/core@^8.1.3 || ^9.0 || ^10.0", "@angular/core@^9.1.0 || ^10.0.0", "@angular/core@>=10.0.0", "@angular/core@>=11.0.0", "@angular/core@>=12.0.0", "@angular/core@>=13.0.0", "@angular/core@>=6.1.0", "@angular/core@>=8.2.14", "@angular/core@~13.2.5", "@angular/core@13.2.5", "@angular/core@9 - 13":
+
   version "13.2.5"
   resolved "https://registry.npmjs.org/@angular/core/-/core-13.2.5.tgz"
   integrity sha512-4CC69JQbgyETJR6xsQk6hOQqb6fBGZ/Qc333x0hwRDBbGnYE6hQehDibV+Apljea8YjV+NX6VmyOvPvHhtL4PQ==
