@@ -105,6 +105,11 @@ export class CampingCenterComponent implements OnInit {
      
       <button type="button" class="btn btn-blue waves-effect waves-light"><i
               class="mdi mdi-book-edit"></i></button>
+
+              <button type="button" class="btn btn-danger waves-effect waves-light">
+              <i class="mdi mdi-delete"></i>
+            </button>
+            
   </div>`
     );
   }
