@@ -4,12 +4,10 @@
 <form [formGroup]="editReservation" #updateReservation="ngForm" (ngSubmit)="onSubmit()">
 
     <div class="row">
-        <div class="col-lg-6">
+        <div >
             <div class="card">
                 <div class="card-body">
                     <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
-             
-
                     <div class="mb-3">
                         <label for="numberReserved" class="form-label">numberReserved<span
                                 class="text-danger">*</span></label>
@@ -26,12 +24,10 @@
                             [ngClass]="{  'is-invalid': updateReservation.submitted && form1.totalAmount.invalid }">
                     </div>
                   
-
-
-                    <div class="mb-3">
-                        <label  class="form-label">Activity <span
+ <div class="mb-3">
+                        <label for="camp-activity" class="form-label">Activity <span
                                 class="text-danger">*</span></label>
-                        <select2 [data]="activity" formControlName="activity" (update)="AddActivity($event)">
+                        <select2 id="camp-activity" [data]="activity" formControlName="activity" (update)="AddActivity($event)">
                         </select2>
                         <div class="mt-2" id="tooltip-container">
                             <ng-container *ngFor="let a of selectedActivity; let i = index; trackBy: trackByItemID">
@@ -39,53 +35,32 @@
                                     class="d-inline-block me-1">
                                     <img [src]="a.image" width="200" class="img-fluid rounded" alt="activitys">
                                     <i class="fas fa-trash-alt text-danger" (click)="removeActivity(i)"></i>
-
                                 </a>
                             </ng-container>
                         </div>
                     </div>
-              
-
                     <div class="mb-3">
-                        <label for="camp-price">Price <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="camp-price" placeholder="Enter amount" required
-                            formControlName="price"
-                            [ngClass]="{  'is-invalid': updateReservation.submitted && form1.price.invalid }">
+                        <label >Start date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" required name="dateStart"
+                            formControlName="dateStart"
+                            [ngClass]="{  'is-invalid': updateReservation.submitted && form1.dateStart.invalid }">
                     </div>
-
                     <div class="mb-3">
-                        <label class="mb-2">Status <span class="text-danger">*</span></label>
-                        <br />
-                        <div class="d-flex flex-wrap">
-                            <div class="form-check me-2">
-                                <input class="form-check-input" type="radio" value="1" 
-                                    formControlName="status" id="inlineRadio1" checked>
-                                <label class="form-check-label" for="inlineRadio1">Active</label>
-                            </div>
-                            <div class="form-check me-2">
-                                <input class="form-check-input" type="radio" value="0" 
-                                    formControlName="status" id="inlineRadio2">
-                                <label class="form-check-label" for="inlineRadio2">Inactive</label>
-                            </div>
-                        </div>
+                        <label >End date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" required name="dateEnd"
+                            formControlName="dateEnd"
+                            [ngClass]="{  'is-invalid': updateReservation.submitted && form1.dateEnd.invalid }">
                     </div>
-
                 </div>
-            </div> <!-- end card -->
-        </div> <!-- end col -->
-
-        
+            </div> 
+        </div> 
     </div>
-    <!-- end row -->
-
     <div class="row">
         <div class="col-12">
             <div class="text-center mb-3">
-                <button type="button" class="btn w-sm btn-danger waves-effect" routerLink="/camping-center">Cancel</button>
                 <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1">Save</button>
+                <button type="button" class="btn w-sm btn-danger waves-effect" routerLink="/reservation">Cancel</button>
             </div>
-        </div> <!-- end col -->
+        </div> 
     </div>
-    <!-- end row -->
-
 </form>
