@@ -5811,15 +5811,12 @@ rxjs@^6.5.2:
   dependencies:
     tslib "^1.9.0"
 
-<<<<<<< HEAD
 "rxjs@^6.5.3 || ^7.4.0", rxjs@^7.2.0, rxjs@^7.5.4:
   version "7.5.4"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-7.5.4.tgz"
   integrity sha512-h5M3Hk78r6wAheJF0a5YahB1yRQKCsZ4MsGdZ5O9ETbVtjPcScGfrMmoOq7EBsCRzd4BDkvDJ7ogP8Sz5tTFiQ==
   dependencies:
     tslib "^2.1.0"
-=======
->>>>>>> 9ecb571112b13f9f6ab7f591b2963c7c4a0a6f03
 
 rxjs@6.6.7:
   version "6.6.7"
