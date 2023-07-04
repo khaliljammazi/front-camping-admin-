@@ -40,9 +40,25 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
+               "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
               "src/assets/scss/Default.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/scrollbar.js",
+              "src/assets/js/wow.js",
+              "src/assets/js/appear.js",
+              "src/assets/js/validation.js",
+              "src/assets/js/script.js",
+              "src/assets/js/parallax-scroll.js",
+              "src/assets/js/circle-progress.js",
+              "src/assets/js/pagenav.js",
+              "src/assets/js/jquery.countTo.js",
+              "src/assets/js/popper.min.js",
+              "src/assets/js/jquery.fancybox.js",
+              "src/assets/js/owl.js",
+              "src/assets/js/pagenav.js" ,
+              "node_modules/jquery/dist/jquery.min.js"            ]
           },
           "configurations": {
             "production": {

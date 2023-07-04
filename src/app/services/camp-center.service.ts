@@ -30,6 +30,10 @@ export class CampCenterService {
     const url = `${this.campCenterUrl}/${id}`;
     return this.http.delete(url, this.httpOptions);
   }
+  getCampingById(id: number): Observable<CampingCenter> {
+    const url = `${this.campCenterUrl}/${id}`;
+    return this.http.get<CampingCenter>(url);
+  }
 
 
   constructor(
