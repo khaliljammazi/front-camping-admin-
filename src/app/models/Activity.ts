@@ -1,10 +1,9 @@
-import { CampingCenter } from "./CampingCenter";
 
 export class Activity {
   id!: number;
   label!: string;
   description!: string;
-  picture!: string;
+  image!: string;
   discount!: number;
   price!: number;
   duration!: number;
@@ -13,5 +12,5 @@ export class Activity {
   isActive!: boolean|number;
   createdAt!: Date;
   modifiedAt!: Date;
-  campingCenter!: CampingCenter;
+  camping_center_id!: number;
 }

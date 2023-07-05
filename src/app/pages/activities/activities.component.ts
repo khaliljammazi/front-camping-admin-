@@ -181,14 +181,14 @@ searchData(searchTerm: string): void {
 
   // formats Comp image
   imageFormatter(activity:Activity): any {
-    if (activity.picture == null) {
+    if (activity.image == null) {
       return this.sanitizer.bypassSecurityTrustHtml(
         `<img src="assets/images/users/user-3.jpg" alt="activity image" class="img-fluid rounded">`
       );
     } else
     {
     return this.sanitizer.bypassSecurityTrustHtml(
-      `<img src="${activity.picture}" alt="activity image" class="img-fluid rounded">`
+      `<img src="${activity.image}" alt="activity image" class="img-fluid rounded">`
     );
     }
   }

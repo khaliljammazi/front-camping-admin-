@@ -12,7 +12,8 @@ export class CampingCenter {
     price!: number;
     discount!: number;
     capacity!: number;
-    isActive!: boolean|number;
+    telephone!: number;
+    active!: boolean|number;
     createdAt!: Date;
     modifiedAt!: Date;
      activities!: Activity[];

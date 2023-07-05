@@ -6,9 +6,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-3">
+               
                         <a routerLink="/camping-center/add-camp" class="btn btn-success waves-effect waves-light"><i
                                 class='fe-plus me-1'></i> Add New</a>
                     </div>
+
                   
                 </div>
                <div class="row">
@@ -18,8 +20,11 @@
                 <!-- table start -->
                 <app-advanced-table [tableData]="records" [columns]="columns" [pagination]="true"
                     [pageSizeOptions]="pageSizeOptions" [hasRowSelection]="true" [isSearchable]="true"
-                    (search)="searchData($event)" [isSortable]="true" (sort)="onSort($event)">
-                </app-advanced-table>
+                    (search)="searchData($event)" [isSortable]="true" (sort)="onSort($event)"  
+                    (changeStatusClicked)="onStatusChangeClicked($event)" 
+                    (viewClicked)="onViewClicked($event)"
+                     (editClicked)="onEditClicked($event)">
+                </app-advanced-table>   
                 <!-- table end -->
                    </div>
 

@@ -4,7 +4,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import * as filestack from 'filestack-js';
 import { Activity } from 'src/app/models/Activity';
+import { CampingCenter } from 'src/app/models/CampingCenter';
 import { ActivitiesService } from 'src/app/services/activities.service';
+import { CampCenterService } from 'src/app/services/camp-center.service';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 import Swal from 'sweetalert2';
 
@@ -18,10 +20,11 @@ export class AddActivityComponent implements OnInit {
   pageTitle: BreadcrumbItem[] = [];
    newActivity!: FormGroup;
    files: File[] = [];
-   act: Activity=new Activity();
+   campingCenters: CampingCenter[] = [];   
   constructor( private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     private activityService: ActivitiesService,
+    private campCenterService: CampCenterService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -34,11 +37,23 @@ export class AddActivityComponent implements OnInit {
   discount: ['', Validators.required],
   description: ['', Validators.required],
   price: ['', Validators.required],
-  status: ['1', Validators.required],
-  image: ['', Validators.required]
+  status: ['', Validators.required],
+  image: ['', Validators.required],
+  campingCenterId: ['', Validators.required]
+
 
  
 });
+this.campCenterService.getCamps().subscribe(
+  {
+    next: (camp: CampingCenter[]) => {
+      this.campingCenters = camp;
+    }
+  }
+);
+
+
+
 }
 get form1() { return this.newActivity.controls; }
 
@@ -96,7 +111,7 @@ onSelect(event: any) {
 
 onSubmit(): void {
  
-  this.activityService.addActivity(this.newActivity.value).subscribe(
+  this.activityService.addActivity(this.newActivity.value, this.newActivity.value.campingCenterId).subscribe(
     
  next => {
       Swal.fire({

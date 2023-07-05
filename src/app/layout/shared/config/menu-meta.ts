@@ -75,14 +75,8 @@ const MENU_ITEMS: MenuItem[] = [
         isTitle: false,
         icon: 'activity',
         collapsed: true,
-        children: [
-            {
-                key: 'Activity',
-                label: 'Activity',
-                link: '/Activity',
-                parentKey: 'Activities',
-            }
-        ]
+        link: '/activities',
+       
     },
     {
         key: 'reservation ',

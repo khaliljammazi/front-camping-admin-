@@ -22,9 +22,21 @@
                                     <span class="sub-title">Our Introductions</span>
                                     <h2>We’re Experienced Camp Organizer</h2>
                                 </div>
+                                <h6 class="text-danger text-uppercase">{{camping.discount}}% Off</h6>
+                                <h4 class="mb-4">Price : <span class="text-muted me-2"><del>{{camping.price}} DT</del></span>
+                                    <b>{{camping.price-(camping.price*(camping.discount/100))}}DT</b>
+                                </h4>
                                 <div class="text">
                                  <div [innerHTML]="getSanitizedContent()"></div>
                                 </div>
+                                
+                                <div class="support-box">
+                                    <div class="icon"><i class="flaticon-phone"></i></div>
+                                    <span>Call Anytime</span>
+                                    <h5><a href="tel:+216{{camping.telephone}}">+216{{camping.telephone}}</a></h5>
+                                </div>
+                                
+                             
                                 <div class="inner-box">
                                     <div class="inner">
                                         <div class="icon-box"><i class="flaticon-camping"></i></div>
@@ -52,36 +64,36 @@
         <section class="feature-style-two centred">
             <div class="auto-container">
                 <div class="row clearfix">
-                    <div class="col-lg-4 col-md-6 col-sm-12 feature-block">
+                    <div class="upper-box centred">
+                        <div class="sec-title">
+                            <span class="sub-title">What We’re Offering</span>
+                            <h2>Our Activitys </h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 feature-block" *ngFor="let activity of camping.activities">
+                        
                         <div class="feature-block-two wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                            <div class="inner-box">
-                                <figure class="image-box"><img src="assets/images/resource/feature-1.jpg" alt=""></figure>
+                            <div class="inner-box" >
+                                <figure class="image-box"><img src={{activity.image}} alt=""></figure>
                                 <div class="lower-content">
-                                    <h3><a href="index-2.html">Tent Camp</a></h3>
+                                    <h3><a [routerLink]="['activity-details', activity.id]">{{activity.label}}</a></h3>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 feature-block">
+                    <div class="col-lg-4 col-md-6 col-sm-12 feature-block" *ngIf="camping.activities.length==0">
+                        
                         <div class="feature-block-two wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                            <div class="inner-box">
-                                <figure class="image-box"><img src="assets/images/resource/feature-2.jpg" alt=""></figure>
+                            <div class="inner-box" >
+                                <figure class="image-box"><img src="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg" alt=""></figure>
                                 <div class="lower-content">
-                                    <h3><a href="index-2.html">Wild Camp</a></h3>
+                                    <h3><a>no activities found</a></h3>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-12 feature-block">
-                        <div class="feature-block-two wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                            <div class="inner-box">
-                                <figure class="image-box"><img src="assets/images/resource/feature-3.jpg" alt=""></figure>
-                                <div class="lower-content">
-                                    <h3><a href="index-2.html">Family Camp</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
+                 
                 </div>
             </div>
         </section>

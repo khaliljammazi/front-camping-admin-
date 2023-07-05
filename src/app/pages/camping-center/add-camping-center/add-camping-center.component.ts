@@ -45,9 +45,11 @@ export class AddCampingCenterComponent implements OnInit {
   discount: ['', Validators.required],
   description: ['', Validators.required],
   price: ['', Validators.required],
-  status: ['1', Validators.required],
+  active: ['', Validators.required],
   image: ['', Validators.required],
-  activities: [this.selectedActivity, Validators.required],
+  telephone: ['', Validators.required],
+ /*  activities: [this.selectedActivity, Validators.required], */
+
   
 
  

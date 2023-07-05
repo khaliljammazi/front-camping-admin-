@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CampingCenter } from 'src/app/models/CampingCenter';
 import { ChartjsOptions } from 'src/app/pages/charts/chartjs/chartjs.model';
 import { CampCenterService } from 'src/app/services/camp-center.service';
+import { ActivitiesService } from 'src/app/services/activities.service';
 
 @Component({
   selector: 'app-campings',
@@ -13,12 +14,12 @@ import { CampCenterService } from 'src/app/services/camp-center.service';
 export class CampingsComponent implements OnInit {
 camping:CampingCenter=new CampingCenter();
 desc: string = '';
-pieChartOptions!: ChartjsOptions;
+
   constructor(
     private route:ActivatedRoute,
     private router:Router,
     private campingsService:CampCenterService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
 
   ) { }
 
@@ -31,8 +32,14 @@ pieChartOptions!: ChartjsOptions;
         }else{
           this.router.navigate(['/home']);
         }
+
       })
     })
+   
+
+    
+
+
   }
   getSanitizedContent(): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(this.desc);

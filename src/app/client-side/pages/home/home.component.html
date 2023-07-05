@@ -87,7 +87,7 @@
   <div class="auto-container">
     <owl-carousel-o  [options]="carouselOptions1">
       <ng-container *ngFor="let c of camps">
-        <ng-template carouselSlide [id]="c.id">
+        <ng-template carouselSlide [id]="c.id" >
           <div class="feature-block-two">
             <div class="inner-box">
                 <a [routerLink]="['camping-details', c.id]">

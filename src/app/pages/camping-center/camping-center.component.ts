@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { CampingCenter } from 'src/app/models/CampingCenter';
 import { CampCenterService } from 'src/app/services/camp-center.service';
 import { Column } from 'src/app/shared/advanced-table/advanced-table.component';
@@ -20,7 +21,8 @@ export class CampingCenterComponent implements OnInit {
 
   constructor(
   private CampCenterService: CampCenterService,
-  private sanitizer: DomSanitizer
+  private sanitizer: DomSanitizer,
+  private router: Router
   )
    { }
 
@@ -37,6 +39,7 @@ export class CampingCenterComponent implements OnInit {
       {
         next: (camps: CampingCenter[]) => {
           this.records = camps;
+          
         
         },
         error: (err: any) => console.log(err)
@@ -90,33 +93,35 @@ export class CampingCenterComponent implements OnInit {
       {
         name: 'actions',
         label: 'actions',
-        formatter: this.customerActionFormatter.bind(this),
-        width: 100,
+        formatter: ()=>{},
+        width: 5
       },
 
     ];
   }
-  // action cell formatter
-  customerActionFormatter(): any {
-    return this.sanitizer.bypassSecurityTrustHtml(
-      `   <div class="button-list">
-      <button type="button" class="btn btn-success waves-effect waves-light"><i
-              class="mdi mdi-list-status"></i></button>
-     
-      <button type="button" class="btn btn-blue waves-effect waves-light"><i
-              class="mdi mdi-book-edit"></i></button>
 
-              <button type="button" class="btn btn-danger waves-effect waves-light">
-              <i class="mdi mdi-delete"></i>
-            </button>
-            
-  </div>`
-    );
+  onStatusChangeClicked(camp: any): void {
+    
+    camp.active = !camp.active;
+    this.CampCenterService.updateCamp(camp).subscribe({
+      next: () => {
+        this._fetchData();
+      },
+      error: (err: any) => console.log(err)
+    });
   }
+ 
+  onViewClicked(camp: any): void {
+    this.router.navigate(['/camping-center/view', camp.id]);
+  }
+  onEditClicked(camp: any): void {
+    this.router.navigate(['/camping-center//update', camp.id]);
+  }
+
   
   // formats Comp status
  CompStatusFormatter(camp:CampingCenter): any {
-    if (camp.isActive == 1) {
+    if (camp.active) {
       return this.sanitizer.bypassSecurityTrustHtml(
         `<span class="btn btn-soft-success rounded-pill waves-effect waves-light">Active</span>`
       );

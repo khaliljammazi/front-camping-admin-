@@ -2,6 +2,7 @@ import { Component, OnInit,ElementRef } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { CampCenterService } from 'src/app/services/camp-center.service';
 import { Fancybox } from '@fancyapps/ui';
+import { CampingCenter } from 'src/app/models/CampingCenter';
 
 @Component({
   selector: 'app-home',
@@ -93,7 +94,7 @@ export class HomeComponent implements OnInit {
       // Custom options
     });
     this.campService.getCamps().subscribe((c) => {
-      this.camps = c.map((camp) => {
+      this.camps = c.filter((camp)=>camp.active).map((camp) => {
         return {
           id: camp.id,
           imageSrc: camp.image,

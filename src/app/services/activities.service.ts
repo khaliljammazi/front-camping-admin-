@@ -22,8 +22,9 @@ export class ActivitiesService {
     return this.http.get<Activity[]>(this.activityUrl);
   }
 
-  addActivity(activity: Activity): Observable<Activity> {
-    return this.http.post<Activity>(this.activityUrl, activity, this.httpOptions);
+  addActivity(activity: Activity, campingId: number): Observable<Activity> {
+    const url = `${this.activityUrl}?campingcenterId=${campingId}`;
+    return this.http.post<Activity>(url, activity, this.httpOptions);
   }
 
   deleteActivity(id: number): Observable<{}> {
