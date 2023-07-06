@@ -31,7 +31,14 @@ export class ActivitiesService {
     const url = `${this.activityUrl}/${id}`;
     return this.http.delete(url, this.httpOptions);
   }
-
+  updateAct(act: Activity): Observable<Activity> {
+    const url = `${this.activityUrl}/${act.id}`;
+    return this.http.put<Activity>(url, act, this.httpOptions);
+  }
+  getById(id: number): Observable<Activity> {
+    const url = `${this.activityUrl}/${id}`;
+    return this.http.get<Activity>(url);
+  }
 
   constructor(
     private http: HttpClient
