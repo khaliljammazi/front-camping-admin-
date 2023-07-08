@@ -87,6 +87,37 @@ const MENU_ITEMS: MenuItem[] = [
         link: '/reservation',
         
     },
+    {
+        key: 'Posts',
+        label: 'Posts',
+        isTitle: false,
+        icon: 'file-text',
+        collapsed: true,
+        children: [
+            {
+                key: 'Posts',
+                label: 'Posts',
+                link: '/Posts',
+                parentKey: 'Posts',
+            }
+        ]
+    },
+
+    {
+        key: 'Comments',
+        label: 'Comments',
+        isTitle: false,
+        icon: 'message-square',
+        collapsed: true,
+        children: [
+            {
+                key: 'Comments',
+                label: 'Comments',
+                link: '/Comments',
+                parentKey: 'Comments',
+            }
+        ]
+    },
 
     
     
