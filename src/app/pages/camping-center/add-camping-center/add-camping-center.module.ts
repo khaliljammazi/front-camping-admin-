@@ -13,7 +13,8 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
-        AddCampingCenterComponent
+        AddCampingCenterComponent,
+        
     ],
     imports: [
         CommonModule,
@@ -22,7 +23,8 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
         QuillModule,
         NgxDropzoneModule,
         Select2Module,
-        NgbTooltipModule
+        NgbTooltipModule,
+   
         
     ]
 })
