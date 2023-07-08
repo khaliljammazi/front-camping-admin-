@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { Activity } from 'src/app/models/Activity';
 import { CampingCenter } from 'src/app/models/CampingCenter';
 import { ActivitiesService } from 'src/app/services/activities.service';
@@ -22,7 +23,8 @@ export class ActivitiesComponent implements OnInit {
   pageSizeOptions: number[] = [10, 25, 50, 100];
 
   constructor(  private activityService: ActivitiesService,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.pageTitle = [{ label: 'activities', path: '/', active: true }];
@@ -35,6 +37,7 @@ export class ActivitiesComponent implements OnInit {
       {
         next: (act: Activity[]) => {
           this.records = act;
+          
         
         },
         error: (err: any) => console.log(err)
@@ -54,7 +57,7 @@ export class ActivitiesComponent implements OnInit {
       {
         name: 'image',
         label: 'image',
-        formatter: this.imageFormatter.bind(this),
+        formatter: this.ActivityImageFormatter.bind(this),
         width: 80,
       },
       {
@@ -76,12 +79,17 @@ export class ActivitiesComponent implements OnInit {
         width: 40
       },
       {
+        name: 'status',
+        label: 'status',
+        formatter: this.ActivityStatusFormatter.bind(this),
+        width: 180,
+      },
+      {
         name: 'actions',
         label: 'actions',
-        formatter: this.customerActionFormatter.bind(this),
-        width: 100,
+        formatter: ()=>{},
+        width: 5
       },
-
     ];
   }
 
@@ -97,21 +105,42 @@ export class ActivitiesComponent implements OnInit {
     );
   }
 
-   // formats Comp status
- ActivityStatusFormatter(act:Activity): any {
-  if (act.isActive == 1) {
-    return this.sanitizer.bypassSecurityTrustHtml(
-      `<span class="btn btn-soft-success rounded-pill waves-effect waves-light">Active</span>`
-    );
-  }
-  else {
-    return this.sanitizer.bypassSecurityTrustHtml(
-      `<span class="btn btn-soft-danger rounded-pill waves-effect waves-light">Disable</span>`
-    );
+   // formats  status
+   ActivityStatusFormatter(activity:Activity): any {
+    if (activity.isActive) {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `<span class="btn btn-soft-success rounded-pill waves-effect waves-light">Active</span>`
+      );
+    }
+    else {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `<span class="btn btn-soft-danger rounded-pill waves-effect waves-light">Disable</span>`
+      );
+    }
+
   }
 
-}
+  onViewClicked(act: any): void {
+    this.router.navigate(['/activities/view', act.id]);
+  }
+  onEditClicked(act: any): void {
+    this.router.navigate(['/activities/update', act.id]);
+  }
 
+
+  // formats  image
+  ActivityImageFormatter(act:Activity): any {
+    if (act.image == null) {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `<img src="assets/images/users/user-3.jpg" alt="camping center image" class="img-fluid rounded">`
+      );
+    } else
+    {
+    return this.sanitizer.bypassSecurityTrustHtml(
+      `<img src="${act.image}" alt="camping center image" class="img-fluid rounded">`
+    );
+    }
+  }
 
 /**
 * Compare two cell values
@@ -193,4 +222,16 @@ searchData(searchTerm: string): void {
     }
   }
 
+  
+  onStatusChangeClicked(act: any): void {
+    
+    act.isActive = !act.isActive;
+    this.activityService.updateAct(act).subscribe({
+      next: () => {
+        this._fetchData();
+      },
+      error: (err: any) => console.log(err)
+    });
+  }
+ 
 }

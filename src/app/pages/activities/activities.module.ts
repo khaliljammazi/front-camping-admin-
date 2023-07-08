@@ -8,11 +8,12 @@ import { ActivitiesRoutingModule } from './activities-routing.module';
 import { PageTitleModule } from 'src/app/shared/page-title/page-title.module';
 import { PageTitleComponent } from 'src/app/shared/page-title/page-title.component';
 import { AddActivityComponent } from './add-activity/add-activity.component';
+import { UpdateActivityComponent } from './update-activity/update-activity.component';
 
 
 @NgModule({
   declarations: [
-    ActivitiesComponent
+    ActivitiesComponent,
         ],
   imports: [
     CommonModule,
