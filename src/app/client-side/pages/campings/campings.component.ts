@@ -30,14 +30,16 @@ gmapConfig2!: MapConfig;
       this.campingsService.getCampingById(params['id']).subscribe(camping=>{
         if(camping){
           this.camping=camping;
+          const vlat= parseFloat(this.camping.location.split(',')[0] );
+          const vlng= parseFloat(this.camping.location.split(',')[1] );
           this.desc = this.camping.description;
           this.gmapConfig2 = {
-            lat:  33.8869,
-            lng: 9.5375,
+            lat:  vlat,
+            lng: vlng,
             markers: [
               {
-                lat: 33.8869,
-                lng: 9.5375,
+                lat: vlat,
+                lng: vlng,
                 title: this.camping.label,
               }
             
