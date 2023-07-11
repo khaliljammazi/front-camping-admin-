@@ -22,16 +22,19 @@
                                 class="text-danger">*</span></label>
                         <input type="text" id="camp-location" class="form-control" 
                             required formControlName="location"
-                            [ngClass]="{  'is-invalid': addCamp.submitted && form1.location.invalid }">
-                    </div>
-                    <div class="mb-3">
-                        <label for="camp-website" class="form-label">google location <span
-                                class="text-danger">*</span></label>
-
+                            [ngClass]="{  'is-invalid': addCamp.submitted && form1.location.invalid }" hidden>
                             
- 
+                            <agm-map [latitude]="gmapConfig2.lat" [longitude]="gmapConfig2.lng" class="gmaps">
+                                <agm-marker *ngFor="let marker of gmapConfig2.markers"
+                                  [latitude]="marker.lat"
+                                  [longitude]="marker.lng"
+                                  [markerDraggable]="marker.draggable"
+                                  (dragEnd)="markerDragEnd($event, marker)">
+                                  <agm-info-window>{{ marker.title }}</agm-info-window>
+                                </agm-marker>
+                              </agm-map>
                     </div>
-                    
+                 
                   
 
                     <div class="mb-3">

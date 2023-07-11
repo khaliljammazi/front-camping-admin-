@@ -17,9 +17,12 @@ export class AuthenticationService {
      */
     public currentUser(): User | null {
         if (!this.user) {
-            this.user = JSON.parse(sessionStorage.getItem('currentUser')!);
-        }
-        return this.user;
+            const currentUser = sessionStorage.getItem('currentUser');
+            if (currentUser) {
+              this.user = JSON.parse(currentUser);
+            }
+          }
+          return this.user;
     }
 
     /**
