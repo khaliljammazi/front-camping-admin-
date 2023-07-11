@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from 'src/app/core/models/auth.models';
 import { UserCard } from './user-card.model';
 
 @Component({

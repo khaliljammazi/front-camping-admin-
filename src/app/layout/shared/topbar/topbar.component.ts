@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AuthenticationService } from 'src/app/core/service/auth.service';
 import { EventService } from 'src/app/core/service/event.service';
 import { LEFT_SIDEBAR_TYPE_CONDENSED, LEFT_SIDEBAR_TYPE_DEFAULT } from '../config/layout.model';
 import { BrandItem } from '../models/brands.model';
@@ -9,6 +8,7 @@ import { MegaMenuItem } from '../models/mega-menu.model';
 import { NotificationItem } from '../models/notification.model';
 import { ProfileOptionItem } from '../models/profileoption.model';
 import { SearchResultItem, SearchUserItem } from '../models/search.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-topbar',
@@ -37,7 +37,7 @@ export class TopbarComponent implements OnInit {
 
 
   constructor (
-    private authService: AuthenticationService,
+    private authService: AuthService,
     private eventService: EventService
   ) {
 
@@ -51,7 +51,11 @@ export class TopbarComponent implements OnInit {
     this._fetchLanguages();
     this._fetchProfileOptions();
 
-    this.loggedInUser = this.authService.currentUser();
+    this.authService.sharedUser.subscribe(data=>{
+      next:{this.loggedInUser = data}
+    });
+
+
 
     document.addEventListener('fullscreenchange', this.exitHandler);
     document.addEventListener("webkitfullscreenchange", this.exitHandler);

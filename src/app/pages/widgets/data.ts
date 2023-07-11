@@ -1,4 +1,3 @@
-import { User } from "src/app/core/models/auth.models";
 import { StatisticsCard1 } from "src/app/shared/widget/statistics-card/statistics-card.model";
 import { StatisticsCard2 } from "src/app/shared/widget/statistics-card2/statistics-card2.model";
 import { StatisticsCard3 } from "src/app/shared/widget/statistics-card3/statistics-card3.model";
@@ -229,26 +228,26 @@ const STATISTICSCARD3: StatisticsCard3[] = [
 
 const USERSCARDS: UserCard[] = [{
     id: 1,
-    name: 'Thelma Fridley',
-    title: 'Admin User',
+    nom: 'Thelma Fridley',
+    roles: [{id:0, name:'Admin User'}],
     avatar: 'assets/images/users/user-3.jpg'
 },
 {
     id: 2,
-    name: 'Chandler Hervieux',
-    title: 'Manager',
+    nom: 'Chandler Hervieux',
+    roles: [{id:0, name:'Manager'}],
     avatar: 'assets/images/users/user-4.jpg'
 },
 {
     id: 3,
-    name: 'Percy Demers',
-    title: 'Director',
+    nom: 'Percy Demers',
+    roles: [{id:0, name:'Director'}],
     avatar: 'assets/images/users/user-5.jpg'
 },
 {
     id: 4,
-    name: 'Antoine Masson',
-    title: 'Premium User',
+    nom: 'Antoine Masson',
+    roles: [{id:0, name:'Premium User'}],
     avatar: 'assets/images/users/user-6.jpg',
     premiumUser: true
 
