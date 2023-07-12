@@ -11,6 +11,8 @@ import { Reservation } from 'src/app/models/Reservation';
 import { CampCenterService } from 'src/app/services/camp-center.service';
 import { ActivitiesService } from 'src/app/services/activities.service';
 import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-add-reservation',
@@ -39,7 +41,9 @@ pageTitle: BreadcrumbItem[] = [];
    private ReservationService: ReservationService,
    private CampCenterService: CampCenterService,
    private activityService: ActivitiesService,
-   private router: Router
+   private router: Router,
+   private authService: AuthService,
+   private userService: UserService,
  ) { }
 
  ngOnInit(): void {
@@ -52,22 +56,23 @@ this.newReservation = this.fb.group({
   dateStart: ['', Validators.required],
   dateEnd: ['', Validators.required],
  activities: ['', Validators.required],
- campingcenter: ['', Validators.required],
+ campingCenter: ['', Validators.required],
+  user: ['', Validators.required],
   price: ['', Validators.required],
   discount: ['', Validators.required],
   nom: ['', Validators.required],
   phone: ['', Validators.required],
   email: ['', Validators.required],
   discount1: ['', Validators.required],
-  price1: ['', Validators.required] 
-
-
+  price1: ['', Validators.required],
+  campingPeriod: ['', Validators.required]
 
 });
-this.Listuser = JSON.parse(localStorage.getItem('users') || '{}');
 
 
-this.newReservation.controls['campingcenter'].valueChanges.subscribe((value: any) => {
+
+
+this.newReservation.controls['campingCenter'].valueChanges.subscribe((value: any) => {
   this.CampCenterService.getCampingById(value).subscribe((res:any)=>{
     this.newReservation.controls['price'].setValue(res.price);
     this.newReservation.controls['discount'].setValue(2);
@@ -79,18 +84,18 @@ this.newReservation.controls['campingcenter'].valueChanges.subscribe((value: any
         this.newReservation.controls['discount1'].setValue(2);
       });
     });
-
-
-
 });
 });
-// calcate number of days
+
+
+
+// calculate camping period
 this.newReservation.controls['dateEnd'].valueChanges.subscribe((value: any) => {
   let date1 = new Date(this.newReservation.controls['dateStart'].value);  
   let date2 = new Date(value);
   let Difference_In_Time = date2.getTime() - date1.getTime();
   let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-  this.newReservation.controls['numberReserved'].setValue(Difference_In_Days);
+  this.newReservation.controls['campingPeriod'].setValue(Difference_In_Days);
   
 }
 );
@@ -102,18 +107,27 @@ this.newReservation.controls['numberReserved'].valueChanges.subscribe((value: an
   
   const discount_camp=this.newReservation.controls['discount'].value;
   const discount_activity=this.newReservation.controls['discount1'].value;
+  const campingPeriod=this.newReservation.controls['campingPeriod'].value;
   if(price_activity==null){
-    this.totalAmount=(price_camp*value-discount_camp);
+    this.totalAmount=(price_camp*campingPeriod-discount_camp)*value;
   } else {  
-  this.totalAmount=(price_camp*value-discount_camp)+(price_activity*value-discount_activity);
+  this.totalAmount=(price_camp*campingPeriod-discount_camp)+(price_activity*campingPeriod-discount_activity)*value;
   }
 }
 );
 
-
-
-
-
+  
+this.userService.getAll().subscribe(
+  {
+    next: (us: User[]) => {
+      this.Listuser= us;
+      
+    }
+  }
+);
+this.newReservation.controls['user'].valueChanges.subscribe((value: any) => {
+  this.newReservation.controls['email'].setValue(this.Listuser.filter(u=> u.id == value).pop()?.email);
+});
 this.CampCenterService.getCamps().subscribe(
   {
     next: (camp: CampingCenter[]) => {
@@ -125,7 +139,7 @@ this.CampCenterService.getCamps().subscribe(
 }
 
 
-    // getActivitiesDetail(value: any) {
+    // getactivitiesDetail(value: any) {
     //   this.ReservationService.getActiviteByCampincenter(value.id).subscribe((res:any)=>{
     //     this.activity=res;
     //     this.newReservation.controls['price'].setValue(res.price);
@@ -136,9 +150,7 @@ this.CampCenterService.getCamps().subscribe(
     // }
     //   )
     //     }
-      setDiscount(value: any) {
-        this.newReservation.controls['totaAmount'].setValue(this.newReservation.controls['price'].value*value-this.newReservation.controls['discount'].value);
-      }
+ 
 
 // ValidateActivityAdded() {
 //   if (this.selectedActivity.length === 0) {
@@ -184,14 +196,15 @@ downloadFileFile(fileName:string) {
  onSubmit(): void {
   const postFormData={
     "numberReserved":this.newReservation.controls['numberReserved'].value,
+    "campingPeriod":this.newReservation.controls['campingPeriod'].value,
     "totalAmount":this.totalAmount,
     "dateStart":this.newReservation.controls['dateStart'].value,
     "dateEnd":this.newReservation.controls['dateEnd'].value,
-    "campingcenter":this.CampCenterService.getCampingById(this.newReservation.controls['campingcenter'].value),
-    "activities":this.activityService.getById(this.newReservation.controls['activities'].value),
-    "user":{}
+    "campingCenter":{id: Number(this.newReservation.controls['campingCenter'].value)},
+    "activities":[{id: Number(this.newReservation.controls['activities'].value)}],
+    "user":{id: Number(this.newReservation.controls['user'].value)}
   }
-  console.log(postFormData);
+  console.log("ddd",postFormData);
 
 
    this.ReservationService.addReservation(postFormData).subscribe(
