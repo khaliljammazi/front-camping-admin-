@@ -17,13 +17,28 @@ export class UserService {
   ) { }
 
 
-  // Return list of Admins
+  /**
+   * Returns user By Id
+   * Used for auth after closing the site 
+   * 
+   */
   public get(id: any): Observable<any> {
     return this.httpClient.get<User>(this.url + id);
   }
 
-  // enters User object
-  // Return User object
+  
+  /**
+   * Returns all users
+   * 
+   */
+  public getAll(): Observable<User[]> {
+    return this.httpClient.get<User[]>(this.url);
+  }
+
+  /**
+   * Enters User object
+   * Return User object moddified
+   */
   public update(user: User, id: any): Observable<any> {
     return this.httpClient.put(this.url + id, User);
   }
