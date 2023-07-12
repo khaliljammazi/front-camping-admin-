@@ -16,10 +16,12 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-activity.component.scss']
 })
 export class AddActivityComponent implements OnInit {
+
   filestackClient = filestack.init('AImPrCDnyQeifHkYOX3sLz');
   pageTitle: BreadcrumbItem[] = [];
    newActivity!: FormGroup;
    files: File[] = [];
+   seasons: string[] = ['SPRING', 'SUMMER', 'AUTUMN', 'WINTER'];
    campingCenters: CampingCenter[] = [];   
   constructor( private fb: FormBuilder,
     private sanitizer: DomSanitizer,
@@ -37,8 +39,11 @@ export class AddActivityComponent implements OnInit {
   discount: ['', Validators.required],
   description: ['', Validators.required],
   price: ['', Validators.required],
+  season: ['', Validators.required],
   status: ['', Validators.required],
   image: ['', Validators.required],
+  duration: ['', Validators.required],
+  capacity: ['', Validators.required],
   campingCenterId: ['', Validators.required]
 
 

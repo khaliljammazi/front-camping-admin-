@@ -89,7 +89,7 @@ export class ActivitiesComponent implements OnInit {
         label: 'actions',
         formatter: ()=>{},
         width: 5
-      },
+      }
     ];
   }
 
@@ -106,8 +106,8 @@ export class ActivitiesComponent implements OnInit {
   }
 
    // formats  status
-   ActivityStatusFormatter(activity:Activity): any {
-    if (activity.isActive) {
+   ActivityStatusFormatter(act:Activity): any {
+    if (act.active) {
       return this.sanitizer.bypassSecurityTrustHtml(
         `<span class="btn btn-soft-success rounded-pill waves-effect waves-light">Active</span>`
       );
@@ -120,9 +120,22 @@ export class ActivitiesComponent implements OnInit {
 
   }
 
+  
+  onStatusChangeClicked(act: any): void {
+    act.active = !act.active;
+    this.activityService.updateAct(act).subscribe({
+      next: () => {
+        this._fetchData();
+      },
+      error: (err: any) => console.log(err)
+    });
+  }
+  
+
   onViewClicked(act: any): void {
     this.router.navigate(['/activities/view', act.id]);
   }
+
   onEditClicked(act: any): void {
     this.router.navigate(['/activities/update', act.id]);
   }
@@ -132,12 +145,12 @@ export class ActivitiesComponent implements OnInit {
   ActivityImageFormatter(act:Activity): any {
     if (act.image == null) {
       return this.sanitizer.bypassSecurityTrustHtml(
-        `<img src="assets/images/users/user-3.jpg" alt="camping center image" class="img-fluid rounded">`
+        `<img src="assets/images/users/user-3.jpg" alt="activity image" class="img-fluid rounded">`
       );
     } else
     {
     return this.sanitizer.bypassSecurityTrustHtml(
-      `<img src="${act.image}" alt="camping center image" class="img-fluid rounded">`
+      `<img src="${act.image}" alt="activity image" class="img-fluid rounded">`
     );
     }
   }
@@ -223,15 +236,7 @@ searchData(searchTerm: string): void {
   }
 
   
-  onStatusChangeClicked(act: any): void {
-    
-    act.isActive = !act.isActive;
-    this.activityService.updateAct(act).subscribe({
-      next: () => {
-        this._fetchData();
-      },
-      error: (err: any) => console.log(err)
-    });
-  }
+
+
  
 }

@@ -65,7 +65,15 @@
                         <input type="number" class="form-control" id="activity-price" placeholder="Enter amount" required
                             formControlName="price"
                             [ngClass]="{  'is-invalid': addActivity.submitted && form1.price.invalid }">
-                    </div>
+                   </div>
+
+                    <div class="mb-3">
+
+                    <label for="season">Choose a season <span class="text-danger">*</span></label>
+                    <select id="season" name="season" class="form-control"  formControlName="price" required>
+                      <option *ngFor="let season of seasons" [value]="season">{{season}}</option>
+                    </select>
+                     </div>
 
                     <div class="mb-3">
                         <label for="activity-duration">Duration <span class="text-danger">*</span></label>
@@ -80,7 +88,6 @@
                             formControlName="capacity"
                             [ngClass]="{  'is-invalid': addActivity.submitted && form1.capacity.invalid }">
                     </div>
-
 
                 </div>
             </div> <!-- end card -->

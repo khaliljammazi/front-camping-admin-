@@ -1,4 +1,9 @@
-
+export enum Season {
+  SPRING = 'SPRING',
+  SUMMER = 'SUMMER',
+  AUTUMN = 'AUTUMN',
+  WINTER = 'WINTER'
+}
 export class Activity {
   id!: number;
   label!: string;
@@ -9,8 +14,9 @@ export class Activity {
   duration!: number;
   number!: number;
   capacity!: number;
-  isActive!: boolean|number;
+  active!: boolean|number;
   createdAt!: Date;
   modifiedAt!: Date;
   camping_center_id!: number;
+  season!: Season;
 }
