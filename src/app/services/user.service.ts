@@ -25,7 +25,10 @@ export class UserService {
   public get(id: any): Observable<any> {
     return this.httpClient.get<User>(this.url + id);
   }
-
+  getById(id: number): Observable<User> {
+    const url = `${this.url}/${id}`;
+    return this.httpClient.get<User>(url);
+  }
   
   /**
    * Returns all users
