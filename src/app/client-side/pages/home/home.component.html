@@ -13,7 +13,7 @@
           <span>{{ slide.caption }}</span>
           <h2>{{ slide.heading }}</h2>
           <div class="btn-box">
-            <a [href]="slide.link" class="theme-btn btn-one">{{ slide.buttonText }}</a>
+            <a [routerLink]="slide.link" class="theme-btn btn-one">{{ slide.buttonText }}</a>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
                                     <li>Velit esse cillum dolore eu fugiat nulla pariatur.</li>
                                 </ul>
                                 <div class="btn-box">
-                                    <a href="about.html" class="theme-btn btn-one">Discover More</a>
+                                    <a routerLink="listcamps" class="theme-btn btn-one">Discover More</a>
                                 </div>
                             </div>
                         </div>
@@ -104,6 +104,7 @@
       </ng-container>
     </owl-carousel-o>
   </div>
+  <a routerLink="listcamps" class="theme-btn btn-one">Discover More</a>
 </section>
         <!-- feature-style-two end -->
         

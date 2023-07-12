@@ -126,7 +126,7 @@ onSubmit(): void {
       console.error('There was an error!', this.newActivity.value, error);
       Swal.fire({
         title: 'Error',
-        text: 'An error occurred while adding the camp.',
+        text: 'An error occurred while adding the activity.',
         icon: 'error',
       });
     }

@@ -1,0 +1,127 @@
+ <!-- Page Title -->
+ <section class="page-title centred">
+    <div class="bg-layer" style="background-image: url(assets/images/background/page-title.jpg);"></div>
+    <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-12.png);"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <ul class="bread-crumb clearfix">
+                <li><a href="index.html">Home</a></li>
+                <li>camping-center</li>
+            </ul>
+            <div class="title">
+                <h1>camping-center</h1>
+            </div>
+        </div>
+    </div>
+    <div class="media-partner">
+        <ul class="media-links clearfix">
+            <li><h6>Follow on social media</h6></li>
+            <li><a href="index.html"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="index.html"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="index.html"><i class="fab fa-pinterest-p"></i></a></li>
+            <li><a href="index.html"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+    </div>
+</section>
+<!-- End Page Title -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <label for="inputPassword2" class="visually-hidden">Search</label>
+                            <div class="me-3">
+                                <input type="search" class="form-control my-1 my-lg-0" id="inputPassword2" name="search"
+                                    placeholder="Search..." [(ngModel)]="searchTerm"
+                                    (ngModelChange)="searchData($event)">
+                            </div>
+                            <label for="status-select" class="me-2">Sort By</label>
+                            <div class="me-sm-3">
+                                <select class="form-select my-1 my-lg-0" id="status-select" [(ngModel)]="selectedOption" (ngModelChange)="sortData($event)">
+                                    <option selected="">All</option>
+                                    <option value=1>name</option>
+                                    <option value=2>Price Low</option>
+                                    <option value=3>Price High</option>
+                                  </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="text-lg-end my-1 my-lg-0">
+                          <button type="button" class="btn btn-success waves-effect waves-light mb-2 me-2" (click)="showcard()">
+                            Find camps near me <i class="mdi mdi-map-marker" >
+
+                            </i>
+                          </button>
+                        </div>
+                   
+                            <div class="card bg-secondary text-white" *ngIf="show">
+                                <div class="card-body">
+                                    <label for="example-range" class="form-label card-title text-white">Range in km: {{ range }}</label>
+                                    <a  class="btn btn-blue btn-sm ms-2" (click)="reset()"> 
+                                        <i class="mdi mdi-autorenew"></i>
+                                    </a>
+                                    <input class="form-range" id="example-range" type="range" name="range" [(ngModel)]="range" min="0" max="1000">
+
+                                    <a  class="btn btn-light btn-sm waves-effect" (click)="findCampsbyLocation()"> 
+                                        <span class="spinner-border spinner-border-sm" role="status" *ngIf="loader"
+                                        aria-hidden="true"></span>
+                                        <i class="mdi mdi-magnify"></i>
+                                    </a>
+
+                                </div>
+                            </div> <!-- end card-->
+                           
+                         
+    
+                  
+                    </div><!-- end col-->
+                </div> <!-- end row -->
+            </div>
+        </div> <!-- end card -->
+    </div> <!-- end col-->
+</div>
+<!-- end row-->
+<div class="row">
+    <div class="col-md-6 col-xl-3" *ngFor="let c of camps | slice: (page-1) * pageSize : page * pageSize">
+        <div class="card product-box border">
+            <div class="card-body" [routerLink]="['../camping-details', c.id]">
+              
+                <div class="bg-light">
+                    <img [src]="c.image" alt="pic" class="img-fluid" />
+                </div>
+
+                <div class="product-info " >
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h5 class="font-16 mt-0 sp-line-1"><a [routerLink]="['../camping-details', c.id]"
+                             class="text-dark">{{c.label}}</a> </h5>
+                            <div class="text-warning mb-2 font-13">
+                                <i class="fa fa-star me-1" *ngFor="let item of [].constructor(5)"></i>
+                            </div>
+                            <h5 class="m-0"> <span class="text-muted"> number of places : </span> {{c.capacity}}</h5>
+                        </div>
+                        <div class="col-auto">
+                            <div class="product-price-tag">
+                                {{c.price+"DT"}}
+                            </div>
+                        </div>
+                    </div> <!-- end row -->
+                </div> <!-- end product info-->
+            </div>
+        </div> <!-- end card-->
+    </div> <!-- end col-->
+
+</div>
+<!-- end row-->
+
+<div class="row">
+    <div class="col-12">
+        <ngb-pagination [collectionSize]="camps.length" class="pagination-rounded d-flex justify-content-end mb-2"
+            [(page)]="page" [pageSize]="pageSize"></ngb-pagination>
+
+    </div> <!-- end col-->
+</div>

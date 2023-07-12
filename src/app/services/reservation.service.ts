@@ -25,7 +25,7 @@ export class ReservationService {
   getReservationById(id: number): Observable<Reservation> {
     return this.http.get<Reservation>(this.ReservationUrl +'/'+ id);
   }
-  addReservation(reservation: Reservation): Observable<Reservation> {
+  addReservation(reservation: any): Observable<Reservation> {
     return this.http.post<Reservation>(this.ReservationUrl, reservation, this.httpOptions);
   }
   updateReservation(id: string, reservation: Reservation): Observable<Reservation> {

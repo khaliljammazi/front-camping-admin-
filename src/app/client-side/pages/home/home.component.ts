@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
       image: 'assets/images/banner/banner-1.jpg',
       caption: 'Join the Summer Adventure',
       heading: 'Camping With Friends Gives Joy',
-      link: 'index.html',
+      link: 'listcamps',
       buttonText: 'Discover More'
     },
     {
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
       image: 'assets/images/banner/banner-2.jpg',
       caption: 'Join the Summer Adventure',
       heading: 'Camping With Friends Gives Joy',
-      link: 'index.html',
+      link: 'listcamps',
       buttonText: 'Discover More'
     }
   ];

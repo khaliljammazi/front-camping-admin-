@@ -94,7 +94,7 @@
                     </div>
                     
                  
-                </div>
+                    </div>
             </div>
         </section>
         <!-- feature-style-two end -->
@@ -289,23 +289,19 @@
         <!-- cta-section end -->
 
 
-        <!-- google-map-section -->
         <section class="google-map-section">
-            <div class="shape" style="background-image: url(assets/images/shape/shape-9.png);"></div>
+               <div class="shape" style="background-image: url(assets/images/shape/shape-9.png);"></div>
             <div class="map-inner">
-                <div 
-                    class="google-map" 
-                    id="contact-google-map" 
-                    data-map-lat="40.712776" 
-                    data-map-lng="-74.005974" 
-                    data-icon-path="assets/images/icons/map-marker.png"  
-                    data-map-title="Brooklyn, New York, United Kingdom" 
-                    data-map-zoom="12" 
-                    data-markers='{
-                        "marker-1": [40.712776, -74.005974, "<h4>Branch Office</h4><p>77/99 New York</p>","assets/images/icons/map-marker.png"]
-                    }'>
-
-                </div>
+                    <agm-map   class="google-map"  [latitude]="gmapConfig2.lat" [longitude]="gmapConfig2.lng" class="gmaps" (mapReady)="mapReady($event)">
+                        <agm-marker [latitude]="marker.lat" [longitude]="marker.lng" *ngFor="let marker of gmapConfig2.markers">
+                            <agm-info-window [isOpen]="true">
+                                <div>
+                                    <h4>{{ marker.title }}</h4>
+                                 
+                                </div>
+                            </agm-info-window>
+                        </agm-marker>
+                    </agm-map>
             </div>
-        </section>
-        <!-- google-map-section end -->
+        
+         </section>

@@ -5,7 +5,10 @@ import { ActivitiesComponent } from './activities.component';
 
 const routes: Routes = [
   { path: '', component: ActivitiesComponent },
-{ path: 'add-activitiy', loadChildren: () => import('./add-activity/add-activity.module').then(m => m.AddActivityModule) }
+{ path: 'add-activitiy', loadChildren: () => import('./add-activity/add-activity.module').then(m => m.AddActivityModule) },
+{ path: 'view/:id', loadChildren: () => import('./details/details.module').then(m => m.DetailsModule) },
+{ path: 'update/:id', loadChildren: () => import('./update-activity/update-activity.module').then(m => m.UpdateModule) }
+
 ];
 
 @NgModule({

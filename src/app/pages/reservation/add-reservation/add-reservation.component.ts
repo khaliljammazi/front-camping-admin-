@@ -2,11 +2,15 @@ import { ReservationService } from './../../../services/reservation.service';
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Select2Data } from 'ng-select2-component';
 import { DomSanitizer } from '@angular/platform-browser';
-import * as filestack from 'filestack-js';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { CampingCenter } from 'src/app/models/CampingCenter';
+import { Activity } from 'src/app/models/Activity';
+import { Reservation } from 'src/app/models/Reservation';
+import { CampCenterService } from 'src/app/services/camp-center.service';
+import { ActivitiesService } from 'src/app/services/activities.service';
+import { User } from 'src/app/core/models/auth.models';
 
 @Component({
   selector: 'app-add-reservation',
@@ -15,20 +19,27 @@ import { Router } from '@angular/router';
 })
 export class AddReservationComponent implements OnInit {
   
-// Create a new instance of the Filestack client
-filestackClient = filestack.init('AImPrCDnyQeifHkYOX3sLz');
+
 pageTitle: BreadcrumbItem[] = [];
  newReservation!: FormGroup;
- files: File[] = [];
- activity: Select2Data = [];
+ Reservation: Reservation=new Reservation();
+ listactivty:Activity[]=[];
+ Listuser: User[] = [];
 
- selectedActivity: any[] = [];
+ files: File[] = [];
+
+  selectedActivity: any[] = [];
+ //
+ Listcamp: CampingCenter[] = [];
+
+ totalAmount: number = 0;
  constructor(
    private fb: FormBuilder,
    private sanitizer: DomSanitizer,
    private ReservationService: ReservationService,
+   private CampCenterService: CampCenterService,
+   private activityService: ActivitiesService,
    private router: Router
-
  ) { }
 
  ngOnInit(): void {
@@ -37,125 +48,153 @@ pageTitle: BreadcrumbItem[] = [];
 // product form
 this.newReservation = this.fb.group({ 
   numberReserved: ['', Validators.required],
-  totalAmount: ['', Validators.required],
+  totalAmount: [0, Validators.required],
   dateStart: ['', Validators.required],
   dateEnd: ['', Validators.required],
- activities: [this.selectedActivity, Validators.required],
- 
+ activities: ['', Validators.required],
+ campingcenter: ['', Validators.required],
+  price: ['', Validators.required],
+  discount: ['', Validators.required],
+  nom: ['', Validators.required],
+  phone: ['', Validators.required],
+  email: ['', Validators.required],
+  discount1: ['', Validators.required],
+  price1: ['', Validators.required] 
+
 
 
 });
+this.Listuser = JSON.parse(localStorage.getItem('users') || '{}');
 
 
-//  activity
-this.activity = [
- {
-   id: '1',
-   label: 'activity 1',
-   value: { id:'1', label: 'activity 1' ,image: 'https://loremflickr.com/320/240'}
- },
- {
-   id: '2',
-   label: 'activity 2',
-   value: {id:'2',label: 'activity 2' , Image: 'https://loremflickr.com/320/240'}
- },
- {
-   id: '3',
-   label: 'activity 3',
-   value: {id :'3', label: 'activity 3' , Image: 'https://loremflickr.com/320/240'}
- }
+this.newReservation.controls['campingcenter'].valueChanges.subscribe((value: any) => {
+  this.CampCenterService.getCampingById(value).subscribe((res:any)=>{
+    this.newReservation.controls['price'].setValue(res.price);
+    this.newReservation.controls['discount'].setValue(2);
+     this.listactivty=res.activities;
   
-];
-this.selectedActivity = [
- {
-   id: '1',
-   label: 'activity 1',
-   image: 'https://loremflickr.com/320/240'
- }
-];
+     this.newReservation.controls['activities'].valueChanges.subscribe((value: any) => {
+      this.activityService.getById(value).subscribe((res:any)=>{
+        this.newReservation.controls['price1'].setValue(res.price);
+        this.newReservation.controls['discount1'].setValue(2);
+      });
+    });
 
+
+
+});
+});
+// calcate number of days
+this.newReservation.controls['dateEnd'].valueChanges.subscribe((value: any) => {
+  let date1 = new Date(this.newReservation.controls['dateStart'].value);  
+  let date2 = new Date(value);
+  let Difference_In_Time = date2.getTime() - date1.getTime();
+  let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+  this.newReservation.controls['numberReserved'].setValue(Difference_In_Days);
+  
+}
+);
+// calcate total amount
+this.newReservation.controls['numberReserved'].valueChanges.subscribe((value: any) => {
+  console.log(value);
+ const price_camp=this.newReservation.controls['price'].value;
+  const price_activity=this.newReservation.controls['price1'].value;
+  
+  const discount_camp=this.newReservation.controls['discount'].value;
+  const discount_activity=this.newReservation.controls['discount1'].value;
+  if(price_activity==null){
+    this.totalAmount=(price_camp*value-discount_camp);
+  } else {  
+  this.totalAmount=(price_camp*value-discount_camp)+(price_activity*value-discount_activity);
+  }
+}
+);
+
+
+
+
+
+this.CampCenterService.getCamps().subscribe(
+  {
+    next: (camp: CampingCenter[]) => {
+      this.Listcamp = camp;
+      
+    }
+  }
+);
 }
 
+
+    // getActivitiesDetail(value: any) {
+    //   this.ReservationService.getActiviteByCampincenter(value.id).subscribe((res:any)=>{
+    //     this.activity=res;
+    //     this.newReservation.controls['price'].setValue(res.price);
+    //     this.newReservation.controls['discount'].setValue(2);
+    //     this.newReservation.controls['totaAmount'].setValue(res.price*2-res.discount);
+    //   },
+    //   (error) => { console.error(' error:', error);
+    // }
+    //   )
+    //     }
+      setDiscount(value: any) {
+        this.newReservation.controls['totaAmount'].setValue(this.newReservation.controls['price'].value*value-this.newReservation.controls['discount'].value);
+      }
+
+// ValidateActivityAdded() {
+//   if (this.selectedActivity.length === 0) {
+//     return true;
+//   }
+submitAction() {
+let formData=this.newReservation.value;
+let data={
+  "name":formData.nom,
+  "email":formData.email,
+  "phone":formData.phone,
+  "dateStart":formData.dateStart,
+  "dateEnd":formData.dateEnd,
+  "numberReserved":formData.numberReserved,
+  "totalAmount":this.totalAmount.toString(),
+  "activities":JSON.stringify(this.selectedActivity)
+
+}
+/* this.ReservationService.generateReport(data).subscribe((res:any)=>{
+  this.ReservationService.getPDF(res).subscribe((res:any)=>{
+   this.downloadFileFile(res.uuid);
+   this.newReservation.reset();
+   this.selectedActivity=[];
+   this.totalAmount=0;
+  },
+  (error) => { console.error(' error:', error);
+}
+  )
+
+})}
+downloadFileFile(fileName:string) {
+  var data ={
+    "uuid":fileName
+  }
+  this.ReservationService.getPDF(data).subscribe((res:any)=>{
+    saveAs(res,fileName + '.pdf');
+  }) */
+}
  // convenience getter for easy access to form fields
  get form1() { return this.newReservation.controls; }
 
- /**
-  *  adds new file in uploaded files
-  */
-
-   onSelect(event: any) {
-     this.files.push(...event.addedFiles);
-       // Upload the files using Filestack
-       this.files.forEach((file) => {
-         this.filestackClient.upload(file)
-           .then((result) => {
-             // Handle the successful upload
-             console.log('Filestack upload result:', result);
-             this.newReservation.patchValue({ image: result.url });
-
-           })
-           .catch((error) => {
-             // Handle the upload error
-             console.error('Filestack upload error:', error);
-           });
-       });
-     }
-   
- /**
-  * add new members in selected members
-  * @param event member data
-  */
- AddActivity(event: any): void {
-    const isAlreadySelected = this.selectedActivity.filter((item: any) => item.id === event.options[0].value.id);
-   if (isAlreadySelected && isAlreadySelected.length === 0) {
-     this.selectedActivity.push(event.options[0].value);
-     event.options[0].disabled = true;
-
-   } else {
-     this.selectedActivity.splice(this.selectedActivity.indexOf(event.options[0].value), 1);
-     event.options[0].disabled = false;
-
-   }
- }
- removeActivity(index: number): void {
-   this.selectedActivity.splice(index, 1);
- }
- trackByItemID(index: number, a:any): number { return a.id; }
-
-
- /**
-  *   removes file from uploaded files
-  */
- onRemove(event: any) {
-   this.files.splice(this.files.indexOf(event), 1);
- }
-
- /**
- * Formats the size
- */
- getSize(f: File) {
-   const bytes = f.size;
-   if (bytes === 0) {
-     return '0 Bytes';
-   }
-   const k = 1024;
-   const dm = 2;
-   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-   const i = Math.floor(Math.log(bytes) / Math.log(k));
-   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
- }
-
-
- /**
-  * Returns the preview url
-  */
- getPreviewUrl(f: File) {
-   return this.sanitizer.bypassSecurityTrustResourceUrl(encodeURI(URL.createObjectURL(f)));
- }
+ 
  onSubmit(): void {
+  const postFormData={
+    "numberReserved":this.newReservation.controls['numberReserved'].value,
+    "totalAmount":this.totalAmount,
+    "dateStart":this.newReservation.controls['dateStart'].value,
+    "dateEnd":this.newReservation.controls['dateEnd'].value,
+    "campingcenter":this.CampCenterService.getCampingById(this.newReservation.controls['campingcenter'].value),
+    "activities":this.activityService.getById(this.newReservation.controls['activities'].value),
+    "user":{}
+  }
+  console.log(postFormData);
 
-   this.ReservationService.addReservation(this.newReservation.value).subscribe(
+
+   this.ReservationService.addReservation(postFormData).subscribe(
      
   next => {
        Swal.fire({

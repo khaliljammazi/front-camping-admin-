@@ -1,16 +1,16 @@
 import { CampingCenter } from './CampingCenter';
 import { Activity } from './Activity';
+import { User } from '../core/models/auth.models';
 
 export class Reservation {
   id!: number;
   numberReserved!: number;
-  isActive!: boolean;
+  active!: boolean;
   isConfirmed!: boolean;
   totalAmount!: number;
   dateStart!: Date;
   dateEnd!: Date;
-  createdAt!: Date;
-  modifiedAt!: Date;
+  user!: User;
   campingCenter!: CampingCenter;
   activities!: Activity[];
 }
