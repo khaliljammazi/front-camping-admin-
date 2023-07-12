@@ -10,7 +10,7 @@ import { Activity } from 'src/app/models/Activity';
 import { Reservation } from 'src/app/models/Reservation';
 import { CampCenterService } from 'src/app/services/camp-center.service';
 import { ActivitiesService } from 'src/app/services/activities.service';
-import { User } from 'src/app/core/models/auth.models';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-add-reservation',
