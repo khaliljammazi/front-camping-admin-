@@ -11,25 +11,15 @@
                 </h5>
                 <form [formGroup]="newReservation" #addReservation="ngForm" (ngSubmit)="onSubmit()">
 
-                <div class="card">
+                <!-- <div class="card">
                     <div class="card-body bg-light" >
                         <h5 class="text-uppercase">Custmer Détails</h5>
                     <br>
                         <div class="row">
-                      <!-- <div class="col">
-                        <div class="mb-3">
-                          <label for="camp-activity" class="form-label">Nom<span
-                                  class="text-danger">*</span></label>
-                        <select [ngClass]="{ 'is-invalid': addReservation.submitted && form1.nom.invalid }" class="form-select" aria-label="Default select example" formControlName="nom">
-                          <option *ngFor="let u of Listuser" [value]="u.id">
-                            {{ u.nom }} {{ u.prenom }}
-                          </option>
-                        </select>
-                        </div>
-                      </div> -->
+                   
                       <div class="col">
                         <div class="mb-3">
-                          <label for="camp-activity" class="form-label">Nom<span class="text-danger">*</span></label>
+                          <label class="form-label">Nom<span class="text-danger">*</span></label>
                       <select [ngClass]="{ 'is-invalid': addReservation.submitted && form1.nom.invalid }" class="form-select" aria-label="Default select example" formControlName="user">
                         <option *ngFor="let u of Listuser" [value]="u.id">
                           {{ u.nom }}
@@ -44,7 +34,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="card">
                     <div class="card-body bg-light" >
                         <h5 class="text-uppercase">Choose Camping Center</h5>

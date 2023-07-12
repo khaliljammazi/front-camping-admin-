@@ -202,7 +202,8 @@ downloadFileFile(fileName:string) {
     "dateEnd":this.newReservation.controls['dateEnd'].value,
     "campingCenter":{id: Number(this.newReservation.controls['campingCenter'].value)},
     "activities":[{id: Number(this.newReservation.controls['activities'].value)}],
-    "user":{id: Number(this.newReservation.controls['user'].value)}
+    "user":this.Listuser.filter(u=> u.id == Number(this.newReservation.controls['user'].value)
+).pop()
   }
   console.log("ddd",postFormData);
 
