@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/core/service/auth.service';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth-lock-screen2',
@@ -14,10 +15,11 @@ export class LockScreen2Component implements OnInit {
   lockScreenForm2!: FormGroup;
   formSubmitted: boolean = false;
   error: string = '';
+  loggedInUser!: User;
 
   constructor (
     private router: Router,
-    private authenticationService: AuthenticationService,
+    private authenticationService: AuthService,
     private fb: FormBuilder
   ) {
   }
@@ -25,6 +27,11 @@ export class LockScreen2Component implements OnInit {
   ngOnInit(): void {
     this.lockScreenForm2 = this.fb.group({
       password: ['', [Validators.required, Validators.minLength(4)]]
+    });
+    this.authenticationService.sharedUser.subscribe((data) => {
+      next: {
+        this.loggedInUser = data;
+      }
     });
   }
 
@@ -43,7 +50,7 @@ export class LockScreen2Component implements OnInit {
   onSubmit(): void {
     this.formSubmitted = true;
     if (this.lockScreenForm2.valid) {
-      this.authenticationService.login(this.authenticationService.currentUser()?.email!, this.formValues.password?.value)
+      this.authenticationService.logIn(this.loggedInUser?.email!, this.formValues.password?.value)
         .pipe(first())
         .subscribe(
           (data: any) => {

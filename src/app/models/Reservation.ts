@@ -1,6 +1,6 @@
 import { CampingCenter } from './CampingCenter';
 import { Activity } from './Activity';
-import { User } from '../core/models/auth.models';
+import { User } from './user';
 
 export class Reservation {
   id!: number;

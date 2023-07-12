@@ -33,7 +33,7 @@
                                     </ngb-alert>
                                     <div class="mb-3">
                                         <label for="emailaddress" class="form-label">Email address</label>
-                                        <input class="form-control" type="email" id="emailaddress"
+                                        <input class="form-control" type="email" id="email"
                                             placeholder="Enter your email" formControlName="email"
                                             [ngClass]="{'is-invalid': loginFormSubmitted && loginFormFields.email.invalid}"
                                             required>
@@ -99,16 +99,31 @@
                                     <ngb-alert type="danger" *ngIf="signupError" [dismissible]="false">{{ signupError }}
                                     </ngb-alert>
 
-                                    <div class="mb-3">
-                                        <label for="fullname" class="form-label">Full Name</label>
-                                        <input class="form-control" type="text" id="fullname"
-                                            placeholder="Enter your name" required formControlName="name"
-                                            [ngClass]="{'is-invalid': signupFormSubmitted && signupFormFields.name.invalid}">
-                                        <div *ngIf="signupFormSubmitted && signupFormFields.name.invalid"
-                                            class="invalid-feedback">
+                                    <div class="mb-3 row">
+                                        <div class="col">
+                                            <label for="firstname" class="form-label">First Name</label>
+                                            <input class="form-control" type="text" id="firstname"
+                                                placeholder="Enter your first name" required formControlName="name"
+                                                [ngClass]="{'is-invalid': signupFormSubmitted && signupFormFields.name.invalid}">
+                                            <div *ngIf="signupFormSubmitted && signupFormFields.name.invalid"
+                                                class="invalid-feedback">
 
-                                            <div *ngIf="signupFormFields.name.errors?.required">
-                                                Name is required.
+                                                <div *ngIf="signupFormFields.name.errors?.required">
+                                                    Name is required.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label for="lastName" class="form-label">Last Name</label>
+                                            <input class="form-control" type="text" id="lastName"
+                                                placeholder="Enter your las name" required formControlName="lastName"
+                                                [ngClass]="{'is-invalid': signupFormSubmitted && signupFormFields.lastName.invalid}">
+                                            <div *ngIf="signupFormSubmitted && signupFormFields.lastName.invalid"
+                                                class="invalid-feedback">
+
+                                                <div *ngIf="signupFormFields.lastName.errors?.required">
+                                                    Last name is required.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

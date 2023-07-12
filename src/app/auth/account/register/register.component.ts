@@ -2,7 +2,8 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/core/service/auth.service';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth-register',
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
   constructor (
     private fb: FormBuilder,
     private router: Router,
-    private authenticationService: AuthenticationService,
+    private authenticationService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +38,13 @@ export class RegisterComponent implements OnInit {
   get formValues() {
     return this.signUpForm.controls;
   }
+  get signupUser() {
+    let user = new User();
+    user.email = this.formValues.email?.value;
+    user.nom = this.formValues.name?.value;
+    user.password = this.formValues.password?.value;
+    return user;
+  }
 
 
   /**
@@ -46,7 +54,7 @@ export class RegisterComponent implements OnInit {
     this.formSubmitted = true;
     if (this.signUpForm.valid) {
       this.loading = true;
-      this.authenticationService.signup(this.formValues.name?.value, this.formValues.email?.value, this.formValues.password?.value)
+      this.authenticationService.register(this.signupUser)
         .pipe(first())
         .subscribe(
           (data: any) => {

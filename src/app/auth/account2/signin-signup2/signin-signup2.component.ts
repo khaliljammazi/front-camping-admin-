@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/core/service/auth.service';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth-signin-signup2',
@@ -28,7 +29,7 @@ export class SigninSignup2Component implements OnInit {
   constructor (
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
+    private authenticationService: AuthService,
     private fb: FormBuilder
   ) { }
 
@@ -46,8 +47,6 @@ export class SigninSignup2Component implements OnInit {
       password: ['', [Validators.required, Validators.minLength(4)]]
     });
 
-    // reset login status
-    this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard-1';
@@ -65,6 +64,14 @@ export class SigninSignup2Component implements OnInit {
   get signupFormFields() {
     return this.signUpForm2.controls;
   }
+  
+  get signupUser() {
+    let user = new User();
+    user.email = this.signupFormFields.email?.value;
+    user.nom = this.signupFormFields.name?.value;
+    user.password = this.signupFormFields.password?.value;
+    return user;
+  }
 
   /**
   * On login form submit
@@ -73,7 +80,7 @@ export class SigninSignup2Component implements OnInit {
     this.loginFormSubmitted = true;
     if (this.loginForm2.valid) {
       this.loading = true;
-      this.authenticationService.login(this.loginFormFields.email?.value, this.loginFormFields.password?.value)
+      this.authenticationService.logIn(this.loginFormFields.email?.value, this.loginFormFields.password?.value)
         .pipe(first())
         .subscribe(
           (data: any) => {
@@ -93,7 +100,7 @@ export class SigninSignup2Component implements OnInit {
     this.signupFormSubmitted = true;
     if (this.signUpForm2.valid) {
       this.loading = true;
-      this.authenticationService.signup(this.signupFormFields.name?.value, this.signupFormFields.email?.value, this.signupFormFields.password?.value)
+      this.authenticationService.register(this.signupUser)
         .pipe(first())
         .subscribe(
           (data: any) => {
