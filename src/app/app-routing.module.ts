@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
 import { LayoutContainerComponent } from './layout/layout-container.component';
 import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
+import { AuthAdminGuard } from './core/guards/auth-admin.guard';
 
 const routes: Routes = [
 
   {
-    path: '',
+    path: 'admin',
+    canActivate:[AuthAdminGuard],
     component: LayoutContainerComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -57,7 +57,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule)
   },
 
-  { path: 'client-side',
+  { path: '',
    loadChildren: () => import('./client-side/client-side.module').then(m => m.ClientSideModule) },
 
  

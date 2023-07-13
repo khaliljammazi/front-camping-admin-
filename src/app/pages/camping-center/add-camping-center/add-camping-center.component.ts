@@ -6,8 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import * as filestack from 'filestack-js';
 import { CampCenterService } from 'src/app/services/camp-center.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router'; 
 
 
 
@@ -17,6 +16,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-camping-center.component.scss']
 })
 
+
 export class AddCampingCenterComponent implements OnInit {
   
 // Create a new instance of the Filestack client
@@ -25,17 +25,22 @@ export class AddCampingCenterComponent implements OnInit {
   newCamp!: FormGroup;
   files: File[] = [];
   activity: Select2Data = [];
+  gmapConfig2: any;
+  test: any;
 
   selectedActivity: any[] = [];
   constructor(
     private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     private CampCenterService: CampCenterService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
 
   ) { }
+  
 
   ngOnInit(): void {
+
     this.pageTitle = [{ label: 'Camp-Center', path: '/' }, { label: 'Add Camp', path: '/', active: true }];
 
  // product form
@@ -45,44 +50,40 @@ export class AddCampingCenterComponent implements OnInit {
   discount: ['', Validators.required],
   description: ['', Validators.required],
   price: ['', Validators.required],
-  status: ['1', Validators.required],
+  active: ['', Validators.required],
   image: ['', Validators.required],
-  activities: [this.selectedActivity, Validators.required],
+  telephone: ['', Validators.required],
+ /*  activities: [this.selectedActivity, Validators.required], */
+
   
 
  
 });
+this.gmapConfig2 = {
+  lat: 33.8869,
+  lng: 9.5375,
+  markers: [
+    { lat: 33.8869, lng: 9.5375, title : 'your camping center' ,draggable: true }
+
+  ]
+};
 
 
-// camping activity
-this.activity = [
-  {
-    id: '1',
-    label: 'activity 1',
-    value: { id:'1', label: 'activity 1' ,image: 'https://loremflickr.com/320/240'}
-  },
-  {
-    id: '2',
-    label: 'activity 2',
-    value: {id:'2',label: 'activity 2' , Image: 'https://loremflickr.com/320/240'}
-  },
-  {
-    id: '3',
-    label: 'activity 3',
-    value: {id :'3', label: 'activity 3' , Image: 'https://loremflickr.com/320/240'}
-  }
-   
-];
-this.selectedActivity = [
-  {
-    id: '1',
-    label: 'activity 1',
-    image: 'https://loremflickr.com/320/240'
-  }
-];
+
 
 }
 
+markerDragEnd(event: any, marker: any): void {
+  const updatedLat = event.latLng.lat();
+  const updatedLng = event.latLng.lng();
+  marker.lat = updatedLat;
+  marker.lng = updatedLng;
+  console.log('new', event, marker);
+  this.newCamp.patchValue({ location:  `${updatedLat},${updatedLng}`  });
+  
+ 
+
+}
   // convenience getter for easy access to form fields
   get form1() { return this.newCamp.controls; }
 
@@ -171,7 +172,7 @@ this.selectedActivity = [
           icon: 'success',
         });
         this.newCamp.reset();
-        this.router.navigate(['/camping-center']);
+        this.router.navigate(["../"], {relativeTo: this.route});
       },
       error => {
         console.error('There was an error!', this.newCamp.value, error);

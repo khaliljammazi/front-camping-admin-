@@ -25,11 +25,15 @@ export class ReservationService {
   getReservationById(id: number): Observable<Reservation> {
     return this.http.get<Reservation>(this.ReservationUrl +'/'+ id);
   }
-  addReservation(reservation: Reservation): Observable<Reservation> {
+  addReservation(reservation: any): Observable<Reservation> {
     return this.http.post<Reservation>(this.ReservationUrl, reservation, this.httpOptions);
   }
   updateReservation(id: string, reservation: Reservation): Observable<Reservation> {
     return this.http.put<Reservation>(this.ReservationUrl + '/' + id, reservation, this.httpOptions);
+  }
+  updateres(reservation: Reservation): Observable<Reservation> {
+    const url = `${this.ReservationUrl}/${reservation.id}`;
+    return this.http.put<Reservation>(url, reservation, this.httpOptions);
   }
   deleteReservation(id: string): Observable<Reservation> {
     return this.http.delete<Reservation>(this.ReservationUrl + '/' + id, this.httpOptions);

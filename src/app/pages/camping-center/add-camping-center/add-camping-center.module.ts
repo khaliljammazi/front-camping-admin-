@@ -8,12 +8,15 @@ import { Select2Module } from 'ng-select2-component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { QuillModule } from 'ngx-quill';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment.prod';
 
 
 
 @NgModule({
     declarations: [
-        AddCampingCenterComponent
+        AddCampingCenterComponent,
+        
     ],
     imports: [
         CommonModule,
@@ -22,7 +25,11 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
         QuillModule,
         NgxDropzoneModule,
         Select2Module,
-        NgbTooltipModule
+        NgbTooltipModule,
+        AgmCoreModule.forRoot({
+            apiKey: environment.GOOGLE_MAPS_API_KEY
+          }),
+   
         
     ]
 })

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AuthenticationService } from 'src/app/core/service/auth.service';
 import { ChatGroup } from 'src/app/shared/widget/chat-group/chat-group.model';
 import { ChatUser } from '../chat.model';
 import { USERS } from '../data';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-chat-users',
@@ -19,10 +19,14 @@ export class ChatUsersComponent implements OnInit {
   //On selecting new user
   @Output() selectUser: EventEmitter<ChatUser> = new EventEmitter();
 
-  constructor (private authService: AuthenticationService) { }
+  constructor (private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loggedInUser = this.authService.currentUser();
+    this.authService.sharedUser.subscribe((data) => {
+      next: {
+        this.loggedInUser = data;
+      }
+    });
     this.chatGroups = [{
       id: 1,
       groupName: 'App Development',

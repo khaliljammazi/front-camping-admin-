@@ -1,0 +1,152 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Add Activity"></app-page-title>
+
+<form [formGroup]="newActivity" #addActivity="ngForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
+
+                    <div class="mb-3">
+                        <label for="activity-Label" class="form-label"> Label <span
+                                class="text-danger">*</span></label>
+                        <input type="text" id="activity-Label" class="form-control" 
+                            required formControlName="label"
+                            [ngClass]="{ 'is-invalid': addActivity.submitted && form1.label.invalid }">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="activity-location" class="form-label">location <span
+                                class="text-danger">*</span></label>
+                        <input type="text" id="activity-location" class="form-control" 
+                            required formControlName="location"
+                            [ngClass]="{  'is-invalid': addActivity.submitted && form1.location.invalid }">
+                    </div>
+                    
+                  
+
+                    <div class="mb-3">
+                        <label for="activity-description" class="form-label">Description <span
+                                class="text-danger">*</span></label>
+
+                        <div id="snow-editor">
+                            <quill-editor formControlName="description" [styles]="{height: '150px'}" #quillEditor
+                                [sanitize]="true">
+                            </quill-editor>
+                        </div> <!-- end Snow-editor-->
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="activity-capm" class="form-label">camping center <span
+                                class="text-danger">*</span></label>
+                        <select class="form-select" id="example-select" 
+                            required formControlName="campingCenterId"
+                            [ngClass]="{  'is-invalid': addActivity.submitted && form1.campingCenterId.invalid }">
+                            <option *ngFor="let campingCenter of campingCenters" [value]="campingCenter.id">
+                                {{campingCenter.label}}
+                            </option>
+                        
+                        </select>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="activity-discount" class="form-label">discount <span
+                                class="text-danger">*</span></label>
+                        <input type="number" id="activity-discount" class="form-control"  placeholder="enter discount"
+                            required formControlName="discount"
+                            [ngClass]="{  'is-invalid': addActivity.submitted && form1.discount.invalid }">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="activity-price">Price <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="activity-price" placeholder="Enter amount" required
+                            formControlName="price"
+                            [ngClass]="{  'is-invalid': addActivity.submitted && form1.price.invalid }">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="activity-duration">Duration <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="activity-duration" placeholder="Enter duration" required
+                            formControlName="duration"
+                            [ngClass]="{  'is-invalid': addActivity.submitted && form1.duration.invalid }">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="activity-capacity">Capacity <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="activity-capacity" placeholder="Enter capacity" required
+                            formControlName="capacity"
+                            [ngClass]="{  'is-invalid': addActivity.submitted && form1.capacity.invalid }">
+                    </div>
+
+
+                </div>
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+
+        <div class="col-lg-6">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">activity Images</h5>
+
+                    <ngx-dropzone (change)="onSelect($event)" class="dropzone"
+                        accept="image/jpeg,image/jpg,image/png,image/gif">
+                        <ngx-dropzone-label>
+                            <i class="h1 text-muted dripicons-cloud-upload"></i>
+                            <h3>Drop files here or click to upload.</h3>
+                            <span class="text-muted font-13">(This is just a demo dropzone. Selected files are
+                                <strong>not</strong> actually uploaded.)</span>
+                        </ngx-dropzone-label>
+
+                    </ngx-dropzone>
+
+                    <!-- Preview -->
+                    <div class="dropzone-previews mt-3" id="file-previews">
+                        <!-- file preview template -->
+                        <div id="uploadPreviewTemplate" *ngFor="let f of files">
+                            <div class="card mt-1 mb-0 shadow-none border">
+                                <div class="p-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <img class="avatar-sm rounded bg-light" [alt]="f.name"
+                                                [src]="getPreviewUrl(f)">
+                                        </div>
+                                        <div class="col ps-0">
+                                            <a href="javascript:void(0);" class="text-muted fw-bold">{{f.name}}</a>
+                                            <p class="mb-0">{{getSize(f)}}</p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Button -->
+                                            <a href="javascript:void(0)" class="btn btn-link btn-lg text-muted"
+                                                (click)="onRemove($event)">
+                                                <i class="dripicons-cross"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end col-->
+
+          
+
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center mb-3">
+                <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1" [disabled]="newActivity.invalid">Save</button>
+                <button type="button" class="btn w-sm btn-danger waves-effect" [routerLink]="['../']">Cancel</button>
+            </div>
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+</form>

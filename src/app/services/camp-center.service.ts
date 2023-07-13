@@ -34,6 +34,10 @@ export class CampCenterService {
     const url = `${this.campCenterUrl}/${id}`;
     return this.http.get<CampingCenter>(url);
   }
+  updateCamp(camp: CampingCenter): Observable<CampingCenter> {
+    const url = `${this.campCenterUrl}/${camp.id}`;
+    return this.http.put<CampingCenter>(url, camp, this.httpOptions);
+  }
 
 
   constructor(
