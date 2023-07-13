@@ -8,6 +8,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import * as filestack from 'filestack-js';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { Activity } from 'src/app/models/Activity';
+import { CampCenterService } from 'src/app/services/camp-center.service';
+import { ActivitiesService } from 'src/app/services/activities.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { CampingCenter } from 'src/app/models/CampingCenter';
 
 @Component({
   selector: 'app-update-reservation',
@@ -24,12 +31,22 @@ pageTitle: BreadcrumbItem[] = [];
  activity: Select2Data = [];
 Reservation: Reservation=new Reservation();
  selectedActivity: any[] = [];
+ Listuser: User[] = [];
+ totalAmount: number = 0;
+ Listcamp: CampingCenter[] = [];
+
+//  Reservation: Reservation = new Reservation();
+ listactivty: Activity[] = [];
  constructor(
    private fb: FormBuilder,
    private sanitizer: DomSanitizer,
    private ReservationService: ReservationService,
+   private CampCenterService: CampCenterService,
+   private activityService: ActivitiesService,
    private router: Router,
-   private route:ActivatedRoute
+   private route:ActivatedRoute,
+   private authService: AuthService,
+   private userService: UserService
  ) { }
 
  ngOnInit(): void {
@@ -47,45 +64,92 @@ Reservation: Reservation=new Reservation();
     )
   }
   )
-// product form
 this.editReservation = this.fb.group({ 
-  numberReserved: ['', Validators.required],
-  totalAmount: ['', Validators.required],
-  dateStart: ['', Validators.required],
-  dateEnd: ['', Validators.required],
- activities: [this.selectedActivity, Validators.required],
- 
-
-
+  numberReserved: ["", Validators.required],
+  totalAmount: ["", Validators.required],
+  dateStart: ["", Validators.required],
+  dateEnd: ["", Validators.required],
+  activities: ["", Validators.required],
+  campingCenter: ["", Validators.required],
+  user: ["", Validators.required],
+  price: ["", Validators.required],
+  discount: ["", Validators.required],
+  nom: ["", Validators.required],
+  phone: ["", Validators.required],
+  email: ["", Validators.required],
+  discount1: ["", Validators.required],
+  price1: ["", Validators.required],
+  campingPeriod: ["", Validators.required],
 });
 
 
-//  activity
-this.activity = [
- {
-   id: '1',
-   label: 'activity 1',
-   value: { id:'1', label: 'activity 1' ,image: 'https://loremflickr.com/320/240'}
- },
- {
-   id: '2',
-   label: 'activity 2',
-   value: {id:'2',label: 'activity 2' , Image: 'https://loremflickr.com/320/240'}
- },
- {
-   id: '3',
-   label: 'activity 3',
-   value: {id :'3', label: 'activity 3' , Image: 'https://loremflickr.com/320/240'}
- }
-  
-];
-this.selectedActivity = [
- {
-   id: '1',
-   label: 'activity 1',
-   image: 'https://loremflickr.com/320/240'
- }
-];
+this.editReservation.controls["campingCenter"].valueChanges.subscribe(
+  (value: any) => {
+    this.CampCenterService.getCampingById(value).subscribe((res: any) => {
+      this.editReservation.controls["price"].setValue(res.price);
+      this.editReservation.controls["discount"].setValue(2);
+      this.listactivty = res.activities;
+
+      this.editReservation.controls["activities"].valueChanges.subscribe(
+        (value: any) => {
+          this.activityService.getById(value).subscribe((res: any) => {
+            this.editReservation.controls["price1"].setValue(res.price);
+            this.editReservation.controls["discount1"].setValue(2);
+          });
+        }
+      ); 
+    });
+  }
+);
+ 
+// calculate camping period
+this.editReservation.controls["dateEnd"].valueChanges.subscribe(
+  (value: any) => {
+    let date1 = new Date(this.editReservation.controls["dateStart"].value);
+    let date2 = new Date(value);
+    let Difference_In_Time = date2.getTime() - date1.getTime();
+    let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    this.editReservation.controls["campingPeriod"].setValue(
+      Difference_In_Days
+    );
+  }
+);
+// calculate total amount
+this.editReservation.controls["numberReserved"].valueChanges.subscribe(
+  (value: any) => {
+    console.log(value);
+    const price_camp = this.editReservation.controls["price"].value;
+    const price_activity = this.editReservation.controls["price1"].value;
+
+    const discount_camp = this.editReservation.controls["discount"].value;
+    const discount_activity =
+      this.editReservation.controls["discount1"].value;
+    const campingPeriod =
+      this.editReservation.controls["campingPeriod"].value;
+    if (price_activity == null) {
+      this.totalAmount =
+        (price_camp * campingPeriod - discount_camp) * value;
+    } else {
+      this.totalAmount =price_camp * campingPeriod -discount_camp +(price_activity * campingPeriod - discount_activity) * value;
+    }
+  }
+);
+this.userService.getAll().subscribe({
+  next: (us: User[]) => {
+    this.Listuser = us;
+  },
+});
+this.editReservation.controls["user"].valueChanges.subscribe((value: any) => {
+    this.editReservation.controls["email"].setValue(this.Listuser.filter((u) => u.id == value).pop()?.email);
+  });
+
+this.CampCenterService.getCamps().subscribe(
+  {
+  next: (camp: CampingCenter[]) => {this.Listcamp = camp;},
+}
+);
+
+
 
 
 
@@ -168,14 +232,31 @@ this.selectedActivity = [
  getPreviewUrl(f: File) {
    return this.sanitizer.bypassSecurityTrustResourceUrl(encodeURI(URL.createObjectURL(f)));
  }
+
  onSubmit(): void {
   const reservationId = this.route.snapshot.params['id'];
+  // let user = this.Listuser.filter(
+  //   (u) => u.id == Number(this.editReservation.controls["user"].value)).pop();
+  // if (user) delete user.authorities;
+  // const postFormData = {
+  //   id: this.Reservation.id, // Include the reservation ID
+  //   active: this.Reservation.active, // Include the active status
+  //   isConfirmed: this.Reservation.isConfirmed, // Include the isConfirmed status
+  //   numberReserved: this.editReservation.controls["numberReserved"].value,
+  //   campingPeriod: this.editReservation.controls["campingPeriod"].value,
+  //   totalAmount: this.totalAmount,
+  //   dateStart: this.editReservation.controls["dateStart"].value,
+  //   dateEnd: this.editReservation.controls["dateEnd"].value,
+  //   campingCenter: this.Listcamp.filter(
+  //     (u) =>  u.id == Number(this.editReservation.controls["campingCenter"].value)).pop(),activities: this.Listcamp.filter((u) => u.id == Number(this.editReservation.controls["activities"].value)),user: user,
+  // };
+  
    this.ReservationService.updateReservation(reservationId,this.editReservation.value).subscribe(
      
   next => {
        Swal.fire({
          title: 'Success',
-         text: 'Reservation added successfully!',
+         text: 'Reservation updated successfully!',
          icon: 'success',
        });
        this.editReservation.reset();
@@ -185,7 +266,7 @@ this.selectedActivity = [
        console.error('There was an error!', this.editReservation.value, error);
        Swal.fire({
          title: 'Error',
-         text: 'An error occurred while adding the reservation.',
+         text: 'An error occurred while editing the reservation.',
          icon: 'error',
        });
      }

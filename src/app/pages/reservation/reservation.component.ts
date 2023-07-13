@@ -36,8 +36,8 @@ export class ReservationComponent implements OnInit {
    _fetchData(): void {
     this.reservationservice.getReservation().subscribe(
       {
-        next: (camps: Reservation[]) => {
-          this.records = camps;
+        next: (reserv: Reservation[]) => {
+          this.records = reserv;
         
         },
         error: (err: any) => console.log(err)
@@ -95,6 +95,12 @@ export class ReservationComponent implements OnInit {
         width: 40
       },
       {
+        name: 'user',
+        label: 'user',
+        formatter: (record: Reservation) => record.user,
+        width: 40
+      },
+      {
         name: 'status',
         label: 'status',
         formatter: this.reservationStatusFormatter.bind(this),
@@ -136,10 +142,10 @@ export class ReservationComponent implements OnInit {
   }
 
   onViewClicked(res: any): void {
-    this.router.navigate(['/admin/reservation/view', res.id]);
+    this.router.navigate(['/admin/reservations/view', res.id]);
   }
   onEditClicked(res: any): void {
-    this.router.navigate(['/admin/reservation/update', res.id]);
+    this.router.navigate(['/admin/reservations/updatereservation', res.id]);
   }
 
 
