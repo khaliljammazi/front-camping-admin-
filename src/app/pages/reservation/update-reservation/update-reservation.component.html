@@ -9,7 +9,7 @@
                         <i class="mdi mdi-printer"></i> Get Bill
                     </button>
                 </h5>
-                <form [formGroup]="editReservation" #updateReservation="ngForm" >
+                <form [formGroup]="editReservation" #updateReservation="ngForm" (ngSubmit)="onSubmit()">
 
                 <div class="card">
                     <div class="card-body bg-light" >
@@ -59,7 +59,7 @@
                       <div class="col">
                         <label class="form-label">Discount<span
                             class="text-danger">*</span></label>
-                    <input type="number" id="price" class="form-control" required formControlName="discount"
+                    <input type="number" id="discount" class="form-control" required formControlName="discount"
                         [ngClass]="{ 'is-invalid': updateReservation.submitted && form1.discount.invalid }" readonly >
                     
                     </div>
@@ -93,7 +93,7 @@
                             <label class="form-label">Discount<span
                                 class="text-danger">*</span></label>
                         <input type="number" id="discount1" class="form-control" required formControlName="discount1"
-                            [ngClass]="{ 'is-invalid': updateReservation.submitted && form1.discount1.invalid }" readonly required>
+                            [ngClass]="{ 'is-invalid': updateReservation.submitted && form1.discount1.invalid }" readonly >
                           </div>
                         </div>
                       </div>

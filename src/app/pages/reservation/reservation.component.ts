@@ -85,7 +85,7 @@ export class ReservationComponent implements OnInit {
       {
         name: 'Activity',
         label: 'Activity',
-        formatter: (record: Reservation) => record.activities,
+        formatter: this.activityFormate.bind(this),
         width: 40
       },
       {
@@ -112,7 +112,7 @@ export class ReservationComponent implements OnInit {
         formatter: this.customerActionFormatter.bind(this),
         width: 100,
       },
-
+ 
     ];
   }
 
@@ -125,6 +125,11 @@ export class ReservationComponent implements OnInit {
   </div>`
     );
   }
+  activityFormate(record: Reservation): any {
+    return this.sanitizer.bypassSecurityTrustHtml(
+      `<p>${record.activities.map((activity) => activity.label)}</p>`
+
+    );}
   
    // formats  status
    reservationStatusFormatter(reservation:Reservation): any {
@@ -148,6 +153,25 @@ export class ReservationComponent implements OnInit {
     this.router.navigate(['/admin/reservations/updatereservation', res.id]);
   }
 
+  // exportword(id) {
+  //   axios({
+  //     url: "documents/" + id,
+  //     method: "GET",
+  //     responseType: "blob",
+  //   }).then((response) => {
+  //     var headers = response.headers;
+  //     console.log(headers);
+  //     var fileURL = window.URL.createObjectURL(
+  //       new Blob([response.data], { type: headers["content-type"] })
+  //     );
+  //     var fileLink = document.createElement("a");
+  //     fileLink.href = fileURL;
+  //     fileLink.setAttribute("download", "conceptionTransfo.doc");
+  //     document.body.appendChild(fileLink);
+
+  //     fileLink.click();
+  //   });
+  // },
 
 /**
  * Compare two cell values

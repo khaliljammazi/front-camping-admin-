@@ -62,9 +62,11 @@ Reservation: Reservation=new Reservation();
         error: (error) => console.log(error)
       }
     )
+   
   }
   )
 this.editReservation = this.fb.group({ 
+  id: [""],
   numberReserved: ["", Validators.required],
   totalAmount: ["", Validators.required],
   dateStart: ["", Validators.required],
@@ -75,7 +77,6 @@ this.editReservation = this.fb.group({
   price: ["", Validators.required],
   discount: ["", Validators.required],
   nom: ["", Validators.required],
-  phone: ["", Validators.required],
   email: ["", Validators.required],
   discount1: ["", Validators.required],
   price1: ["", Validators.required],
@@ -87,7 +88,7 @@ this.editReservation.controls["campingCenter"].valueChanges.subscribe(
   (value: any) => {
     this.CampCenterService.getCampingById(value).subscribe((res: any) => {
       this.editReservation.controls["price"].setValue(res.price);
-      this.editReservation.controls["discount"].setValue(2);
+      this.editReservation.controls["discount"].setValue(res.discount);
       this.listactivty = res.activities;
 
       this.editReservation.controls["activities"].valueChanges.subscribe(
@@ -234,7 +235,28 @@ this.CampCenterService.getCamps().subscribe(
  }
 
  onSubmit(): void {
-  const reservationId = this.route.snapshot.params['id'];
+  const id = this.route.snapshot.params['id'];
+  let user = this.Listuser.filter(
+    (u) => u.id == Number(this.editReservation.controls["user"].value)).pop();
+  if (user) delete user.authorities;
+  const postFormData = {
+    id: this.Reservation.id, // Include the reservation ID
+    active: this.Reservation.active, // Include the active status
+    isConfirmed: this.Reservation.isConfirmed, // Include the isConfirmed status
+    numberReserved: this.editReservation.controls["numberReserved"].value,
+    campingPeriod: this.editReservation.controls["campingPeriod"].value,
+    totalAmount: this.totalAmount,
+    dateStart: this.editReservation.controls["dateStart"].value,
+    dateEnd: this.editReservation.controls["dateEnd"].value,
+    campingCenter: this.Listcamp.filter(
+      (u) =>
+        u.id == Number(this.editReservation.controls["campingCenter"].value)
+    ).pop(),
+    activities: this.Listcamp.filter((u) => u.id == Number(this.editReservation.controls["activities"].value)),
+    user: user,
+  };
+
+  this.ReservationService.updateReservation(postFormData).subscribe(
   // let user = this.Listuser.filter(
   //   (u) => u.id == Number(this.editReservation.controls["user"].value)).pop();
   // if (user) delete user.authorities;
@@ -251,7 +273,7 @@ this.CampCenterService.getCamps().subscribe(
   //     (u) =>  u.id == Number(this.editReservation.controls["campingCenter"].value)).pop(),activities: this.Listcamp.filter((u) => u.id == Number(this.editReservation.controls["activities"].value)),user: user,
   // };
   
-   this.ReservationService.updateReservation(reservationId,this.editReservation.value).subscribe(
+  //  this.ReservationService.updateReservation(reservationId,this.editReservation.value).subscribe(
      
   next => {
        Swal.fire({
