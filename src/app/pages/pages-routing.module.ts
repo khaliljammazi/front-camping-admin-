@@ -34,9 +34,7 @@ const routes: Routes = [
   { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) },
   { path: 'camping-center', loadChildren: () => import('./camping-center/camping-center.module').then(m => m.CampingCenterModule) },
   { path: 'activities', loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule) },
-  { path: 'reservation', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) },
-  { path: 'reservation/AddReservation', loadChildren: () => import('./reservation/add-reservation/add-reservation.module').then(m => m.AddReservationModule) },
-  { path: 'pages/reservation/UpdateReservation', loadChildren: () => import('./reservation/update-reservation/update-reservation.module').then(m => m.UpdateReservationModule) },
+  { path: 'reservations', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) },
 ];
 
 @NgModule({

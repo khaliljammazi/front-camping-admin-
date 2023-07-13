@@ -179,7 +179,7 @@ this.selectedActivity = [
          icon: 'success',
        });
        this.editReservation.reset();
-       this.router.navigate(['/reservation']);
+       this.router.navigate(["../../"], {relativeTo: this.route});
      },
      error => {
        console.error('There was an error!', this.editReservation.value, error);

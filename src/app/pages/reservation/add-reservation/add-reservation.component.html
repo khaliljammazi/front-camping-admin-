@@ -11,7 +11,7 @@
                 </h5>
                 <form [formGroup]="newReservation" #addReservation="ngForm" (ngSubmit)="onSubmit()">
 
-                <!-- <div class="card">
+                <div class="card">
                     <div class="card-body bg-light" >
                         <h5 class="text-uppercase">Custmer Détails</h5>
                     <br>
@@ -34,7 +34,7 @@
                       </div>
                     </div>
                   </div>
-                </div> -->
+                </div>
                 <div class="card">
                     <div class="card-body bg-light" >
                         <h5 class="text-uppercase">Choose Camping Center</h5>
@@ -145,7 +145,7 @@
                     <div class="col-12">
                         <div class="text-center mb-3">
                             <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1">Save</button>
-                            <button type="button" class="btn w-sm btn-danger waves-effect" routerLink="/reservation">Cancel</button>
+                            <button type="button" class="btn w-sm btn-danger waves-effect" [routerLink]="['../']">Cancel</button>
                         </div>
                     </div> 
                 </div>

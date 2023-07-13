@@ -136,10 +136,10 @@ export class ReservationComponent implements OnInit {
   }
 
   onViewClicked(res: any): void {
-    this.router.navigate(['/reservation/view', res.id]);
+    this.router.navigate(['/admin/reservation/view', res.id]);
   }
   onEditClicked(res: any): void {
-    this.router.navigate(['/reservation/update', res.id]);
+    this.router.navigate(['/admin/reservation/update', res.id]);
   }
 
 
