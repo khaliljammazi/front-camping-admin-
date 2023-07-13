@@ -40,7 +40,6 @@ export class AddActivityComponent implements OnInit {
   description: ['', Validators.required],
   price: ['', Validators.required],
   season: ['', Validators.required],
-  status: ['', Validators.required],
   image: ['', Validators.required],
   duration: ['', Validators.required],
   capacity: ['', Validators.required],
