@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as filestack from 'filestack-js';
 import { Activity } from 'src/app/models/Activity';
 import { CampingCenter } from 'src/app/models/CampingCenter';
@@ -27,7 +27,8 @@ export class AddActivityComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private activityService: ActivitiesService,
     private campCenterService: CampCenterService,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.pageTitle = [{ label: 'Activitis', path: '/' }, { label: 'Add Activity', path: '/', active: true }];
@@ -124,7 +125,7 @@ onSubmit(): void {
         icon: 'success',
       });
       this.newActivity.reset();
-      this.router.navigate(['/activities']);
+      this.router.navigate(['../'], {relativeTo: this.route});
     },
     error => {
       console.error('There was an error!', this.newActivity.value, error);

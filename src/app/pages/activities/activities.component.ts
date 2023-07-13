@@ -133,11 +133,11 @@ export class ActivitiesComponent implements OnInit {
   
 
   onViewClicked(act: any): void {
-    this.router.navigate(['/activities/view', act.id]);
+    this.router.navigate(['/admin/activities/view', act.id]);
   }
 
   onEditClicked(act: any): void {
-    this.router.navigate(['/activities/update', act.id]);
+    this.router.navigate(['/admin/activities/update', act.id]);
   }
 
 

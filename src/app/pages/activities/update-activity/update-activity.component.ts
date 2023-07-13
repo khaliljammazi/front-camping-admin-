@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as filestack from 'filestack-js';
+import { relative } from 'path';
 import { ActivitiesService } from 'src/app/services/activities.service';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 import Swal from 'sweetalert2';
@@ -146,7 +147,7 @@ export class UpdateActivityComponent implements OnInit {
             icon: 'success',
          });
          this.act.reset();
-         this.router.navigate(['/acting-center']);
+         this.router.navigate(['../../'],{relativeTo:this.route});
        },
        error => {
          console.error('There was an error!', this.act.value, error);
