@@ -144,7 +144,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="text-center mb-3">
-                            <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1">Save</button>
+                            <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1" [disabled]="newReservation.invalid">Save</button>
                             <button type="button" class="btn w-sm btn-danger waves-effect" [routerLink]="['../']">Cancel</button>
                         </div>
                     </div> 
