@@ -99,14 +99,6 @@ export class ActivitiesComponent implements OnInit {
     ];
   }
 
-  customerActionFormatter(): any {
-    return this.sanitizer.bypassSecurityTrustHtml(
-      `   <div class="button-list">
-     
-  </div>`
-    );
-  }
-
    // formats  status
    ActivityStatusFormatter(act:Activity): any {
     if (act.active) {
