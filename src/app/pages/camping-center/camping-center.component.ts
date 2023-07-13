@@ -112,10 +112,10 @@ export class CampingCenterComponent implements OnInit {
   }
  
   onViewClicked(camp: any): void {
-    this.router.navigate(['/camping-center/view', camp.id]);
+    this.router.navigate(['/admin/camping-center/view', camp.id]);
   }
   onEditClicked(camp: any): void {
-    this.router.navigate(['/camping-center//update', camp.id]);
+    this.router.navigate(['/admin/camping-center/update', camp.id]);
   }
 
   

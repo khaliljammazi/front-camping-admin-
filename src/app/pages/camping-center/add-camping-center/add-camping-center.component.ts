@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import * as filestack from 'filestack-js';
 import { CampCenterService } from 'src/app/services/camp-center.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router'; 
 
 
 
@@ -34,7 +34,7 @@ export class AddCampingCenterComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private CampCenterService: CampCenterService,
     private router: Router,
-
+    private route: ActivatedRoute
 
   ) { }
   
@@ -172,7 +172,7 @@ markerDragEnd(event: any, marker: any): void {
           icon: 'success',
         });
         this.newCamp.reset();
-        this.router.navigate(['/camping-center']);
+        this.router.navigate(["../"], {relativeTo: this.route});
       },
       error => {
         console.error('There was an error!', this.newCamp.value, error);

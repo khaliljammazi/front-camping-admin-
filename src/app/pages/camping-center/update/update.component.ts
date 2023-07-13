@@ -170,7 +170,7 @@ this.selectedActivity = [
           icon: 'success',
        });
        this.Camp.reset();
-       this.router.navigate(['/camping-center']);
+       this.router.navigate(["../../"], {relativeTo: this.route});
      },
      error => {
        console.error('There was an error!', this.Camp.value, error);
