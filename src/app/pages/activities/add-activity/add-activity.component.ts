@@ -36,7 +36,6 @@ export class AddActivityComponent implements OnInit {
  // product form
  this.newActivity = this.fb.group({ 
   label: ['', Validators.required],
-  location: ['', Validators.required],
   discount: ['', Validators.required],
   description: ['', Validators.required],
   price: ['', Validators.required],

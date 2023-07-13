@@ -79,6 +79,12 @@ export class ActivitiesComponent implements OnInit {
         width: 40
       },
       {
+        name: 'season',
+        label: 'season',
+        formatter: (record: Activity) => record.season,
+        width: 180,
+      },
+      {
         name: 'status',
         label: 'status',
         formatter: this.ActivityStatusFormatter.bind(this),
@@ -96,11 +102,7 @@ export class ActivitiesComponent implements OnInit {
   customerActionFormatter(): any {
     return this.sanitizer.bypassSecurityTrustHtml(
       `   <div class="button-list">
-      <button type="button" class="btn btn-success waves-effect waves-light"><i
-              class="mdi mdi-list-status"></i></button>
      
-      <button type="button" class="btn btn-blue waves-effect waves-light"><i
-              class="mdi mdi-book-edit"></i></button>
   </div>`
     );
   }
@@ -121,7 +123,7 @@ export class ActivitiesComponent implements OnInit {
   }
 
   
-  onStatusChangeClicked(act: any): void {
+  /*onStatusChangeClicked(act: any): void {
     act.active = !act.active;
     this.activityService.updateAct(act).subscribe({
       next: () => {
@@ -130,7 +132,7 @@ export class ActivitiesComponent implements OnInit {
       error: (err: any) => console.log(err)
     });
   }
-  
+  */
 
   onViewClicked(act: any): void {
     this.router.navigate(['/admin/activities/view', act.id]);

@@ -1,9 +1,5 @@
-export enum Season {
-  SPRING = 'SPRING',
-  SUMMER = 'SUMMER',
-  AUTUMN = 'AUTUMN',
-  WINTER = 'WINTER'
-}
+import { Season } from "./Season";
+
 export class Activity {
   id!: number;
   label!: string;

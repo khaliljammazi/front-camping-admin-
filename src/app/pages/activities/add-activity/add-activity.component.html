@@ -15,16 +15,7 @@
                         <input type="text" id="activity-Label" class="form-control" 
                             required formControlName="label"
                             [ngClass]="{ 'is-invalid': addActivity.submitted && form1.label.invalid }">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="activity-location" class="form-label">location <span
-                                class="text-danger">*</span></label>
-                        <input type="text" id="activity-location" class="form-control" 
-                            required formControlName="location"
-                            [ngClass]="{  'is-invalid': addActivity.submitted && form1.location.invalid }">
-                    </div>
-                    
+                    </div>                   
                   
 
                     <div class="mb-3">
@@ -39,9 +30,9 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="activity-capm" class="form-label">camping center <span
+                        <label for="activity-camp" class="form-label">camping center <span
                                 class="text-danger">*</span></label>
-                        <select class="form-select" id="example-select" 
+                        <select class="form-select" id="activity-camp" 
                             required formControlName="campingCenterId"
                             [ngClass]="{  'is-invalid': addActivity.submitted && form1.campingCenterId.invalid }">
                             <option *ngFor="let campingCenter of campingCenters" [value]="campingCenter.id">
@@ -70,7 +61,7 @@
                     <div class="mb-3">
 
                     <label for="season">Choose a season <span class="text-danger">*</span></label>
-                    <select id="season" name="season" class="form-control"  formControlName="season" required>
+                    <select id="season" name="season" class="form-select"  formControlName="season" required>
                       <option *ngFor="let season of seasons" [value]="season">{{season}}</option>
                     </select>
                      </div>
