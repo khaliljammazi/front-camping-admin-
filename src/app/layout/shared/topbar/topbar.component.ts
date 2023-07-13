@@ -250,7 +250,7 @@ export class TopbarComponent implements OnInit {
       {
         label: 'My Account',
         icon: 'fe-user',
-        redirectTo: '/apps/contacts/profile',
+        redirectTo: '/admin/apps/contacts/profile',
       },
       {
         label: 'Settings',
