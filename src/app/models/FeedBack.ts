@@ -1,6 +1,6 @@
 import { CampingCenter } from './CampingCenter';
 import { Activity } from './Activity';
-import { User } from './User';
+import { User } from './user';
 
 export class FeedBack {
   id!:number;
