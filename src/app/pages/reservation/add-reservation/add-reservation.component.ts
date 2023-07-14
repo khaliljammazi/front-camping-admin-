@@ -51,7 +51,6 @@ export class AddReservationComponent implements OnInit {
       { label: "Add Reservation", path: "/", active: true },
     ];
 
-    // product form
     this.newReservation = this.fb.group({
       numberReserved: ["", Validators.required],
       totalAmount: [0, Validators.required],
@@ -74,7 +73,7 @@ export class AddReservationComponent implements OnInit {
       (value: any) => {
         this.CampCenterService.getCampingById(value).subscribe((res: any) => {
           this.newReservation.controls["price"].setValue(res.price);
-          this.newReservation.controls["discount"].setValue(2);
+          this.newReservation.controls["discount"].setValue(res.discount);
           this.listactivty = res.activities;
 
           this.newReservation.controls["activities"].valueChanges.subscribe(
@@ -117,10 +116,7 @@ export class AddReservationComponent implements OnInit {
           this.totalAmount =
             (price_camp * campingPeriod - discount_camp) * value;
         } else {
-          this.totalAmount =
-            price_camp * campingPeriod -
-            discount_camp +
-            (price_activity * campingPeriod - discount_activity) * value;
+          this.totalAmount =price_camp * campingPeriod -discount_camp +(price_activity * campingPeriod - discount_activity) * value;
         }
       }
     );
@@ -130,19 +126,15 @@ export class AddReservationComponent implements OnInit {
         this.Listuser = us;
       },
     });
-    this.newReservation.controls["user"].valueChanges.subscribe(
-      (value: any) => {
-        this.newReservation.controls["email"].setValue(
-          this.Listuser.filter((u) => u.id == value).pop()?.email
-        );
-      }
-    );
-    this.CampCenterService.getCamps().subscribe({
-      next: (camp: CampingCenter[]) => {
-        this.Listcamp = camp;
-      },
-    });
-  }
+    this.newReservation.controls["user"].valueChanges.subscribe((value: any) => {
+        this.newReservation.controls["email"].setValue(this.Listuser.filter((u) => u.id == value).pop()?.email);
+      });
+
+    this.CampCenterService.getCamps().subscribe(
+      {
+      next: (camp: CampingCenter[]) => {this.Listcamp = camp;},
+    }
+    );}
 
   // getactivitiesDetail(value: any) {
   //   this.ReservationService.getActiviteByCampincenter(value.id).subscribe((res:any)=>{
@@ -199,9 +191,8 @@ downloadFileFile(fileName:string) {
 
   onSubmit(): void {
     let user = this.Listuser.filter(
-      (u) => u.id == Number(this.newReservation.controls["user"].value)
-    ).pop();
-    if (user) delete user.authorities ;
+      (u) => u.id == Number(this.newReservation.controls["user"].value)).pop();
+    if (user) delete user.authorities;
     const postFormData = {
       numberReserved: this.newReservation.controls["numberReserved"].value,
       campingPeriod: this.newReservation.controls["campingPeriod"].value,
@@ -209,14 +200,12 @@ downloadFileFile(fileName:string) {
       dateStart: this.newReservation.controls["dateStart"].value,
       dateEnd: this.newReservation.controls["dateEnd"].value,
       campingCenter: this.Listcamp.filter(
-        (u) => u.id == Number(this.newReservation.controls["campingCenter"].value)
+        (u) =>
+          u.id == Number(this.newReservation.controls["campingCenter"].value)
       ).pop(),
-      activities: this.Listcamp.filter(
-        (u) => u.id == Number(this.newReservation.controls["activities"].value)
-      ),
+      activities: this.Listcamp.filter((u) => u.id == Number(this.newReservation.controls["activities"].value)),
       user: user,
     };
-    console.log("ddd", postFormData);
 
     this.ReservationService.addReservation(postFormData).subscribe(
       (next) => {
@@ -226,7 +215,7 @@ downloadFileFile(fileName:string) {
           icon: "success",
         });
         this.newReservation.reset();
-        this.router.navigate(["../"], {relativeTo: this.route});
+        this.router.navigate(["../"], { relativeTo: this.route });
       },
       (error) => {
         console.error("There was an error!", this.newReservation.value, error);
