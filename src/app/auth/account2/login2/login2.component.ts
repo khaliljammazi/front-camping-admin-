@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/core/service/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth-login2',
@@ -21,7 +21,7 @@ export class Login2Component implements OnInit {
   constructor (
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
+    private authenticationService: AuthService,
     private fb: FormBuilder) { }
 
 
@@ -30,9 +30,6 @@ export class Login2Component implements OnInit {
       email: ['ubold@coderthemes.com', [Validators.required, Validators.email]],
       password: ['test', Validators.required]
     });
-
-    // reset login status
-    this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard-1';
@@ -51,7 +48,7 @@ export class Login2Component implements OnInit {
     this.formSubmitted = true;
     if (this.loginForm2.valid) {
       this.loading = true;
-      this.authenticationService.login(this.formValues.email?.value, this.formValues.password?.value)
+      this.authenticationService.logIn(this.formValues.email?.value, this.formValues.password?.value)
         .pipe(first())
         .subscribe(
           (data: any) => {

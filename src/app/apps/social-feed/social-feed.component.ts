@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/core/models/auth.models';
-import { AuthenticationService } from 'src/app/core/service/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 
 @Component({
@@ -13,10 +12,14 @@ export class SocialFeedComponent implements OnInit {
   loggedInUser: any = {};
   pageTitle: BreadcrumbItem[] = [];
 
-  constructor (private authService: AuthenticationService) { }
+  constructor (private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loggedInUser = this.authService.currentUser();
+    this.authService.sharedUser.subscribe((data) => {
+      next: {
+        this.loggedInUser = data;
+      }
+    });
     this.pageTitle = [{ label: 'Apps', path: '/' }, { label: 'Social Feed', path: '/', active: true }];
   }
 

@@ -1,0 +1,46 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Activity Details"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-5">
+                     <img src={{act.image}} alt=""class="img-fluid mx-auto d-block rounded">
+
+                    </div> <!-- end col -->
+                    <div class="col-lg-7">
+                        <div class="ps-xl-3 mt-3 mt-xl-0">
+                            <h4 class="mb-3">{{act.label}}</h4>
+                           <!--  <p class="text-muted float-start me-3">
+                                <span class="mdi mdi-star" *ngFor="let item of [1,2,3,4,5];let i=index"
+                                    [class.text-warning]="i<=act.rating!"></span>
+
+                            </p> -->
+                            <p class="mb-4"><a href="" class="text-muted">( 36 Customer Reviews )</a></p>
+                            <h6 class="text-danger text-uppercase">{{act.discount}}% Off</h6>
+                            <h4 class="mb-4">Price : <span class="text-muted me-2"><del>{{act.price}} DT</del></span>
+                                <b>{{act.price-(act.price*(act.discount/100))}}DT</b>
+                            </h4>
+                            <h4 *ngIf="act.capacity>0">
+                                <span class="badge bg-soft-success text-success mb-4">available capacity {{act.capacity}}</span>
+                            </h4>
+                            <h4 *ngIf="act.capacity<=0">
+                                <span class="badge bg-soft-danger text-danger mb-4"> Not available places  {{act.capacity}} 
+                                </span>
+                            </h4>
+
+                            <div class="text-muted mb-4" [innerHTML]="getSanitizedContent()"></div>
+                             
+                            <div>
+                                
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+
+                    </div>
+                  
+                    </div>
+                    </div>
+                    </div>

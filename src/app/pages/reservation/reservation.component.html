@@ -1,25 +1,22 @@
-<app-page-title
-  [breadcrumbItems]="pageTitle"
-  title="Reservation"
-></app-page-title>
+<app-page-title [breadcrumbItems]="pageTitle" title="Reservation"></app-page-title>
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <button  routerLink="/reservation/addreservation" type="button" class="btn btn-sm btn-blue waves-effect waves-light float-end">
+                <button  routerLink="addreservation" type="button" class="btn btn-sm btn-blue waves-effect waves-light float-end">
                     <i class="mdi mdi-plus-circle"></i> Add Reservation
                 </button>
                 <h4 class="header-title mb-4">Reservation List</h4>
 
-                <!-- customer table -->
-                <app-advanced-table  [tableData]="records"
-                [columns]="columns"
-                [pagination]="true"
-                [pageSizeOptions]="pageSizeOptions"
-                [hasRowSelection]="true"
-                [isSearchable]="true"
-                (search)="searchData($event)"
-                [isSortable]="true">  </app-advanced-table>
+                <!--  table -->
+                <app-advanced-table [tableData]="records" [columns]="columns" [pagination]="true"
+                    [pageSizeOptions]="pageSizeOptions" [hasRowSelection]="true" [isSearchable]="true"
+                    (search)="searchData($event)" [isSortable]="true" 
+                    (sort)="onSort($event)" 
+                    (changeStatusClicked)="onStatusChangeClicked($event)"
+                    (viewClicked)="onViewClicked($event)"
+                     (editClicked)="onEditClicked($event)"  >
+                </app-advanced-table>
             </div>
         </div>
     </div><!-- end col -->

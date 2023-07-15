@@ -22,9 +22,19 @@
                                 class="text-danger">*</span></label>
                         <input type="text" id="camp-location" class="form-control" 
                             required formControlName="location"
-                            [ngClass]="{  'is-invalid': addCamp.submitted && form1.location.invalid }">
+                            [ngClass]="{  'is-invalid': addCamp.submitted && form1.location.invalid }" hidden>
+                            
+                            <agm-map [latitude]="gmapConfig2.lat" [longitude]="gmapConfig2.lng" class="gmaps">
+                                <agm-marker *ngFor="let marker of gmapConfig2.markers"
+                                  [latitude]="marker.lat"
+                                  [longitude]="marker.lng"
+                                  [markerDraggable]="marker.draggable"
+                                  (dragEnd)="markerDragEnd($event, marker)">
+                                  <agm-info-window>{{ marker.title }}</agm-info-window>
+                                </agm-marker>
+                              </agm-map>
                     </div>
-                    
+                 
                   
 
                     <div class="mb-3">
@@ -38,7 +48,7 @@
                         </div> <!-- end Snow-editor-->
                     </div>
 
-                    <div class="mb-3">
+                   <!--  <div class="mb-3">
                         <label for="camp-activity" class="form-label">Activity <span
                                 class="text-danger">*</span></label>
                         <select2 id="camp-activity" [data]="activity" formControlName="activity" (update)="AddActivity($event)">
@@ -53,7 +63,7 @@
                                 </a>
                             </ng-container>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="mb-3">
                         <label for="camp-discount" class="form-label">discount <span
                                 class="text-danger">*</span></label>
@@ -68,19 +78,25 @@
                             formControlName="price"
                             [ngClass]="{  'is-invalid': addCamp.submitted && form1.price.invalid }">
                     </div>
+                    <div class="mb-3">
+                        <label for="camp-telephone">telephone <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="camp-telephone" placeholder="Enter telephone" required
+                            formControlName="telephone"
+                            [ngClass]="{  'is-invalid': addCamp.submitted && form1.telephone.invalid }">
+                    </div>
 
                     <div class="mb-3">
                         <label class="mb-2">Status <span class="text-danger">*</span></label>
                         <br />
                         <div class="d-flex flex-wrap">
                             <div class="form-check me-2">
-                                <input class="form-check-input" type="radio" value="1" 
-                                    formControlName="status" id="inlineRadio1" checked>
+                                <input class="form-check-input" type="radio" value=true 
+                                    formControlName="active" id="inlineRadio1" checked>
                                 <label class="form-check-label" for="inlineRadio1">Active</label>
                             </div>
                             <div class="form-check me-2">
-                                <input class="form-check-input" type="radio" value="0" 
-                                    formControlName="status" id="inlineRadio2">
+                                <input class="form-check-input" type="radio" value=false 
+                                    formControlName="active" id="inlineRadio2">
                                 <label class="form-check-label" for="inlineRadio2">Inactive</label>
                             </div>
                         </div>
@@ -146,8 +162,8 @@
     <div class="row">
         <div class="col-12">
             <div class="text-center mb-3">
-                <button type="button" class="btn w-sm btn-danger waves-effect" routerLink="/camping-center">Cancel</button>
-                <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1">Save</button>
+                <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1" [disabled]="newCamp.invalid">Save</button>
+                <button type="button" class="btn w-sm btn-danger waves-effect" [routerLink]="['../']">Cancel</button>
             </div>
         </div> <!-- end col -->
     </div>

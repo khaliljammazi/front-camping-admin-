@@ -40,6 +40,11 @@ export class AdvancedTableComponent implements OnInit, AfterViewChecked {
   @Output() search = new EventEmitter<string>();
   @Output() sort = new EventEmitter<SortEvent>();
   @Output() handleTableLoad = new EventEmitter<any>();
+  @Output() changeStatusClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() editClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() viewClicked: EventEmitter<any> = new EventEmitter<any>();
+
+
 
 
   @ViewChildren(NgbSortableHeaderDirective) headers!: QueryList<NgbSortableHeaderDirective>;
@@ -52,6 +57,17 @@ export class AdvancedTableComponent implements OnInit, AfterViewChecked {
     this.handleTableLoad.emit();
 
   }
+    // Method to emit the button click event
+    onStatusChangeClick(a: any): void {
+      this.changeStatusClicked.emit(a);
+    }
+    onEditClick(a: any): void {
+      this.editClicked.emit(a);
+    }
+    onViewClick(a: any): void {
+      this.viewClicked.emit(a);
+    }
+
 
   ngOnInit(): void {
     for (let i = 0; i < this.tableData.length; i++) {

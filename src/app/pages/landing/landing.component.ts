@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/core/service/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-landing',
@@ -12,11 +12,15 @@ export class LandingComponent implements OnInit {
   loggedInUser: any = {};
 
   constructor (
-    private authService: AuthenticationService
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.loggedInUser = this.authService.currentUser();
+    this.authService.sharedUser.subscribe((data) => {
+      next: {
+        this.loggedInUser = data;
+      }
+    });
 
     let mybutton = document.getElementById("back-to-top-btn");
     window.addEventListener('scroll', () => {

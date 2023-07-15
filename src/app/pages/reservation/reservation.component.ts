@@ -36,8 +36,8 @@ export class ReservationComponent implements OnInit {
    _fetchData(): void {
     this.reservationservice.getReservation().subscribe(
       {
-        next: (camps: Reservation[]) => {
-          this.records = camps;
+        next: (reserv: Reservation[]) => {
+          this.records = reserv;
         
         },
         error: (err: any) => console.log(err)
@@ -85,7 +85,7 @@ export class ReservationComponent implements OnInit {
       {
         name: 'Activity',
         label: 'Activity',
-        formatter: (record: Reservation) => record.activities,
+        formatter: this.activityFormate.bind(this),
         width: 40
       },
       {
@@ -94,39 +94,84 @@ export class ReservationComponent implements OnInit {
         formatter: (record: Reservation) => record.campingCenter,
         width: 40
       },
-
+      {
+        name: 'user',
+        label: 'user',
+        formatter: (record: Reservation) => record.user,
+        width: 40
+      },
+      {
+        name: 'status',
+        label: 'status',
+        formatter: this.reservationStatusFormatter.bind(this),
+        width: 180,
+      },
       {
         name: 'actions',
         label: 'actions',
         formatter: this.customerActionFormatter.bind(this),
         width: 100,
       },
-
+ 
     ];
   }
-  // action cell formatter
-  customerActionFormatter(): any {
-    //to check
-    // const reservationId =  this.route.params.subscribe(params => {
-    //   this.reservationservice.getReservationById(params['id']).subscribe(
-    //     {
-    //       next: () =>  console.log("valid"),
-    //       error: (error) => console.log(error)
-    //     }
-    //   )
-   // routerLink="/reservation/updatereservation/{{reservationId}}"
-    // });
+
+
+  customerActionFormatter(record: Reservation): any {
     return this.sanitizer.bypassSecurityTrustHtml(
-      ` <div class="button-list">
-      <button type="button" class="btn btn-success waves-effect waves-light"><i
-              class="mdi mdi-list-status"></i></button>
-     
-      <button type="button" class="btn btn-blue waves-effect waves-light"  ><i
-              class="mdi mdi-book-edit"></i></button>
+      `<div class="button-list">
+      <a  href="/reservation/updatereservation/${record.id}" class="btn btn-blue waves-effect waves-light"><i
+              class="mdi mdi-printer"></i></a>
   </div>`
     );
   }
+  activityFormate(record: Reservation): any {
+    return this.sanitizer.bypassSecurityTrustHtml(
+      `<p>${record.activities.map((activity) => activity.label)}</p>`
+
+    );}
   
+   // formats  status
+   reservationStatusFormatter(reservation:Reservation): any {
+    if (reservation.active) {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `<span class="btn btn-soft-success rounded-pill waves-effect waves-light">Active</span>`
+      );
+    }
+    else {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `<span class="btn btn-soft-danger rounded-pill waves-effect waves-light">Disable</span>`
+      );
+    }
+
+  }
+
+  onViewClicked(res: any): void {
+    this.router.navigate(['/admin/reservations/view', res.id]);
+  }
+  onEditClicked(res: any): void {
+    this.router.navigate(['/admin/reservations/updatereservation', res.id]);
+  }
+
+  // exportword(id) {
+  //   axios({
+  //     url: "documents/" + id,
+  //     method: "GET",
+  //     responseType: "blob",
+  //   }).then((response) => {
+  //     var headers = response.headers;
+  //     console.log(headers);
+  //     var fileURL = window.URL.createObjectURL(
+  //       new Blob([response.data], { type: headers["content-type"] })
+  //     );
+  //     var fileLink = document.createElement("a");
+  //     fileLink.href = fileURL;
+  //     fileLink.setAttribute("download", "conceptionTransfo.doc");
+  //     document.body.appendChild(fileLink);
+
+  //     fileLink.click();
+  //   });
+  // },
 
 /**
  * Compare two cell values
@@ -193,4 +238,15 @@ getPropertyValue(obj: any, key: string): any {
       this.records = updatedData;
     }
   }
+  onStatusChangeClicked(res: any): void {
+    
+    res.active = !res.active;
+    this.reservationservice.updateres(res).subscribe({
+      next: () => {
+        this._fetchData();
+      },
+      error: (err: any) => console.log(err)
+    });
+  }
+ 
 }

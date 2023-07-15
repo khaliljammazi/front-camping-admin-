@@ -2,11 +2,11 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbCollapse } from '@ng-bootstrap/ng-bootstrap';
 import { EventService } from 'src/app/core/service/event.service';
-import { AuthenticationService } from '../../../core/service/auth.service';
 import { MENU_ITEMS } from '../config/menu-meta';
 import { MenuItem } from '../models/menu.model';
 import { findAllParent, findMenuItem } from '../helper/utils';
 import feather from "feather-icons";
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-left-sidebar',
@@ -30,7 +30,7 @@ export class LeftSidebarComponent implements OnInit, AfterViewInit {
 
   constructor (
     router: Router,
-    private authService: AuthenticationService,
+    private authService: AuthService,
     private eventService: EventService) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
@@ -44,7 +44,11 @@ export class LeftSidebarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.initMenu();
-    this.loggedInUser = this.authService.currentUser();
+    this.authService.sharedUser.subscribe((data) => {
+      next: {
+        this.loggedInUser = data;
+      }
+    });
 
     this.eventService.subscribe('toggleTwoToneIcons', (enable) => {
       this.hasTwoToneIcons = enable;
