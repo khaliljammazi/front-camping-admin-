@@ -1,0 +1,47 @@
+/* Component SCSS file or global styles file */
+.table-header {
+    font-size: 20px; /* Adjust the font size as needed */
+  }
+  .rating-stars {
+    font-size: 24px; /* Adjust the font size as needed */
+  }
+  
+  .star-filled,
+  .star-empty {
+    font-size: inherit;
+  }
+  .col-description {
+    width: 50%;
+  }
+  
+  .col-rating {
+    width: 25%;
+  }
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+  }
+  
+  .loading-spinner::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+    border-top-color: #333;
+    animation: spin 1s infinite linear;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  

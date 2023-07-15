@@ -37,6 +37,7 @@ const routes: Routes = [
   { path: 'activities', loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule) },
   { path: 'reservations', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) },
   { path: 'ecommerces', loadChildren: () => import('./ecommerces/ecommerces.module').then(m => m.EcommercesModule) },
+  { path: 'activity-feedback', loadChildren: () => import('./activity-feedback/activity-feedback.module').then(m => m.ActivityFeedbackModule) },
 ];
 
 @NgModule({
