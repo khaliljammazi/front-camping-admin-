@@ -28,8 +28,8 @@ export class ReservationService {
   addReservation(reservation: any): Observable<Reservation> {
     return this.http.post<Reservation>(this.ReservationUrl, reservation, this.httpOptions);
   }
-  updateReservation(id: string, reservation: Reservation): Observable<Reservation> {
-    return this.http.put<Reservation>(this.ReservationUrl + '/' + id, reservation, this.httpOptions);
+  updateReservation( reservation: any): Observable<Reservation> {
+    return this.http.put<Reservation>(this.ReservationUrl + '/' + reservation.id, reservation, this.httpOptions);
   }
   updateres(reservation: Reservation): Observable<Reservation> {
     const url = `${this.ReservationUrl}/${reservation.id}`;
@@ -38,4 +38,7 @@ export class ReservationService {
   deleteReservation(id: string): Observable<Reservation> {
     return this.http.delete<Reservation>(this.ReservationUrl + '/' + id, this.httpOptions);
   }
+    generateReservationPdf(id: number): Observable<any> {
+    return this.http.get<any>(this.ReservationUrl + '/pdf/' + id);
+    }
 }

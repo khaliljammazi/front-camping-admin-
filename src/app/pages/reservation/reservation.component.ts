@@ -36,8 +36,8 @@ export class ReservationComponent implements OnInit {
    _fetchData(): void {
     this.reservationservice.getReservation().subscribe(
       {
-        next: (camps: Reservation[]) => {
-          this.records = camps;
+        next: (reserv: Reservation[]) => {
+          this.records = reserv;
         
         },
         error: (err: any) => console.log(err)
@@ -85,13 +85,19 @@ export class ReservationComponent implements OnInit {
       {
         name: 'Activity',
         label: 'Activity',
-        formatter: (record: Reservation) => record.activities,
+        formatter: this.activityFormate.bind(this),
         width: 40
       },
       {
         name: 'campingCenter',
         label: 'campingCenter',
         formatter: (record: Reservation) => record.campingCenter,
+        width: 40
+      },
+      {
+        name: 'user',
+        label: 'user',
+        formatter: (record: Reservation) => record.user,
         width: 40
       },
       {
@@ -106,7 +112,7 @@ export class ReservationComponent implements OnInit {
         formatter: this.customerActionFormatter.bind(this),
         width: 100,
       },
-
+ 
     ];
   }
 
@@ -119,6 +125,11 @@ export class ReservationComponent implements OnInit {
   </div>`
     );
   }
+  activityFormate(record: Reservation): any {
+    return this.sanitizer.bypassSecurityTrustHtml(
+      `<p>${record.activities.map((activity) => activity.label)}</p>`
+
+    );}
   
    // formats  status
    reservationStatusFormatter(reservation:Reservation): any {
@@ -136,12 +147,31 @@ export class ReservationComponent implements OnInit {
   }
 
   onViewClicked(res: any): void {
-    this.router.navigate(['/admin/reservation/view', res.id]);
+    this.router.navigate(['/admin/reservations/view', res.id]);
   }
   onEditClicked(res: any): void {
-    this.router.navigate(['/admin/reservation/update', res.id]);
+    this.router.navigate(['/admin/reservations/updatereservation', res.id]);
   }
 
+  // exportword(id) {
+  //   axios({
+  //     url: "documents/" + id,
+  //     method: "GET",
+  //     responseType: "blob",
+  //   }).then((response) => {
+  //     var headers = response.headers;
+  //     console.log(headers);
+  //     var fileURL = window.URL.createObjectURL(
+  //       new Blob([response.data], { type: headers["content-type"] })
+  //     );
+  //     var fileLink = document.createElement("a");
+  //     fileLink.href = fileURL;
+  //     fileLink.setAttribute("download", "conceptionTransfo.doc");
+  //     document.body.appendChild(fileLink);
+
+  //     fileLink.click();
+  //   });
+  // },
 
 /**
  * Compare two cell values

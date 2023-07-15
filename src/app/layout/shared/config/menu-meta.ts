@@ -62,6 +62,7 @@ const MENU_ITEMS: MenuItem[] = [
         icon: 'home',
         collapsed: true,
         children: [
+
             {
                 key: 'Camping-center',
                 label: 'Camping-center',
@@ -80,14 +81,37 @@ const MENU_ITEMS: MenuItem[] = [
         ]
     },
     {
-        key: 'Activities ',
-        label: 'Activity',
+        key: 'Activities',
+        label: 'Activities',
         isTitle: false,
         icon: 'activity',
         collapsed: true,
-        link: '/admin/activities',
-       
+        children: [
+
+            {
+                key: 'Activities ',
+                label: 'Activity',
+                link: '/admin/activities',
+                parentKey: 'Activities',
+            },
+            {
+                key: 'Activities-feedbacks',
+                label: 'Activities-feedbacks',
+                link: '/admin/activity-feedback',
+                parentKey: 'Activities',
+            },
+            
+        ]
     },
+    // {
+    //     key: 'Activities ',
+    //     label: 'Activity',
+    //     isTitle: false,
+    //     icon: 'activity',
+    //     collapsed: true,
+    //     link: '/admin/activities',
+       
+    // },
     {
         key: 'Reservations ',
         label: 'Reservations',
@@ -97,6 +121,76 @@ const MENU_ITEMS: MenuItem[] = [
         link: '/admin/reservations',
         
     },
+    {
+        key: 'ecommerces',
+        label: 'Ecommerce',
+        isTitle: false,
+        icon: 'shopping-cart',
+        collapsed: true,
+        children: [
+            {
+                key: 'ecommerce-dashboard',
+                label: 'Dashboard',
+                link: '/ecommerces/dashboard',
+                parentKey: 'apps-ecommerce',
+            },
+            {
+                key: 'ecommerce-products',
+                label: 'Products',
+                link: '/apps/ecommerces/products',
+                parentKey: 'apps-ecommerce',
+            },
+            {
+                key: 'ecommerce-details',
+                label: 'Product Details',
+                link: '/apps/ecommerce/product/details/',
+                parentKey: 'apps-ecommerce',
+            },
+            {
+                key: 'ecommerce-products-edit',
+                label: 'Add Product',
+                link: '/ecommerces/products/add-product',
+                parentKey: 'apps-ecommerce',
+            },
+            {
+                key: 'ecommerce-customers',
+                label: 'Customers',
+                link: '/apps/ecommerce/customers',
+                parentKey: 'apps-ecommerce',
+            },
+            {
+                key: 'ecommerce-orders',
+                label: 'Orders',
+                link: '/apps/ecommerce/orders',
+                parentKey: 'apps-ecommerce',
+            },
+            {
+                key: 'ecommerce-order-details',
+                label: 'Order Details',
+                link: '/ecommerce/order/details',
+                parentKey: 'apps-ecommerce',
+            },
+            {
+                key: 'ecommerce-sellers',
+                label: 'Sellers',
+                link: '/apps/ecommerce/sellers',
+                parentKey: 'apps-ecommerce',
+            },
+            {
+                key: 'ecommerce-shopping-cart',
+                label: 'Shopping Cart',
+                link: '/apps/ecommerce/shopping-cart',
+                parentKey: 'apps-ecommerce',
+            },
+            {
+                key: 'ecommerce-checkout',
+                label: 'Checkout',
+                link: '/apps/ecommerce/checkout',
+                parentKey: 'apps-ecommerce',
+            },
+        ],
+    },
+
 
     
     
@@ -133,19 +227,19 @@ const MENU_ITEMS: MenuItem[] = [
             {
                 key: 'ecommerce-products',
                 label: 'Products',
-                link: '/admin/apps/ecommerce/products',
+                link: '/ecommerces/products',
                 parentKey: 'apps-ecommerce',
             },
             {
                 key: 'ecommerce-details',
                 label: 'Product Details',
-                link: '/admin/apps/ecommerce/product/details/',
+                link: '/ecommerces/products/product-details',
                 parentKey: 'apps-ecommerce',
             },
             {
                 key: 'ecommerce-products-edit',
                 label: 'Add Product',
-                link: '/admin/apps/ecommerce/products-edit',
+                link: '/ecommerces/products/add-product',
                 parentKey: 'apps-ecommerce',
             },
             {
@@ -157,7 +251,7 @@ const MENU_ITEMS: MenuItem[] = [
             {
                 key: 'ecommerce-orders',
                 label: 'Orders',
-                link: '/admin/apps/ecommerce/orders',
+                link: '/ecommerces/commands/',
                 parentKey: 'apps-ecommerce',
             },
             {
@@ -175,7 +269,7 @@ const MENU_ITEMS: MenuItem[] = [
             {
                 key: 'ecommerce-shopping-cart',
                 label: 'Shopping Cart',
-                link: '/admin/apps/ecommerce/shopping-cart',
+                link: 'ecommerces/commands/ShoppingCart',
                 parentKey: 'apps-ecommerce',
             },
             {
@@ -633,7 +727,7 @@ const TWO_COl_MENU_ITEMS: MenuItem[] = [
                     {
                         key: 'ecommerce-products',
                         label: 'Products',
-                        link: '/admin/apps/ecommerce/products',
+                        link: '/pages/ecommerces/products',
                         parentKey: 'apps-ecommerce',
                     },
                     {
@@ -1188,7 +1282,7 @@ const HORIZONTAL_MENU_ITEMS: MenuItem[] = [
                     {
                         key: 'ecommerce-products',
                         label: 'Products',
-                        link: '/admin/apps/ecommerce/products',
+                        link: '/pages/ecommerces/products',
                         parentKey: 'apps-ecommerce',
                     },
                     {
