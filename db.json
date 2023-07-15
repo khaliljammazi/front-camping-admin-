@@ -1,0 +1,256 @@
+{
+  "feedbacks": [
+    {
+      "id": 6,
+      "label": "string",
+      "description": "I really enjoyed the place",
+      "rating": 5,
+      "likes": 0,
+      "dislikes": 0,
+      "createdAt": "2023-06-14T11:09:37.000+00:00",
+      "modifiedAt": "2023-06-14T11:09:37.000+00:00",
+      "user": {
+        "id": 1,
+        "nom": "admin",
+        "prenom": "admin",
+        "email": "admin@test.com",
+        "password": "admin",
+        "tokenExpired": false,
+        "createdAt": "2023-06-13T19:47:41Z",
+        "modifiedAt": "2023-06-13T19:47:41Z",
+        "roles": [
+          {
+            "id": 1,
+            "name": "ROLE_SUPER_ADMIN"
+          }
+        ],
+        "active": true,
+        "emailValide": true
+      },
+      "campingCenter": {
+        "id": 1,
+        "label": "Camping Center Tunis",
+        "image": null,
+        "description": "string",
+        "location": "string",
+        "price": 0,
+        "discount": 0,
+        "capacity": 0,
+        "createdAt": "2023-06-14T10:25:28Z",
+        "modifiedAt": "2023-06-14T10:25:28Z",
+        "activities": [
+          {
+            "id": 1,
+            "label": "string",
+            "image": null,
+            "description": "string",
+            "discount": 0,
+            "price": 0,
+            "duration": 0,
+            "number": 0,
+            "capacity": 0,
+            "createdAt": "2023-06-14T10:25:28Z",
+            "modifiedAt": "2023-06-14T10:25:28Z",
+            "active": true
+          }
+        ],
+        "active": true
+      },
+      "product": null,
+      "activity": null,
+      "active": true
+    },
+    {
+      "id": 6,
+      "label": "string",
+      "description": "I really enjoyed the place test",
+      "rating": 5,
+      "likes": 0,
+      "dislikes": 0,
+      "createdAt": "2023-06-14T11:09:37.000+00:00",
+      "modifiedAt": "2023-06-14T11:09:37.000+00:00",
+      "user": {
+        "id": 1,
+        "nom": "admin",
+        "prenom": "admin",
+        "email": "admin@test.com",
+        "password": "admin",
+        "tokenExpired": false,
+        "createdAt": "2023-06-13T19:47:41Z",
+        "modifiedAt": "2023-06-13T19:47:41Z",
+        "roles": [
+          {
+            "id": 1,
+            "name": "ROLE_SUPER_ADMIN"
+          }
+        ],
+        "active": true,
+        "emailValide": true
+      },
+      "campingCenter": {
+        "id": 1,
+        "label": "Camping Center Tunis",
+        "image": null,
+        "description": "string",
+        "location": "string",
+        "price": 0,
+        "discount": 0,
+        "capacity": 0,
+        "createdAt": "2023-06-14T10:25:28Z",
+        "modifiedAt": "2023-06-14T10:25:28Z",
+        "activities": [
+          {
+            "id": 1,
+            "label": "string",
+            "image": null,
+            "description": "string",
+            "discount": 0,
+            "price": 0,
+            "duration": 0,
+            "number": 0,
+            "capacity": 0,
+            "createdAt": "2023-06-14T10:25:28Z",
+            "modifiedAt": "2023-06-14T10:25:28Z",
+            "active": true
+          }
+        ],
+        "active": true
+      },
+      "product": null,
+      "activity": null,
+      "active": true
+    },
+    {
+      "id": 6,
+      "label": "string",
+      "description": "string",
+      "rating": 0,
+      "likes": 0,
+      "dislikes": 0,
+      "createdAt": "2023-06-14T11:09:37.000+00:00",
+      "modifiedAt": "2023-06-14T11:09:37.000+00:00",
+      "user": {
+        "id": 1,
+        "nom": "admin",
+        "prenom": "admin",
+        "email": "admin@test.com",
+        "password": "admin",
+        "tokenExpired": false,
+        "createdAt": "2023-06-13T19:47:41Z",
+        "modifiedAt": "2023-06-13T19:47:41Z",
+        "roles": [
+          {
+            "id": 1,
+            "name": "ROLE_SUPER_ADMIN"
+          }
+        ],
+        "active": true,
+        "emailValide": true
+      },
+      "campingCenter": {
+        "id": 1,
+        "label": "Camping Center Gafsa",
+        "image": null,
+        "description": "string",
+        "location": "string",
+        "price": 0,
+        "discount": 0,
+        "capacity": 0,
+        "createdAt": "2023-06-14T10:25:28Z",
+        "modifiedAt": "2023-06-14T10:25:28Z",
+        "activities": [
+          {
+            "id": 1,
+            "label": "string",
+            "image": null,
+            "description": "string",
+            "discount": 0,
+            "price": 0,
+            "duration": 0,
+            "number": 0,
+            "capacity": 0,
+            "createdAt": "2023-06-14T10:25:28Z",
+            "modifiedAt": "2023-06-14T10:25:28Z",
+            "active": true
+          }
+        ],
+        "active": true
+      },
+      "product": null,
+      "activity": null,
+      "active": true
+    },
+    {
+      "id": 6,
+      "label": "string",
+      "description": "string",
+      "rating": 0,
+      "likes": 0,
+      "dislikes": 0,
+      "createdAt": "2023-06-14T11:09:37.000+00:00",
+      "modifiedAt": "2023-06-14T11:09:37.000+00:00",
+      "user": {
+        "id": 1,
+        "nom": "admin",
+        "prenom": "admin",
+        "email": "admin@test.com",
+        "password": "admin",
+        "tokenExpired": false,
+        "createdAt": "2023-06-13T19:47:41Z",
+        "modifiedAt": "2023-06-13T19:47:41Z",
+        "roles": [
+          {
+            "id": 1,
+            "name": "ROLE_SUPER_ADMIN"
+          }
+        ],
+        "active": true,
+        "emailValide": true
+      },
+      "campingCenter": {
+        "id": 1,
+        "label": "Camping Center Sousse",
+        "image": null,
+        "description": "string",
+        "location": "string",
+        "price": 0,
+        "discount": 0,
+        "capacity": 0,
+        "createdAt": "2023-06-14T10:25:28Z",
+        "modifiedAt": "2023-06-14T10:25:28Z",
+        "activities": [
+          {
+            "id": 1,
+            "label": "string",
+            "image": null,
+            "description": "string",
+            "discount": 0,
+            "price": 0,
+            "duration": 0,
+            "number": 0,
+            "capacity": 0,
+            "createdAt": "2023-06-14T10:25:28Z",
+            "modifiedAt": "2023-06-14T10:25:28Z",
+            "active": true
+          }
+        ],
+        "active": true
+      },
+      "product": null,
+      "activity": null,
+      "active": true
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
+
+

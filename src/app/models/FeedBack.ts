@@ -1,6 +1,6 @@
 import { CampingCenter } from './CampingCenter';
-//import { Product } from './Product';
 import { Activity } from './Activity';
+import { User } from './user';
 
 export class FeedBack {
   id!:number;
@@ -13,6 +13,6 @@ export class FeedBack {
   createdAt!:Date;
   modifiedAt!:Date;
   campingCenter!:CampingCenter;
- // product!: Product;
+  user!: User;
   activity!:Activity;
 }
