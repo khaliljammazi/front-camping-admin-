@@ -35,6 +35,7 @@ const routes: Routes = [
   { path: 'camping-center', loadChildren: () => import('./camping-center/camping-center.module').then(m => m.CampingCenterModule) },
   { path: 'activities', loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule) },
   { path: 'reservations', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) },
+  { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
 ];
 
 @NgModule({

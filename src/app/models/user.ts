@@ -1,5 +1,5 @@
 export class User {
-  id?: number;
+  id!: number;
   nom?: string;
   prenom?: string;
   email?: string;
@@ -12,7 +12,7 @@ export class User {
   active?: true | false;
   enabled?: true | false;
   emailValide?: true | false;
-  authorities?: Authority[];
+  authorities?: any [];
   username?: string;
   accountNonLocked?: true | false;
   accountNonExpired?: true | false;
@@ -21,7 +21,4 @@ export class User {
 export class Role {
   id?: number;
   name?: string;
-}
-export class Authority {
-  authority?: string;
 }

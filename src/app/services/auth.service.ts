@@ -20,7 +20,7 @@ export class AuthService {
   private user = new BehaviorSubject<User>(new User());
   sharedUser = this.user.asObservable();
 
-  nextUser(new_user: any) {
+  nextUser(new_user: User) {
     console.log(new_user);
     
     this.user.next(new_user);
@@ -43,14 +43,15 @@ export class AuthService {
 
   // enters User object
   // Return Token
-  public logIn(email: string, password: string): Observable<any> {
+  public logIn(email: string, password: string): Observable<{ token: any | string; user: User }> {
     return this.httpClient
-      .post<{ token: any; user: any }>(this.url + "login", { email, password })
+      .post<{ token: any | string; user: User }>(this.url + "login", { email, password })
       .pipe(
-        map((res: { token: any; user: any }) => {
+        map((res: { token: any | string; user: User }) => {
           // store jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem("token", res.token);
           this.tokenService.nextToken(res.token);
+          delete res.user?.authorities;
           this.nextUser(res.user);
           return res.token;
         })
@@ -58,12 +59,13 @@ export class AuthService {
   }
   // enters User object
   // Return Token
-  public register(user: User): Observable<any> {
+  public register(user: User): Observable<{ token: any | string; user: User }> {
     return this.httpClient
-      .post<{ token: any; user: any }>(this.url + "register", user)
+      .post<{ token: any | string; user: User }>(this.url + "register", user)
       .pipe(
-        map((res: { token: any; user: any }) => {
+        map((res: { token: any | string; user: User }) => {
           localStorage.setItem("token", res.token);
+          delete res.user?.authorities;
           this.nextUser(res.user);
           this.tokenService.nextToken(res.token);
           return res.token;

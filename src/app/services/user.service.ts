@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { TokenService } from './token.service';
-import { User } from '../models/user';
+import { Role, User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -38,12 +38,25 @@ export class UserService {
     return this.httpClient.get<User[]>(this.url);
   }
 
+    
+  /**
+   * Returns all roles
+   * 
+   */
+  public getAllRoles(): Observable<Role[]> {
+    return this.httpClient.get<Role[]>(this.url+'roles');
+  }
+
   /**
    * Enters User object
    * Return User object moddified
    */
   public update(user: User, id: any): Observable<any> {
-    return this.httpClient.put(this.url + id, User);
+    return this.httpClient.put(this.url + id, user);
+  }
+
+  add(user: User): Observable<any> {
+    return this.httpClient.post(this.url , user);
   }
 
   // enters Object object

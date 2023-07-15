@@ -59,6 +59,8 @@ export class LoginComponent implements OnInit {
             this.router.navigate([this.returnUrl]);
           },
           (error: any) => {
+            console.log(error);
+            if((error as String).includes("400")) error = "Bad credentials";
             this.error = error;
             this.loading = false;
           });
