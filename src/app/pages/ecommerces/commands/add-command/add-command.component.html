@@ -1,0 +1,366 @@
+<!-- page title -->
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <ul ngbNav #nav="ngbNav" class="nav-pills flex-column navtab-bg nav-pills-tab text-center">
+                            <li ngbNavItem>
+                                <a ngbNavLink class="py-2">
+                                    <i class="mdi mdi-account-circle d-block font-24"></i>
+                                    Billing Info
+                                </a>
+                                <ng-template ngbNavContent>
+                                    <div>
+                                        <h4 class="header-title">Billing Information</h4>
+                                    
+                                        <p class="sub-header">Fill the form below in order to
+                                            send you the order's invoice.</p>
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="billing-first-name" class="form-label">First
+                                                            Name</label>
+                                                        <input class="form-control" type="text" placeholder="Enter your first name"
+                                                            id="billing-first-name" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="billing-last-name" class="form-label">Last Name</label>
+                                                        <input class="form-control" type="text" placeholder="Enter your last name" id="billing-last-name" />
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end row -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="billing-email-address" class="form-label">Email Address
+                                                            <span class="text-danger">*</span></label>
+                                                        <input class="form-control" type="email" placeholder="Enter your email"
+                                                            id="billing-email-address" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="billing-phone" class="form-label">Phone <span class="text-danger">*</span></label>
+                                                        <input class="form-control" type="text" placeholder="(xx) xxx xxxx xxx" id="billing-phone" />
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end row -->
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label for="billing-address" class="form-label">Address</label>
+                                                        <input class="form-control" type="text" placeholder="Enter full address" id="billing-address">
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end row -->
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                        <label for="billing-town-city" class="form-label">Town /
+                                                            City</label>
+                                                        <input class="form-control" type="text" placeholder="Enter your city name" id="billing-town-city" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                        <label for="billing-state" class="form-label">State</label>
+                                                        <input class="form-control" type="text" placeholder="Enter your state" id="billing-state" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                        <label for="billing-zip-postal" class="form-label">Zip Code</label>
+                                                        <input class="form-control" type="text" placeholder="Enter your zip code" id="billing-zip-postal" />
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end row -->
+                                            <div class="row">
+                                                <div class="col-12">
+                                                   
+                                                </div>
+                                            </div> <!-- end row -->
+                                    
+                                            <div class="row">
+                                                <div class="col-12">
+                                                  
+                                    
+                                                </div>
+                                            </div> <!-- end row -->
+                                    
+                                            <div class="row mt-4">
+                                                <div class="col-sm-6">
+                                                    <a href="#Shipping" class="btn btn-secondary">
+                                                        <i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
+                                                </div> <!-- end col -->
+                                                <div class="col-sm-6">
+                                                    <div class="text-sm-end mt-2 mt-sm-0">
+                                                        <a href="#Shipping" class="btn btn-success">
+                                                            <i class="mdi mdi-truck-fast me-1"></i> Proceed to Shipping </a>
+                                                    </div>
+                                                </div> <!-- end col -->
+                                            </div> <!-- end row -->
+                                        </form>
+                                    </div>
+                                </ng-template>
+                            </li>
+                            <li ngbNavItem >
+                                <a ngbNavLink class="mt-2 py-2">
+                                    <i class="mdi mdi-truck-fast d-block font-24"></i>
+                                    Shipping Info
+                                </a>
+                                <ng-template ngbNavContent id="Shipping">
+                                    <div>
+                                        <h4 class="header-title">Saved Address</h4>
+                                    
+                                        <p class="sub-header">Fill the form below in order to
+                                            send you the order's invoice.</p>
+                                    
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="border p-3 rounded mb-3 mb-md-0">
+                                                    <div class="float-end">
+                                                        <a href="javascript:void(0)"><i class="mdi mdi-square-edit-outline text-muted font-20"></i></a>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input type="radio" id="customRadio1" name="customRadio" class="form-check-input" checked>
+                                                        <label class="form-check-label font-16 fw-bold" for="customRadio1">Home</label>
+                                                    </div>
+                                                    <h5 class="mt-3">Brent Rowe</h5>
+                                    
+                                                    <p class="mb-2"><span class="fw-semibold me-2">Address:</span> 3559
+                                                        Roosevelt Wilson Lane San Bernardino, CA 92405</p>
+                                                    <p class="mb-2"><span class="fw-semibold me-2">Phone:</span> (123)
+                                                        456-7890</p>
+                                                    <p class="mb-0"><span class="fw-semibold me-2">Mobile:</span> (+01)
+                                                        12345 67890</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="border p-3 rounded mb-3 mb-md-0">
+                                                    <div class="float-end">
+                                                        <a href="javascript:void(0)"><i class="mdi mdi-square-edit-outline text-muted font-20"></i></a>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input type="radio" id="customRadio2" name="customRadio" class="form-check-input">
+                                                        <label class="form-check-label font-16 fw-bold" for="customRadio2">Office</label>
+                                                    </div>
+                                    
+                                                    <h5 class="mt-3">Brent Rowe</h5>
+                                    
+                                                    <p class="mb-2"><span class="fw-semibold me-2">Address:</span> 3559
+                                                        Roosevelt Wilson Lane San Bernardino, CA 92405</p>
+                                                    <p class="mb-2"><span class="fw-semibold me-2">Phone:</span> (123)
+                                                        456-7890</p>
+                                                    <p class="mb-0"><span class="fw-semibold me-2">Mobile:</span> (+01)
+                                                        12345 67890</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end row-->
+                                    
+                                        <h4 class="header-title mt-4">Shipping Method</h4>
+                                    
+                                        <p class="text-muted mb-3">Fill the form below in order to
+                                            send you the order's invoice.</p>
+                                    
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="border p-3 rounded mb-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" id="shippingMethodRadio1" name="shippingOptions" class="form-check-input"
+                                                            checked>
+                                                        <label class="form-check-label font-16 fw-bold" for="shippingMethodRadio1">Standard Delivery -
+                                                            FREE</label>
+                                                    </div>
+                                                    <p class="mb-0 ps-3 pt-1">Estimated 5-7 days shipping (Duties and tax
+                                                        may be due upon delivery)</p>
+                                                </div>
+                                    
+                                                <div class="border p-3 rounded">
+                                                    <div class="form-check">
+                                                        <input type="radio" id="shippingMethodRadio2" name="shippingOptions" class="form-check-input">
+                                                        <label class="form-check-label font-16 fw-bold" for="shippingMethodRadio2">Fast Delivery -
+                                                            $25</label>
+                                                    </div>
+                                                    <p class="mb-0 ps-3 pt-1">Estimated 1-2 days shipping (Duties and tax
+                                                        may be due upon delivery)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end row-->
+                                    
+                                        <div class="row mt-4">
+                                            <div class="col-sm-6">
+                                                <a href="" class="btn btn-secondary">
+                                                    <i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
+                                            </div> <!-- end col -->
+                                            <div class="col-sm-6">
+                                                <div class="text-sm-end mt-2 mt-sm-0">
+                                                    <a href="javacript:void(0)" class="btn btn-success">
+                                                        <i class="mdi mdi-cash-multiple me-1"></i> Continue to Payment </a>
+                                                </div>
+                                            </div> <!-- end col -->
+                                        </div> <!-- end row -->
+                                    </div>
+                                </ng-template>
+                            </li>
+                            <li ngbNavItem>
+                                <a ngbNavLink class="mt-2 py-2">
+                                    <i class="mdi mdi-cash-multiple d-block font-24"></i>
+                                    Payment Info
+                                </a>
+                                <ng-template ngbNavContent>
+                                    <div>
+                                        <h4 class="header-title">Payment Selection</h4>
+                                    
+                                        <p class="sub-header">Fill the form below in order to
+                                            send you the order's invoice.</p>
+                                    
+                                        <!-- Pay with Paypal box-->
+                                        <div class="border p-3 mb-3 rounded">
+                                            <div class="float-end">
+                                                <i class="fab fa-cc-paypal font-24 text-primary"></i>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" id="BillingOptRadio2" name="billingOptions" class="form-check-input">
+                                                <label class="form-check-label font-16 fw-bold" for="BillingOptRadio2">Pay
+                                                    with Paypal</label>
+                                            </div>
+                                            <p class="mb-0 ps-3 pt-1">You will be redirected to PayPal website to complete
+                                                your purchase securely.</p>
+                                    
+                                        </div>
+                                        <!-- end Pay with Paypal box-->
+                                    
+                                        <!-- Credit/Debit Card box-->
+                                        <div class="border p-3 mb-3 rounded">
+                                            <div class="float-end">
+                                                <i class="far fa-credit-card font-24 text-primary"></i>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" id="BillingOptRadio1" name="billingOptions" class="form-check-input" checked>
+                                                <label class="form-check-label font-16 fw-bold" for="BillingOptRadio1">Credit / Debit Card</label>
+                                            </div>
+                                            <p class="mb-0 ps-3 pt-1">Safe money transfer using your bank account. We
+                                                support Mastercard, Visa, Discover and Stripe.</p>
+                                    
+                                            <div class="row mt-4">
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label for="card-number" class="form-label">Card Number</label>
+                                                        <input type="text" id="card-number" class="form-control" data-toggle="input-mask"
+                                                            data-mask-format="0000 0000 0000 0000" placeholder="4242 4242 4242 4242">
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end row -->
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="card-name-on" class="form-label">Name on card</label>
+                                                        <input type="text" id="card-name-on" class="form-control" placeholder="Master Shreyu">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="mb-3">
+                                                        <label for="card-expiry-date" class="form-label">Expiry date</label>
+                                                        <input type="text" id="card-expiry-date" class="form-control" data-toggle="input-mask"
+                                                            data-mask-format="00/00" placeholder="MM/YY">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="mb-3">
+                                                        <label for="card-cvv" class="form-label">CVV code</label>
+                                                        <input type="text" id="card-cvv" class="form-control" data-toggle="input-mask"
+                                                            data-mask-format="000" placeholder="012">
+                                                    </div>
+                                                </div>
+                                            </div> <!-- end row -->
+                                        </div>
+                                        <!-- end Credit/Debit Card box-->
+                                    
+                                        <!-- Cash on Delivery box-->
+                                        <div class="border p-3 mb-3 rounded">
+                                            <div class="float-end">
+                                                <i class="fas fa-money-bill-alt font-24 text-primary"></i>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" id="BillingOptRadio4" name="billingOptions" class="form-check-input">
+                                                <label class="form-check-label font-16 fw-bold" for="BillingOptRadio4">Cash
+                                                    on Delivery</label>
+                                            </div>
+                                            <p class="mb-0 ps-3 pt-1">Pay with cash when your order is delivered.</p>
+                                        </div>
+                                        <!-- end Cash on Delivery box-->
+                                    
+                                        <div class="row mt-4">
+                                            <div class="col-sm-6">
+                                                <a [routerLink]="['../shopping-cart']" class="btn btn-secondary">
+                                                    <i class="mdi mdi-arrow-left"></i> Back to Shopping Cart </a>
+                                            </div> <!-- end col -->
+                                            <div class="col-sm-6">
+                                                <div class="text-sm-end mt-2 mt-sm-0">
+                                                    <a href="javacript:void(0)" class="btn btn-success">
+                                                        <i class="mdi mdi-cash-multiple me-1"></i> Complete Order </a>
+                                                </div>
+                                            </div> <!-- end col -->
+                                        </div> <!-- end row-->
+                                    
+                                    </div>
+                                </ng-template>
+                            </li>
+
+                        </ul>
+
+
+                        <div class="border mt-4 rounded" >
+                            <h4 class="header-title p-2 mb-0">Order Summary</h4>
+                        
+                            <div class="table-responsive">
+                                <table class="table table-centered table-nowrap mb-0" *ngFor="let item of productCommands">
+                                    <tbody>
+                                        <tr >
+                                            <td style="width: 90px;">
+                                                <img [src]="item.product.image" alt="product-img" title="product-img" class="rounded" height="48" />
+                                            </td>
+                                            <td>
+                                                <a href="javascript:void(0)" class="text-body fw-semibold">{{item.product.name}}</a>
+                                                <br>
+                                                <small>{{item.quantity}} x{{item.product.price}}</small>
+                        
+                                            </td>
+                                            <td class="text-end">
+                                                matricule: {{item.product.matricule}}  
+                                            </td>
+                                        </tr>
+                        
+                                        <tr class="text-end">
+                                            <td colspan="2">
+                                                <h5 class=" text-end m-0 ">Total:</h5>
+                                            </td>
+                                            <td class=" fw-semibold">
+                                                {{item.priceTotal}} DT
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- end table-responsive -->
+                        </div> <!-- end .border-->
+                    </div> <!-- end col-->
+                    <div class="col-lg-8">
+                        <div [ngbNavOutlet]="nav" class="p-3"></div>
+                    </div> <!-- end col-->
+                </div> <!-- end row-->
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->

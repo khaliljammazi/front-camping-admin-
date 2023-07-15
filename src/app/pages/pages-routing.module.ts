@@ -36,6 +36,7 @@ const routes: Routes = [
   { path: 'reservation', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) },
   { path: 'reservation/AddReservation', loadChildren: () => import('./reservation/add-reservation/add-reservation.module').then(m => m.AddReservationModule) },
   { path: 'pages/reservation/UpdateReservation', loadChildren: () => import('./reservation/update-reservation/update-reservation.module').then(m => m.UpdateReservationModule) },
+  { path: 'ecommerces', loadChildren: () => import('./ecommerces/ecommerces.module').then(m => m.EcommercesModule) },
 ];
 
 @NgModule({
