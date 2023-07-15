@@ -62,6 +62,7 @@ const MENU_ITEMS: MenuItem[] = [
         icon: 'home',
         collapsed: true,
         children: [
+
             {
                 key: 'Camping-center',
                 label: 'Camping-center',
@@ -80,14 +81,37 @@ const MENU_ITEMS: MenuItem[] = [
         ]
     },
     {
-        key: 'Activities ',
-        label: 'Activity',
+        key: 'Activities',
+        label: 'Activities',
         isTitle: false,
         icon: 'activity',
         collapsed: true,
-        link: '/admin/activities',
-       
+        children: [
+
+            {
+                key: 'Activities ',
+                label: 'Activity',
+                link: '/admin/activities',
+                parentKey: 'Activities',
+            },
+            {
+                key: 'Activities-feedbacks',
+                label: 'Activities-feedbacks',
+                link: '/admin/activity-feedback',
+                parentKey: 'Activities',
+            },
+            
+        ]
     },
+    // {
+    //     key: 'Activities ',
+    //     label: 'Activity',
+    //     isTitle: false,
+    //     icon: 'activity',
+    //     collapsed: true,
+    //     link: '/admin/activities',
+       
+    // },
     {
         key: 'Reservations ',
         label: 'Reservations',
@@ -113,7 +137,7 @@ const MENU_ITEMS: MenuItem[] = [
             {
                 key: 'ecommerce-products',
                 label: 'Products',
-                link: '/ecommerces/products',
+                link: '/apps/ecommerces/products',
                 parentKey: 'apps-ecommerce',
             },
             {
