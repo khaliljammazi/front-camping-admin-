@@ -35,7 +35,8 @@ const routes: Routes = [
   { path: 'camping-center', loadChildren: () => import('./camping-center/camping-center.module').then(m => m.CampingCenterModule) },
   { path: 'camping-center-feedbaks', loadChildren: () => import('./camping-center-feedback/camping-center-feedback.module').then(m => m.CampingCenterFeedbackModule) },
   { path: 'activities', loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule) },
-  { path: 'reservations', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) }
+  { path: 'reservations', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) },
+  { path: 'ecommerces', loadChildren: () => import('./ecommerces/ecommerces.module').then(m => m.EcommercesModule) },
 ];
 
 @NgModule({

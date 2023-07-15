@@ -4,6 +4,7 @@ import { ClientSideComponent } from './client-side.component';
 
 const routes: Routes = [{ path: '', component: ClientSideComponent ,children: [
   { path: '', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)},
+  { path: 'products', loadChildren: () => import('../client-side/pages/ecommerces/products/products.module').then(m => m.ProductsModule)}
   
 ]},
   

@@ -1,0 +1,141 @@
+<h2 [innerHtml]="productId ? 'Edit Product' : 'Add Product'" ></h2>
+
+<form [formGroup]="newProductForm" #addProduct="ngForm" (ngSubmit)="saveProduct()" >
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">Product</h5>
+          <div class=" mb-3 form-group">
+            <label for="matricule">Matricule <span class="text-danger">*</span></label>
+            <input type="text" id="matricule" class="form-control" formControlName="matricule" required>
+          </div>
+
+          <div class=" mb-3 form-group">
+            <label for="name">Name <span class="text-danger">*</span></label>
+            <input type="text" id="name" class="form-control" formControlName="name" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="product-description" class="form-label">Product Description <span class="text-danger">*</span></label>
+            <div id="snow-editor">
+              <quill-editor formControlName="description" [styles]="{height: '150px'}" #quillEditor [sanitize]="true">
+              </quill-editor>
+            </div>
+          </div>
+
+          <div class=" mb-3 form-group">
+            <label for="price">Price<span class="text-danger">*</span></label>
+            <input type="number" id="price" class="form-control" formControlName="price" required>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="discount">Discount<span class="text-danger">*</span></label>
+            <input type="number" id="discount" class="form-control" formControlName="discount" required>
+          </div>
+
+          <div class=" mb-3 form-group">
+            <label for="stock">Stock<span class="text-danger">*</span></label>
+            <input type="number" id="stock" class="form-control" formControlName="stock" required>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="vendingType" class="form-label"> VendingType <span class="text-danger">*</span></label>
+            <select class="form-select" formControlName="vendingType" required>
+              <option value="AVENDRE">AVENDRE</option>
+              <option value="ALOUER">ALOUER</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="mb-2">Status <span class="text-danger">*</span></label>
+            <br />
+            <div class="d-flex flex-wrap">
+              <div class="form-check me-2">
+                <input class="form-check-input" type="radio" value="true" formControlName="active" id="inlineRadio1">
+                <label class="form-check-label" for="inlineRadio1">Active</label>
+              </div>
+              <div class="form-check me-2">
+                <input class="form-check-input" type="radio" value="false" formControlName="active" id="inlineRadio2">
+                <label class="form-check-label" for="inlineRadio2">Inactive</label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">Product Images</h5>
+
+          <ngx-dropzone (change)="onSelect($event)" class="dropzone" accept="image/jpeg,image/jpg,image/png,image/gif">
+            <ngx-dropzone-label>
+              <i class="h1 text-muted dripicons-cloud-upload"></i>
+              <h3>Drop files here or click to upload.</h3>
+              <span class="text-muted font-13">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+            </ngx-dropzone-label>
+
+          </ngx-dropzone>
+         
+
+          <div class="dropzone-previews mt-3" id="file-previews">
+
+            <div id="uploadPreviewTemplate" *ngIf="productImage">
+              <div class="card mt-1 mb-0 shadow-none border">
+                <div class="p-2">
+                  <div class="row align-items-center" >
+                    <div class="col-auto">
+                      <img class="avatar-sm rounded bg-light" [alt]="productImage" [src]="productImage">
+                    </div>
+                    <div class="col ps-0">
+                      <a href="javascript:void(0);" class="text-muted fw-bold">{{ productImage }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="uploadPreviewTemplate" *ngFor="let file of files">
+              <div class="card mt-1 mb-0 shadow-none border">
+                <div class="p-2">
+                  <div class="row align-items-center">
+                    <div class="col-auto">
+                      
+                      <img class="avatar-sm rounded bg-light" [alt]="file.name" [src]="getPreviewUrl(file)">
+                
+                    </div>
+                    <div class="col ps-0">
+                      <a href="javascript:void(0);" class="text-muted fw-bold">{{ file.name }}</a>
+                      <p class="mb-0">{{ getSize(file) }}</p>
+                    </div>
+                    <div class="spinner-border" role="status" *ngIf="uploading">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <div class="col-auto">
+                      <a href="javascript:void(0);" class="btn btn-link text-muted btn-lg p-0" (click)="onRemove(file)">
+                        <i class="uil uil-multiply"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+     
+    </div> <!-- end col -->
+  </div> <!-- end row -->
+  <div class="text-end mt-4" style="margin-bottom: 30px ;">
+    <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1">
+      {{ productId ? 'Update' : 'Save' }}
+    </button>
+    <button type="reset" class="btn btn-secondary waves-effect waves-light">Reset</button>
+  </div>
+</form>

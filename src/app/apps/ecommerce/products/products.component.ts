@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/services/product.service';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
-import { PRODUCTLIST } from '../shared/data';
-import { Product } from '../shared/ecommerce.model';
+
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-ecommerce-products',
@@ -16,7 +17,9 @@ export class ProductsComponent implements OnInit {
   page = 1;
   pageSize = 8;
 
-  constructor () { }
+  constructor (
+    private productService: ProductService,  
+  ) { }
 
   ngOnInit(): void {
     this.pageTitle = [{ label: 'Ecommerce', path: '/' }, { label: 'Products', path: '/', active: true }];
@@ -27,7 +30,14 @@ export class ProductsComponent implements OnInit {
    * fetches product list
    */
   _fetchData(): void {
-    this.products = PRODUCTLIST;
+     this.productService.getAllProducts().subscribe(
+      (response: Product[]) => {
+        this.products = response;
+      },
+      (error: any) => {
+        console.error('Error fetching products', error);
+      }
+    );
   }
 
 
@@ -40,7 +50,7 @@ export class ProductsComponent implements OnInit {
       this._fetchData();
     }
     else {
-      let updatedData = PRODUCTLIST;
+      let updatedData = [...this.products];
       //  filter
       updatedData = updatedData.filter(product => product.name?.toLowerCase().includes(searchTerm));
       this.products = updatedData;

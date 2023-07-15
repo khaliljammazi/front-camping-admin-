@@ -6,7 +6,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { PageTitleModule } from 'src/app/shared/page-title/page-title.module';
 import { AddProductRoutingModule } from './add-product-routing.module';
 import { AddProductComponent } from './add-product.component';
-
+import { HttpClientModule} from '@angular/common/http';
 
 
 
@@ -20,7 +20,8 @@ import { AddProductComponent } from './add-product.component';
     NgxDropzoneModule,
     Select2Module,
     PageTitleModule,
-    AddProductRoutingModule
+    AddProductRoutingModule,
+    HttpClientModule
   ]
 })
 export class AddProductModule { }
