@@ -1,0 +1,53 @@
+<app-page-title [breadcrumbItems]="pageTitle" title="Camping Centers Feedbacks"></app-page-title>
+<div class="row">
+  <div class="col-lg-12" *ngFor="let campcenter of campcenters">
+    <div class="card" [class.closed]="isClosed">
+      <div class="card-header py-3 bg-dark text-light" [class]="getCardHeaderClass(campcenter.id)">
+        <div class="card-widgets">
+          <a href="javascript:void(0);" (click)="refreshCardContent(campcenter.id)">
+            <i class="mdi mdi-refresh"></i>
+          </a>
+          <a href="javascript:void(0)" (click)="toggleCollapse(campcenter.id)"
+            [attr.aria-expanded]="!isCardCollapsed[campcenter.id]"
+            role="button" [attr.aria-controls]="'collapse-' + campcenter.id">
+            <i [class]="isCardCollapsed[campcenter.id] ? 'mdi mdi-plus' : 'mdi mdi-minus'"></i>
+          </a>
+          <a href="javascript:void(0)" (click)="closeCard()"><i class="mdi mdi-close"></i></a>
+        </div>
+        <h3 class="card-title mb-0 text-light">
+          {{ campcenter.label }}
+        </h3>
+      </div>
+
+      <div [id]="'collapse-' + campcenter.id" class="collapse" [class.show]="!isCardCollapsed[campcenter.id]">
+        <div class="card-body">
+          <div *ngIf="isRefreshing[campcenter.id]" class="loading-spinner"></div>
+          <table class="table table-hover" *ngIf="!isRefreshing[campcenter.id]">
+            <thead>
+              <tr>
+                <th>Customer Name</th>
+                <th>Description</th>
+                <th class="text-right">Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let feedback of feedbacks[campcenter.id]">
+                <td>{{ feedback.user.nom }} {{ feedback.user.prenom }}</td>
+                <td class="col-description">{{ feedback.description }}</td>
+                <td class="text-right col-rating">
+                  <div class="rating-stars">
+                    <i class="mdi mdi-star star-filled" *ngFor="let _ of [].constructor(feedback.rating)"></i>
+                    <i class="mdi mdi-star-outline star-empty" *ngFor="let _ of [].constructor(5 - feedback.rating)"></i>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="feedbacks[campcenter.id]?.length === 0">
+                <td colspan="3" class="text-center">No feedbacks available</td>
+              </tr>
+            </tbody>
+          </table>          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

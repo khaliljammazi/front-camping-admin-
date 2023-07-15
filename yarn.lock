@@ -2311,9 +2311,6 @@ es-module-lexer@^0.9.0:
 esbuild-wasm@0.14.22:
   version "0.14.22"
 
-esbuild-windows-64@0.14.22:
-  version "0.14.22"
-
 esbuild@0.14.22:
   version "0.14.22"
   optionalDependencies:
