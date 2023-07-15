@@ -1,6 +1,6 @@
 <!-- page title -->
 <app-page-title [breadcrumbItems]="pageTitle" title="Products"></app-page-title>
-
+hello
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -62,9 +62,9 @@
                             <h5 class="font-16 mt-0 sp-line-1"><a [routerLink]="['../product/details']"
                                     [queryParams]="{ id: product.id}" class="text-dark">{{product.name}}</a> </h5>
                             <div class="text-warning mb-2 font-13">
-                                <i class="fa fa-star me-1" *ngFor="let item of [].constructor(product.rating)"></i>
+                                <i class="fa fa-star me-1" ></i>
                             </div>
-                            <h5 class="m-0"> <span class="text-muted"> Stocks : {{product.quantity | number}} pcs</span>
+                            <h5 class="m-0"> <span class="text-muted"> Stocks : {{product.stock | number}} pcs</span>
                             </h5>
                         </div>
                         <div class="col-auto">

@@ -1,0 +1,84 @@
+<div class="container-fluid product-container">
+    <div class="row">
+      <div class="col-12">
+        <!-- Search and sort form -->
+        <div class="card" style="background-color: rgb(244, 241, 241); margin: 15px;">
+          <div class="card-body">
+            <div class="row justify-content-between">
+              <div class="col-auto">
+                <form class="d-flex flex-wrap align-items-center">
+                  <label for="inputPassword2" class="visually-hidden">Search</label>
+                  <div class="me-3">
+                    <input type="search" class="form-control my-1 my-lg-0" id="inputPassword2" name="search"
+                    placeholder="Search..." [(ngModel)]="searchTerm"
+                    (ngModelChange)="searchData($event)">
+                  </div>
+                  <label for="status-select" class="me-2">Sort By</label>
+                  <div class="me-sm-3">
+                    <select class="form-select my-1 my-lg-0" id="status-select" [(ngModel)]="selectedSortOption" [ngModelOptions]="{ standalone: true }"  (change)="sortData()">
+                      <option value="1"[selected]="selectedSortOption === '1'">All</option>
+                      <option value="2">Price Low</option>
+                      <option value="3">Price High</option>
+                      <option value="4">Sold Out</option>
+                  </select>
+                  </div>
+                </form>
+              </div>
+              <div class="col-auto">
+                <!-- Add New button -->
+                <div class="text-lg-end my-1 my-lg-0">
+                  <a [routerLink]="['add-product']" class="btn waves-effect waves-light"
+                    style="background-color:#ffbf37; color: rgb(17, 15, 15)">
+                    <i class="mdi mdi-plus-circle me-1"></i> Add New
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Advanced table -->
+    <div class="row" style="margin: 20px;">
+      <div class="col-12" style="overflow-x: auto;">
+        <table class="table table-centered" >
+          <thead class="table-light">
+            <tr>
+              <!-- Render column labels -->
+              <th *ngFor="let column of columns">{{ column.label }}</th>
+              <!-- Action column label -->
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Render table rows -->
+            <tr *ngFor="let product of products">
+              <!-- Render column values -->
+              <td *ngFor="let column of columns">
+                <div [innerHTML]="column.formatter(product)"></div>
+              </td>
+              <!-- Action buttons -->
+              <td>
+                <div class="text-center">
+                  <a (click)="editProduct(product.id)" class="action-icon">
+                    <i class="mdi mdi-square-edit-outline" style="color:black ;"></i>
+                  </a>
+                  <a (click)="deleteProduct(product.id)" class="action-icon">
+                    <i class="mdi mdi-delete" style="color:black;"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+      
+        </table>
+        <div class="col-12">
+          <div class="d-flex justify-content-end mb-2">
+            <ngb-pagination [collectionSize]="products.length" class="pagination-rounded" [(page)]="page" [pageSize]="pageSize"></ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,104 @@
+.product-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+
+.bg-light{
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    justify-content: center;
+    background-color: rgb(244, 241, 241) !important;
+}
+.description-container{
+    width: 100% !important;
+    height: 50px !important;
+    overflow-y: auto !important;
+    scrollbar-width: thin;
+  scrollbar-color: #ffbf37  #f5f5f5;
+
+}
+.description-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .description-container::-webkit-scrollbar-thumb {
+    background-color:#ffbf37;
+    border-radius: 4px;
+  }
+  
+  .description-container::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+  }
+  
+  .description-container::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+  }
+.discount{
+    font-size: 15px;
+    color: black !important;
+    background-color: aliceblue;
+    padding: 10px;
+}
+.stock {
+    background-color: rgb(241, 239, 239);
+    padding: 10px !important;
+    font-weight: bold !important;
+  
+  }
+  
+  .box_1{
+    border: 1px solid rgb(244, 241, 241)  ;
+    padding-top: 50px;
+    background-color:rgb(244, 241, 241);
+  }
+  .box_2{
+    border: 1px solid #ffc037dd ;
+    padding: 200px;
+    margin-left: 50px;
+    background-color: #ffc037c5;
+  }
+  .discount-badge {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color:black;
+    opacity: 0.6;
+    color: white;
+    padding: 5px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .custom-height {
+    height: 500px;
+  }
+  .product-container{
+    
+    background-color:white !important;
+  }
+ 
+.flaticon-shopping-cart {
+  
+  font-size: 30px !important;
+  line-height: 30px;
+  margin-right: 20px !important;
+  color: #3b251a;
+  font-weight: 700;
+}
+
+.product-box{
+  box-shadow: 5px 10px 18px #8888887a
+}
+.badge {
+  background-color: red;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 12px;
+  position: absolute;
+  top: 12px;
+  right: -3.5px;
+  margin-right: 35px;
+}
+
