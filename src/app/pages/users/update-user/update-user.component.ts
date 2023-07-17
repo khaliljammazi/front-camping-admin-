@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as filestack from "filestack-js";
-import { Select2Data } from "ng-select2-component";
+import { Select2Data, Select2Value } from "ng-select2-component";
 import { User } from "src/app/models/user";
 import { UserService } from "src/app/services/user.service";
 import { BreadcrumbItem } from "src/app/shared/page-title/page-title.model";
@@ -21,6 +21,7 @@ export class UpdateUserComponent implements OnInit {
   user_form!: FormGroup;
   files: File[] = [];
   roles: Select2Data = [];
+  already_selected: Select2Value = [];
   gmapConfig2: any;
   test: any;
 
@@ -62,6 +63,10 @@ export class UpdateUserComponent implements OnInit {
             };
           }),
         });
+        this.already_selected = data.roles.map((r) => {
+          return String(r.id);
+        });
+        console.log(this.already_selected);
       },
     });
 

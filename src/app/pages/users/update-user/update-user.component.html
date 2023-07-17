@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <select2 [data]="roles" placeholder="Select a Role" id="select-roles" multiple="true"
+                        <select2 [data]="roles" [value]="already_selected" placeholder="Select a Role" id="select-roles" multiple="true"
                             formControlName="roles" id="roles">
                         </select2>
                         <div *ngIf="userFormControls.roles.errors?.required">
