@@ -35,6 +35,11 @@ export class AdvancedTableComponent implements OnInit, AfterViewChecked {
   collectionSize: number = this.tableData.length;
   selectAll: boolean = false;
   isSelected: boolean[] = [];
+  // condition to show/hide the action buttons
+  @Input() showStatusChangeButton: boolean = true;
+  @Input() showEditButton: boolean = true;
+  @Input() showViewButton: boolean = true;
+  @Input() showPrintButton: boolean = false;
 
 
   @Output() search = new EventEmitter<string>();
@@ -43,6 +48,7 @@ export class AdvancedTableComponent implements OnInit, AfterViewChecked {
   @Output() changeStatusClicked: EventEmitter<any> = new EventEmitter<any>();
   @Output() editClicked: EventEmitter<any> = new EventEmitter<any>();
   @Output() viewClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() printClicked: EventEmitter<any> = new EventEmitter<any>();
 
 
 
@@ -66,6 +72,9 @@ export class AdvancedTableComponent implements OnInit, AfterViewChecked {
     }
     onViewClick(a: any): void {
       this.viewClicked.emit(a);
+    }
+    onPrintClick(a: any): void {
+      this.printClicked.emit(a);
     }
 
 

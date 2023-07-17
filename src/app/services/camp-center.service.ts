@@ -38,6 +38,16 @@ export class CampCenterService {
     const url = `${this.campCenterUrl}/${camp.id}`;
     return this.http.put<CampingCenter>(url, camp, this.httpOptions);
   }
+  getOccupancyRate(): Observable<any> {
+    const url = `${this.campCenterUrl}/calculateOccupancyRate`;
+    return this.http.get<any>(url);
+  }
+  getcalculateADR(): Observable<any> {
+    const url = `${this.campCenterUrl}/calculateADR`;
+    return this.http.get<any>(url);
+  }
+
+
 
 
   constructor(

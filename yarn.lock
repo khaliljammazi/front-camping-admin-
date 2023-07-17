@@ -3058,6 +3058,12 @@ es-module-lexer@^0.9.0:
 esbuild-wasm@0.14.22:
   version "0.14.22"
 
+<<<<<<< Updated upstream
+=======
+esbuild-windows-64@0.14.22:
+  version "0.14.22"
+
+>>>>>>> Stashed changes
 esbuild@0.14.22:
   version "0.14.22"
   optionalDependencies:

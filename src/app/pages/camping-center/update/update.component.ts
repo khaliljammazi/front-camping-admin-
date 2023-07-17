@@ -21,6 +21,7 @@ pageTitle: BreadcrumbItem[] = [];
  Camp!: FormGroup;
  files: File[] = [];
  activity: Select2Data = [];
+ gmapConfig2: any;
 
  selectedActivity: any[] = [];
  constructor(
@@ -40,12 +41,28 @@ this.route.params.subscribe(params => {
     {
     next: (data: any) => {
       this.Camp.patchValue(data);
+    const alt=parseFloat(data.location.split(',')[0]);
+    const lng =parseFloat(data.location.split(',')[1]);
+     
+      this.gmapConfig2 = {
+        lat:alt,
+        lng: lng,
+        markers: [
+          { lat: alt,
+             lng: lng,
+             title : data.label ,
+             draggable: true }
+      
+        ]
+      };
+
       //make active checkbox checked
       if (data.active == true) {
         this.Camp.patchValue({ active: 'true' });
       } else {
         this.Camp.patchValue({ active: 'false' });
       }
+      
     },
   }
   
@@ -65,38 +82,12 @@ this.Camp = this.fb.group({
  active: ['', Validators.required],
  image: ['', Validators.required] ,
   telephone: ['', Validators.required],
-  activities: ['', Validators.required]
+  capacity: ['', Validators.required],
 
 
 });
 
 
-// camping activity
-this.activity = [
- {
-   id: '1',
-   label: 'activity 1',
-   value: { id:'1', label: 'activity 1' ,image: 'https://loremflickr.com/320/240'}
- },
- {
-   id: '2',
-   label: 'activity 2',
-   value: {id:'2',label: 'activity 2' , Image: 'https://loremflickr.com/320/240'}
- },
- {
-   id: '3',
-   label: 'activity 3',
-   value: {id :'3', label: 'activity 3' , Image: 'https://loremflickr.com/320/240'}
- }
-  
-];
-this.selectedActivity = [
- {
-   id: '1',
-   label: 'activity 1',
-   image: 'https://loremflickr.com/320/240'
- }
-];
 
 }
 
@@ -182,6 +173,18 @@ this.selectedActivity = [
      }
    );
  }
+ markerDragEnd(event: any, marker: any): void {
+  const updatedLat = event.latLng.lat();
+  const updatedLng = event.latLng.lng();
+  marker.lat = updatedLat;
+  marker.lng = updatedLng;
+  console.log('new', event, marker);
+  this.Camp.patchValue({ location:  `${updatedLat},${updatedLng}`  });
+  
+ 
+
+}
+
 
 }
 
