@@ -15,4 +15,5 @@ export class Activity {
   modifiedAt!: Date;
   camping_center_id!: number;
   season!: Season;
+  favorite!: boolean|number;
 }

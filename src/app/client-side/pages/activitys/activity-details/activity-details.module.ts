@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { ActivityDetailsRoutingModule } from './activity-details-routing.module';
 import { ActivityDetailsComponent } from './activity-details.component';
+import { PageTitleModule } from 'src/app/shared/page-title/page-title.module';
+import { AdvancedTableModule } from '../advanced-table/advanced-table.module';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { ActivityDetailsComponent } from './activity-details.component';
   ],
   imports: [
     CommonModule,
-    ActivityDetailsRoutingModule
+    ActivityDetailsRoutingModule,
+    AdvancedTableModule,
+    PageTitleModule
   ]
 })
 export class ActivityDetailsModule { }

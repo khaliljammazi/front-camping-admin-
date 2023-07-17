@@ -17,6 +17,10 @@ export class ActivitiesService {
 
   private apiUrl = environment.apiUrl;
   private activityUrl = this.apiUrl + '/api/activities';
+  private favoriteUrl = this.apiUrl + '/api/activities/addTofavorites';
+  private activeActivityUrl = this.apiUrl + '/api/activities/active';
+  private actUrl = this.apiUrl + '/api/activities/AllActivities';
+
 
   getActivity(): Observable<Activity[]> {
     return this.http.get<Activity[]>(this.activityUrl);
@@ -40,6 +44,22 @@ export class ActivitiesService {
   getById(id: number): Observable<Activity> {
     const url = `${this.activityUrl}/${id}`;
     return this.http.get<Activity>(url);
+  }
+
+  addToFavorites(activityId: number, userId: number): Observable<any> {
+    const url = `${this.favoriteUrl}/${activityId}/${userId}`;
+    return this.http.post(url, {});
+    
+  }
+
+  getActiveActivity(): Observable<Activity[]> {
+    return this.http.get<Activity[]>(this.activeActivityUrl);
+  }
+
+  actUser(userId: number): Observable<any> {
+    const url = `${this.actUrl}/${userId}`;
+    return this.http.get(url, {});
+    
   }
 
   constructor(

@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'camping-details/:id', loadChildren: () => import('./campings/campings.module').then(m => m.CampingsModule) },
   { path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule) },
   { path: 'ecommerces', loadChildren: () => import('./ecommerces/ecommerces.module').then(m => m.EcommercesModule) },
-  
+  { path: 'activities', loadChildren: () => import('./activitys/activitys.module').then(m => m.ActivitysModule) },
 
 ];
 

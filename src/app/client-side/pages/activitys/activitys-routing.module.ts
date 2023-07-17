@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ActivitysComponent } from './activitys.component';
 
-const routes: Routes = [{ path: '', component: ActivitysComponent }];
+const routes: Routes = [{ path: '', component: ActivitysComponent },
+{ path: 'view/:id', loadChildren: () => import('./activity-details/activity-details.module').then(m => m.ActivityDetailsModule) }
+
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
