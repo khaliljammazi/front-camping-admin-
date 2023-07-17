@@ -110,7 +110,7 @@ export class ReservationComponent implements OnInit {
       {
         name: 'actions',
         label: 'actions',
-        formatter: this.customerActionFormatter.bind(this),
+        formatter:()=>{},
         width: 140,
       },
  
@@ -118,14 +118,7 @@ export class ReservationComponent implements OnInit {
   }
 
 
-  customerActionFormatter(record: Reservation): any {
-    return this.sanitizer.bypassSecurityTrustHtml(
-     `<div class="button-list">
-      <a  (onclick)="exportPdf()" class="btn btn-blue waves-effect waves-light"><i
-              class="mdi mdi-printer"></i></a>
-  </div>`
-    );
-  }
+ 
   activityFormate(record: Reservation): any {
     return this.sanitizer.bypassSecurityTrustHtml(
       `<p>${record.activities.map((activity) => activity.label)}</p>`
@@ -155,16 +148,27 @@ export class ReservationComponent implements OnInit {
     }
 
   }
-
+  onPrintClicked(res: any): void {
+   console.log("hhhhhhhh");
+  }
+  onStatusChangeClicked(res: any): void {
+    
+    res.active = !res.active;
+    this.reservationservice.updateReservation(res).subscribe({
+      next: () => {
+        this._fetchData();
+      },
+      error: (err: any) => console.log(err)
+    });
+  }
   onViewClicked(res: any): void {
-    this.router.navigate(['/admin/reservations/view', res.id]);
+    this.router.navigate(['/admin/pages/invoice', res.id]);
   }
   onEditClicked(res: any): void {
     this.router.navigate(['/admin/reservations/updatereservation', res.id]);
   }
 exportPdf(){
 this.reservationservice.exportPdf().subscribe(data => {
-  console.log("hhhhhhhh");
   
   const blob = new Blob([data], { type: 'application/pdf' });
   
@@ -251,15 +255,6 @@ getPropertyValue(obj: any, key: string): any {
       this.records = updatedData;
     }
   }
-  onStatusChangeClicked(res: any): void {
-    
-    res.active = !res.active;
-    this.reservationservice.updateres(res).subscribe({
-      next: () => {
-        this._fetchData();
-      },
-      error: (err: any) => console.log(err)
-    });
-  }
+
  
 }

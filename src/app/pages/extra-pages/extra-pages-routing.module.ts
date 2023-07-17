@@ -12,7 +12,7 @@ const routes: Routes = [{
   { path: 'gallery', loadChildren: () => import('./gallery/gallery.module').then(m => m.GalleryModule) },
   { path: 'timeline', loadChildren: () => import('./timeline/timeline.module').then(m => m.TimelineModule) },
   { path: 'sitemap', loadChildren: () => import('./sitemap/sitemap.module').then(m => m.SitemapModule) },
-  { path: 'invoice', loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule) },
+  { path: 'invoice/:id', loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule) },
   { path: 'faq', loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule) },
   { path: 'pricing', loadChildren: () => import('./pricing/pricing.module').then(m => m.PricingModule) },
 

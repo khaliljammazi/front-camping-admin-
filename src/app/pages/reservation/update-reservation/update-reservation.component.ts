@@ -137,7 +137,7 @@ this.editReservation.controls["numberReserved"].valueChanges.subscribe(
 );
 this.userService.getAll().subscribe({
   next: (us: User[]) => {
-    this.Listuser = us;
+    this.Listuser = us.filter((user) => !user.roles.some((role) => role.name === 'ROLE_SUPER_ADMIN' || role.name === 'ROLE_ADMIN'));
   },
 });
 this.editReservation.controls["user"].valueChanges.subscribe((value: any) => {
