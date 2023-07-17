@@ -6,6 +6,7 @@ import { SortEvent } from 'src/app/shared/advanced-table/sortable.directive';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-reservation',
@@ -91,13 +92,13 @@ export class ReservationComponent implements OnInit {
       {
         name: 'campingCenter',
         label: 'campingCenter',
-        formatter: (record: Reservation) => record.campingCenter,
+        formatter:this.CampFormatter.bind(this),
         width: 40
       },
       {
         name: 'user',
         label: 'user',
-        formatter: (record: Reservation) => record.user,
+        formatter: this.userFormate.bind(this),
         width: 40
       },
       {
@@ -110,7 +111,7 @@ export class ReservationComponent implements OnInit {
         name: 'actions',
         label: 'actions',
         formatter: this.customerActionFormatter.bind(this),
-        width: 100,
+        width: 140,
       },
  
     ];
@@ -119,8 +120,8 @@ export class ReservationComponent implements OnInit {
 
   customerActionFormatter(record: Reservation): any {
     return this.sanitizer.bypassSecurityTrustHtml(
-      `<div class="button-list">
-      <a  href="/reservation/updatereservation/${record.id}" class="btn btn-blue waves-effect waves-light"><i
+     `<div class="button-list">
+      <a  (onclick)="exportPdf()" class="btn btn-blue waves-effect waves-light"><i
               class="mdi mdi-printer"></i></a>
   </div>`
     );
@@ -130,6 +131,15 @@ export class ReservationComponent implements OnInit {
       `<p>${record.activities.map((activity) => activity.label)}</p>`
 
     );}
+    CampFormatter(camp: Reservation): any {
+      return this.sanitizer.bypassSecurityTrustHtml(`<p>${camp.campingCenter.label}</p>`);
+    }
+    
+    
+    userFormate(record: Reservation): any {
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `<p>${record.user.nom}</p>`
+      );}
   
    // formats  status
    reservationStatusFormatter(reservation:Reservation): any {
@@ -152,26 +162,29 @@ export class ReservationComponent implements OnInit {
   onEditClicked(res: any): void {
     this.router.navigate(['/admin/reservations/updatereservation', res.id]);
   }
+exportPdf(){
+this.reservationservice.exportPdf().subscribe(data => {
+  console.log("hhhhhhhh");
+  
+  const blob = new Blob([data], { type: 'application/pdf' });
+  
+  // if(window.navigator && window.navigator.msSaveOrOpenBlob){
+  //   window.navigator.msSaveOrOpenBlob(blob);
+  //   return;
+  // }
+  const url = window.URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'Reservation.pdf';
+  link.dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true, view: window}));
+  setTimeout(function()  {
+    window.URL.revokeObjectURL(url);
+    link.remove();
+  },100);
+})
+}
 
-  // exportword(id) {
-  //   axios({
-  //     url: "documents/" + id,
-  //     method: "GET",
-  //     responseType: "blob",
-  //   }).then((response) => {
-  //     var headers = response.headers;
-  //     console.log(headers);
-  //     var fileURL = window.URL.createObjectURL(
-  //       new Blob([response.data], { type: headers["content-type"] })
-  //     );
-  //     var fileLink = document.createElement("a");
-  //     fileLink.href = fileURL;
-  //     fileLink.setAttribute("download", "conceptionTransfo.doc");
-  //     document.body.appendChild(fileLink);
-
-  //     fileLink.click();
-  //   });
-  // },
+ 
 
 /**
  * Compare two cell values

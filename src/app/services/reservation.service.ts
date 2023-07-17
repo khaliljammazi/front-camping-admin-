@@ -38,7 +38,7 @@ export class ReservationService {
   deleteReservation(id: string): Observable<Reservation> {
     return this.http.delete<Reservation>(this.ReservationUrl + '/' + id, this.httpOptions);
   }
-    generateReservationPdf(id: number): Observable<any> {
-    return this.http.get<any>(this.ReservationUrl + '/pdf/' + id);
+  exportPdf(): Observable<Blob> {
+    return this.http.get(this.ReservationUrl + '/export/pdf' ,{responseType: 'blob'});
     }
 }
