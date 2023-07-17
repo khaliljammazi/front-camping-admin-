@@ -29,7 +29,7 @@ export class AuthService {
   initializeUser() {
     if (this.tokenService.currentToken()) 
       this.userService
-        .get(this.tokenService.decodedToken()?.jti)
+        .getById(this.tokenService.decodedToken()?.jti)
         .subscribe((data) => {
           next: {
             this.nextUser(data);
