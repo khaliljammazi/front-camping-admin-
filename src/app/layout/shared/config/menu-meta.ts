@@ -56,6 +56,14 @@ const MENU_ITEMS: MenuItem[] = [
         
     },
     {
+        key: 'dashboard',
+        label: 'Dashboard',
+        isTitle: false,
+        icon: 'bar-chart-2',
+        collapsed: true,
+        link: '/admin/stat',
+    },
+    {
         key: 'Camping-center',
         label: 'Camping-centers',
         isTitle: false,
@@ -121,6 +129,19 @@ const MENU_ITEMS: MenuItem[] = [
         link: '/admin/reservations',
         
     },
+    {
+        key: 'Posts',
+        label: 'Posts',
+        isTitle: false,
+        icon: 'file-text',
+        collapsed: true,
+        link: '/admin/post',
+    },
+
+    
+    
+
+    { key: 'apps', label: 'Apps', isTitle: true },
     {
         key: 'ecommerces',
         label: 'Ecommerce',

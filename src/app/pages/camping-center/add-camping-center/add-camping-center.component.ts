@@ -27,6 +27,7 @@ export class AddCampingCenterComponent implements OnInit {
   activity: Select2Data = [];
   gmapConfig2: any;
   test: any;
+  loader = false;
 
   selectedActivity: any[] = [];
   constructor(
@@ -53,7 +54,7 @@ export class AddCampingCenterComponent implements OnInit {
   active: ['', Validators.required],
   image: ['', Validators.required],
   telephone: ['', Validators.required],
- /*  activities: [this.selectedActivity, Validators.required], */
+  capacity: ['', Validators.required],
 
   
 
@@ -93,42 +94,26 @@ markerDragEnd(event: any, marker: any): void {
 
     onSelect(event: any) {
       this.files.push(...event.addedFiles);
+      this.loader = true;
         // Upload the files using Filestack
         this.files.forEach((file) => {
           this.filestackClient.upload(file)
             .then((result) => {
+              this.loader = false;
               // Handle the successful upload
               console.log('Filestack upload result:', result);
               this.newCamp.patchValue({ image: result.url });
 
             })
             .catch((error) => {
+              this.loader = false;
               // Handle the upload error
               console.error('Filestack upload error:', error);
             });
         });
       }
     
-  /**
-   * add new members in selected members
-   * @param event member data
-   */
-  AddActivity(event: any): void {
-     const isAlreadySelected = this.selectedActivity.filter((item: any) => item.id === event.options[0].value.id);
-    if (isAlreadySelected && isAlreadySelected.length === 0) {
-      this.selectedActivity.push(event.options[0].value);
-      event.options[0].disabled = true;
 
-    } else {
-      this.selectedActivity.splice(this.selectedActivity.indexOf(event.options[0].value), 1);
-      event.options[0].disabled = false;
-
-    }
-  }
-  removeActivity(index: number): void {
-    this.selectedActivity.splice(index, 1);
-  }
-  trackByItemID(index: number, a:any): number { return a.id; }
 
 
   /**
