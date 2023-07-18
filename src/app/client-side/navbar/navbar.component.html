@@ -4,7 +4,7 @@
         <header class="main-header header-style-one">
             <div class="header-lower">
                 <div class="logo-box">
-                    <figure class="logo"><a href="index.html"><img src="assets/images/logo.png" alt=""></a></figure>
+                    <figure class="logo"><a [routerLink]="['/']"><img src="assets/images/logo.png" alt=""></a></figure>
                 </div>
                 <div class="outer-box">
                     <div class="menu-area">
@@ -71,7 +71,7 @@
                                             </div>                                            
                                         </div>
                                     </li>
-                                    <li class="dropdown"><a routerLink="blog">Blog</a>
+                                    <li class="dropdown"><a routerLink="blog">Forum</a>
                                      
                                     </li>                              
                                     <li><a routerLink="contact">contact</a></li>
@@ -81,7 +81,21 @@
                         </nav>
                     </div>
                     <div class="menu-right-content">
-                       
+                        <div class="search-box-outer">
+                            <button *ngIf="isAdmin" type="button" class="btn w-sm btn-success waves-effect " [routerLink]="['/admin']">Admin panel</button>
+                        </div>
+                        <div class="search-box-outer">
+                            <div class="dropdown">
+                                <button *ngIf="!!loggedInUser && loggedInUser.id > 0 else elseBlock" class="search-box-btn" type="button" id="auth" [routerLink]="['/auth/logout']">
+                                    <i class="icon-logout"></i>
+                                </button>
+                                <ng-template #elseBlock >
+                                    <button class="search-box-btn" type="button" id="auth" [routerLink]="['/auth/signin-signup']">
+                                        <i class="icon-login"></i>
+                                    </button>
+                                </ng-template>
+                            </div>
+                        </div>
                         <div class="search-box-outer">
                             <div class="dropdown">
                                 <button class="search-box-btn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flaticon-magnifying-glass"></i></button>

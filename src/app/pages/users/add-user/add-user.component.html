@@ -1,0 +1,168 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Add  User"></app-page-title>
+
+<form [formGroup]="user_form" #userForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+        <div class="col-lg-6 m-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
+
+                    <div class="mb-3 row">
+                        <div class="col">
+                            <label for="user-prenom" class="form-label">User name <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" id="user-prenom" class="form-control" placeholder="Enter your first name"
+                                required formControlName="prenom"
+                                [ngClass]="{ 'is-invalid': (userForm.submitted || userFormControls.prenom.dirty) && userFormControls.prenom.invalid }">
+
+                            <div *ngIf="userFormControls.prenom.dirty && userFormControls.prenom.errors?.required">
+                                Name is required.
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="nom" class="form-label">Last name</label>
+                            <input class="form-control" type="text" id="nom" placeholder="Enter your last name" required
+                                formControlName="nom"
+                                [ngClass]="{'is-invalid': (userForm.submitted || userFormControls.nom.dirty) && userFormControls.nom.invalid}">
+
+                            <div *ngIf="userFormControls.nom.dirty && userFormControls.nom.errors?.required">
+                                Last name is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-email" class="form-label">email <span class="text-danger">*</span></label>
+                        <input type="email" id="user-email" class="form-control" placeholder="enter email" required
+                            formControlName="email"
+                            [ngClass]="{  'is-invalid': (userForm.submitted || userFormControls.email.dirty) && userFormControls.email.invalid }">
+                        <div *ngIf="userFormControls.email.errors?.required">
+                            Email is required.
+                        </div>
+                        <div *ngIf="userFormControls.email.errors?.email">
+                            Email must be a valid Email Address
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <div class="col">
+                            <label for="password" class="form-label">Password</label>
+                            <input class="form-control" type="password" formControlName="password" required
+                                minlength="4"
+                                [ngClass]="{'is-invalid':  (userForm.submitted || userFormControls.password.dirty) && userFormControls.password.invalid}"
+                                placeholder="Enter your password">
+
+                            <div *ngIf="userFormControls.password.dirty && userFormControls.password.invalid"
+                                class="invalid-feedback">
+
+                                <div *ngIf="userFormControls.password.errors?.required">
+                                    Password is required.
+                                </div>
+                                <div *ngIf="userFormControls.password.errors?.minlength">
+                                    Password length must be greater than 3.
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="confirmPassword" class="form-label">Password confirmation</label>
+                            <input class="form-control" type="password" formControlName="confirmPassword" required
+                                [pattern]="userFormControls.password.value"
+                                [ngClass]="{'is-invalid': (userForm.submitted || userFormControls.confirmPassword.dirty) && userFormControls.confirmPassword.invalid}"
+                                placeholder="Enter your password">
+
+                            <div *ngIf="userFormControls.confirmPassword.dirty && userFormControls.confirmPassword.invalid"
+                                class="invalid-feedback">
+
+                                <div *ngIf="userFormControls.confirmPassword.errors?.required">
+                                    Password is required.
+                                </div>
+                                <div *ngIf="userFormControls.confirmPassword.errors?.pattern">
+                                    Doesn't match with password
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <select2 [data]="roles" placeholder="Select a Role" id="select-roles" multiple="true"
+                            formControlName="roles" #country2>
+                        </select2>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="mb-2">Status <span class="text-danger">*</span></label>
+                        <br />
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check me-2">
+                                <input class="form-check-input" type="radio" [value]="true" formControlName="active"
+                                    id="inlineRadio1" checked>
+                                <label class="form-check-label" for="inlineRadio1">Active</label>
+                            </div>
+                            <div class="form-check me-2">
+                                <input class="form-check-input" type="radio" [value]="false" formControlName="active"
+                                    id="inlineRadio2">
+                                <label class="form-check-label" for="inlineRadio2">Inactive</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h5 class="mb-2 p-2">User avatar</h5>
+
+                        <ngx-dropzone (change)="onSelect($event)" class="dropzone" [multiple]="false"
+                            accept="image/jpeg,image/jpg,image/png,image/gif">
+                            <ngx-dropzone-label>
+                                <i class="h1 text-muted dripicons-cloud-upload"></i>
+                                <h3>Drop files here or click to upload.</h3>
+                            </ngx-dropzone-label>
+
+                        </ngx-dropzone>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Preview -->
+                    <div class="dropzone-previews mt-3" id="file-previews">
+                        <!-- file preview template -->
+                        <div id="uploadPreviewTemplate" *ngFor="let f of files">
+                            <div class="card mt-1 mb-0 shadow-none border">
+                                <div class="p-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <img class="avatar-sm rounded bg-light" [alt]="f.name"
+                                                [src]="getPreviewUrl(f)">
+                                        </div>
+                                        <div class="col ps-0">
+                                            <a href="javascript:void(0);" class="text-muted fw-bold">{{f.name}}</a>
+                                            <p class="mb-0">{{getSize(f)}}</p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Button -->
+                                            <a href="javascript:void(0)" class="btn btn-link btn-lg text-muted"
+                                                (click)="onRemove($event)">
+                                                <i class="dripicons-cross"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center mb-3">
+                <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1">Save</button>
+                <button type="button" class="btn w-sm btn-danger waves-effect" [routerLink]="['../']">Cancel</button>
+            </div>
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+</form>
