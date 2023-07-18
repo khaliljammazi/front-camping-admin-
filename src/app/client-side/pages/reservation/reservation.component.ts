@@ -52,7 +52,7 @@ export class ReservationComponent implements OnInit {
     ];
     this.userService.getAll().subscribe({
       next: (us: User[]) => {
-        this.Listuser = us.filter((user) => !user.roles.some((role) => role.name === 'ROLE_SUPER_ADMIN' || role.name === 'ROLE_ADMIN'));
+        this.Listuser = us;
 
       },
     });
@@ -136,7 +136,29 @@ export class ReservationComponent implements OnInit {
       {
       next: (camp: CampingCenter[]) => {this.Listcamp = camp;},
     }
-    );}
+    );
+  
+  this.route.params.subscribe((params) => {
+this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
+  this.newReservation.controls["campingCenter"].setValue(res.id);
+  this.newReservation.controls["price"].setValue(res.price);
+  this.newReservation.controls["discount"].setValue(res.discount);
+  this.listactivty = res.activities;
+});
+  });
+
+
+    this.newReservation.controls["user"].setValue(this.authService.currentUser().id);
+    this.newReservation.controls["email"].setValue(this.authService.currentUser().email);
+    console.log(this.authService.currentUser());
+  
+
+
+  
+  
+  
+  
+  }
 
     
 
@@ -179,6 +201,7 @@ export class ReservationComponent implements OnInit {
 
     this.ReservationService.addReservation(postFormData).subscribe(
       (next) => {
+       this.router.navigate(["/pages/invoice/"+next.id]);
         Swal.fire({
           title: "Success",
           text: "Reservation added successfully!",
