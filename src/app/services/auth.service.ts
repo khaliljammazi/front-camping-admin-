@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, map } from "rxjs";
 import { environment } from "src/environments/environment.prod";
-import { User } from "src/app/models/user";
+import { Role, User } from "src/app/models/user";
 import { TokenService } from "./token.service";
 import { UserService } from "./user.service";
 
@@ -10,6 +10,14 @@ import { UserService } from "./user.service";
   providedIn: "root",
 })
 export class AuthService {
+  isAdmin(): Boolean {
+    return (
+      this.currentUser() &&
+      this.currentUser().roles &&
+      this.currentUser().roles.filter((t: Role) => t.name.includes("ADMIN"))
+        .length > 0
+    );
+  }
   private url = environment.apiUrl + "/api/auth/";
   constructor(
     private httpClient: HttpClient,
@@ -22,12 +30,12 @@ export class AuthService {
 
   nextUser(new_user: User) {
     console.log(new_user);
-    
+
     this.user.next(new_user);
   }
 
   initializeUser() {
-    if (this.tokenService.currentToken()) 
+    if (this.tokenService.currentToken())
       this.userService
         .getById(this.tokenService.decodedToken()?.jti)
         .subscribe((data) => {
@@ -43,9 +51,15 @@ export class AuthService {
 
   // enters User object
   // Return Token
-  public logIn(email: string, password: string): Observable<{ token: any | string; user: User }> {
+  public logIn(
+    email: string,
+    password: string
+  ): Observable<{ token: any | string; user: User }> {
     return this.httpClient
-      .post<{ token: any | string; user: User }>(this.url + "login", { email, password })
+      .post<{ token: any | string; user: User }>(this.url + "login", {
+        email,
+        password,
+      })
       .pipe(
         map((res: { token: any | string; user: User }) => {
           // store jwt token in local storage to keep user logged in between page refreshes
