@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SuperAdminGuard } from '../core/guards/super-admin.guard';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'pages/reservation/UpdateReservation', loadChildren: () => import('./reservation/update-reservation/update-reservation.module').then(m => m.UpdateReservationModule) },
   { path: 'stat', loadChildren: () => import('./stat/stat.module').then(m => m.StatModule) },
   { path: 'post', loadChildren: () => import('./post/post.module').then(m => m.PostModule) },
+  { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) , canActivate: [SuperAdminGuard]},
 ];
 
 @NgModule({

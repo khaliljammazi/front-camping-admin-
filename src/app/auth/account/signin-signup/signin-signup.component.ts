@@ -48,7 +48,7 @@ export class SigninSignupComponent implements OnInit {
     this.authenticationService.logOut();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/client-side';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   /**
