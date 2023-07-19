@@ -13,6 +13,7 @@ import { ActivitiesService } from "src/app/services/activities.service";
 import { User } from "src/app/models/user";
 import { UserService } from "src/app/services/user.service";
 import { AuthService } from "src/app/services/auth.service";
+import { Select2Data } from "ng-select2-component";
 
 @Component({
   selector: 'app-reservation',
@@ -26,7 +27,7 @@ export class ReservationComponent implements OnInit {
   listactivty: Activity[] = [];
   Listuser: User[] = [];
   filteredUsers: User[] = [];
-  files: File[] = [];
+  activityy: Select2Data = [];
 
   selectedActivity: any[] = [];
   //
@@ -140,13 +141,28 @@ export class ReservationComponent implements OnInit {
   
   this.route.params.subscribe((params) => {
 this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
-  this.newReservation.controls["campingCenter"].setValue(res.id);
+  this.newReservation.controls["campingCenter"].setValue(res.label);
   this.newReservation.controls["price"].setValue(res.price);
   this.newReservation.controls["discount"].setValue(res.discount);
   this.listactivty = res.activities;
+  this.newReservation.controls["activities"].valueChanges.subscribe(
+    (value: any) => {
+      this.activityService.getById(value).subscribe((res: any) => {
+        this.newReservation.controls["price1"].setValue(res.price);
+        this.newReservation.controls["discount1"].setValue(2);
+      });
+    }
+  );
 });
   });
-
+  this.route.params.subscribe((params) => {
+    this.userService.getById(params.id).subscribe((res: any) => {
+      this.newReservation.controls["user"].setValue(res.nom);
+      this.newReservation.controls["email"].setValue(res.email);
+      this.newReservation.controls["nom"].setValue(res.nom);
+    }
+    );
+  });
 
     this.newReservation.controls["user"].setValue(this.authService.currentUser().id);
     this.newReservation.controls["email"].setValue(this.authService.currentUser().email);
@@ -160,22 +176,8 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
   
   }
 
-    
 
-  submitAction() {
-    let formData = this.newReservation.value;
-    let data = {
-      name: formData.nom,
-      email: formData.email,
-      phone: formData.phone,
-      dateStart: formData.dateStart,
-      dateEnd: formData.dateEnd,
-      numberReserved: formData.numberReserved,
-      totalAmount: this.totalAmount.toString(),
-      activities: JSON.stringify(this.selectedActivity),
-    };
-  
-  }
+
   // convenience getter for easy access to form fields
   get form1() {
     return this.newReservation.controls;
@@ -201,14 +203,16 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
 
     this.ReservationService.addReservation(postFormData).subscribe(
       (next) => {
-       this.router.navigate(["/pages/invoice/"+next.id]);
+      //  this.router.navigate(["reservation/invoice/"+next.id]);
         Swal.fire({
           title: "Success",
           text: "Reservation added successfully!",
           icon: "success",
         });
-        this.newReservation.reset();
-        this.router.navigate(["home"], { relativeTo: this.route });
+        // this.newReservation.reset();
+       
+  
+        this.router.navigate(["reservation/invoice"+this.Reservation.id]);
       },
       (error) => {
         console.error("There was an error!", this.newReservation.value, error);

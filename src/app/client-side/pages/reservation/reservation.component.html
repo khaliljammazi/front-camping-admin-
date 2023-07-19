@@ -4,7 +4,7 @@
                 <div class="card-body">
                     <h5 class="text-uppercase bg-light p-3 mt-0 mb-2">Make Reservation
                     <button style="margin-top: -1%; " type="button" class="btn btn-primary waves-effect waves-light float-end"
-                        >
+                      [routerLink]="['./../reservation/invoice/',Reservation.id]"  >
                         <i class="mdi mdi-printer"></i> Get Bill
                     </button>
                 </h5>
@@ -42,11 +42,13 @@
                       <div class="col">
                         <div class="mb-3">
                             <label for="camp-activity" class="form-label">Camping center <span class="text-danger">*</span></label>
-                                    <select [ngClass]="{ 'is-invalid': addReservation.submitted && form1.campingCenter.invalid }" class="form-select" aria-label="Default select example" formControlName="campingCenter">
+                            <input type="text" id="campingCenter" class="form-control" required formControlName="campingCenter"
+                            [ngClass]="{ 'is-invalid': addReservation.submitted && form1.campingCenter.invalid }"  > 
+                            <!-- <select [ngClass]="{ 'is-invalid': addReservation.submitted && form1.campingCenter.invalid }" class="form-select" aria-label="Default select example" formControlName="campingCenter">
                                       <option *ngFor="let camping of Listcamp" [value]="camping.id">
                                         {{ camping.label }}
                                       </option>
-                                    </select>
+                                    </select> -->
                         </div>
                       </div>
                       <div class="col">
@@ -74,11 +76,16 @@
                             <div class="mb-3">
                                 <label class="form-label">Activities<span
                                         class="text-danger">*</span></label>
-                               <select [ngClass]="{ 'is-invalid': addReservation.submitted && form1.activities.invalid }" class="form-select" aria-label="Default select example" formControlName="activities" >
+                               <select [ngClass]="{ 'is-invalid': addReservation.submitted && form1.activities.invalid }" class="form-select" aria-label="Default select example"  formControlName="activities" >
                                  <option *ngFor="let act of listactivty" [value]="act.id"> 
                                 {{act.label}}
                                   </option> 
                                 </select>
+                                <!-- <select2 id="selec2-2" [ngClass]="{ 'is-invalid': addReservation.submitted && form1.activities.invalid }" class="form-select" aria-label="Default select example" multiple="true" formControlName="activities" >
+                                  <option *ngFor="let act of listactivty" [value]="act.id"> 
+                                 {{act.label}}
+                                   </option> 
+                                 </select2> -->
                             </div>
                           </div>
                       
@@ -143,7 +150,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="text-center mb-3">
-                            <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1" >Save</button>
+                            <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1" [routerLink]="['reservation/invoice/',Reservation.id]"  >Save</button>
                             <button type="button" class="btn w-sm btn-danger waves-effect" [routerLink]="['../']">Cancel</button>
                         </div>
                     </div> 

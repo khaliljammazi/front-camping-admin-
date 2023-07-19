@@ -73,6 +73,7 @@ export class AddReservationComponent implements OnInit {
       discount1: ["", Validators.required],
       price1: ["", Validators.required],
       campingPeriod: ["", Validators.required],
+      active: ["", Validators.required],
     });
 
     this.newReservation.controls["campingCenter"].valueChanges.subscribe(
