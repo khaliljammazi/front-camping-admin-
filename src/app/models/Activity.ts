@@ -1,3 +1,4 @@
+import { Season } from "./Season";
 
 export class Activity {
   id!: number;
@@ -9,8 +10,10 @@ export class Activity {
   duration!: number;
   number!: number;
   capacity!: number;
-  isActive!: boolean|number;
+  active!: boolean|number;
   createdAt!: Date;
   modifiedAt!: Date;
   camping_center_id!: number;
+  season!: Season;
+  favorite!: boolean|number;
 }

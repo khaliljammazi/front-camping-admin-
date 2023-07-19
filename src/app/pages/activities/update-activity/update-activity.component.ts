@@ -18,7 +18,8 @@ export class UpdateActivityComponent implements OnInit {
   pageTitle: BreadcrumbItem[] = [];
    act!: FormGroup;
    files: File[] = [];
-  
+   seasons: string[] = ['SPRING', 'SUMMER', 'AUTUMN', 'WINTER'];
+
    selectedActivity: any[] = [];
    constructor(
      private fb: FormBuilder,
@@ -54,17 +55,12 @@ export class UpdateActivityComponent implements OnInit {
   this.act = this.fb.group({ 
     id: ['', Validators.required],
    label: ['', Validators.required],
-   location: ['', Validators.required],
    discount: ['', Validators.required],
    description: ['', Validators.required],
    price: ['', Validators.required],
    active: ['', Validators.required],
-   image: ['', Validators.required] ,
-    telephone: ['', Validators.required],
-    activities: ['', Validators.required]
-  
-  
-  });
+   image: ['', Validators.required],
+   season: ['', Validators.required]  });
   
 
   this.selectedActivity = [
