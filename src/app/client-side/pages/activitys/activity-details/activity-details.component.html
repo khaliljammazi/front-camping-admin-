@@ -1,49 +1,147 @@
-<!-- page title -->
-<app-page-title [breadcrumbItems]="pageTitle" title="Activity Details"></app-page-title>
+<div class="boxed_wrapper">
+ 
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-5">
-                     <img src={{act.image}} alt=""class="img-fluid mx-auto d-block rounded">
+  <!-- Mobile Menu  -->
+  <div class="mobile-menu">
+    <div class="menu-backdrop"></div>
+    <div class="close-btn"><i class="fas fa-times"></i></div>
 
-                    </div> <!-- end col -->
-                    <div class="col-lg-7">
-                        <div class="ps-xl-3 mt-3 mt-xl-0">
-                            <h4 class="mb-3">  Label : {{act.label}}</h4>
-                           <!--  <p class="text-muted float-start me-3">
-                                <span class="mdi mdi-star" *ngFor="let item of [1,2,3,4,5];let i=index"
-                                    [class.text-warning]="i<=act.rating!"></span>
+    <nav class="menu-box">
+      <div class="nav-logo"><a href="index.html"><img src={{activity.image}} alt="" title=""></a></div>
+      <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+      <div class="contact-info">
+        <h4>Contact Info</h4>
+        <ul>
+          <li>Chicago 12, Melborne City, USA</li>
+          <li><a href="tel:+8801682648101">+88 01682648101</a></li>
+          <li><a href="mailto:info@example.com">info@example.com</a></li>
+        </ul>
+      </div>
+      <div class="social-links">
+        <ul class="clearfix">
+          <li><a href="index.html"><span class="fab fa-twitter"></span></a></li>
+          <li><a href="index.html"><span class="fab fa-facebook-square"></span></a></li>
+          <li><a href="index.html"><span class="fab fa-pinterest-p"></span></a></li>
+          <li><a href="index.html"><span class="fab fa-instagram"></span></a></li>
+          <li><a href="index.html"><span class="fab fa-youtube"></span></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div><!-- End Mobile Menu -->
 
-                            </p> -->
-                             <h6 class="text-danger text-uppercase"> Discount : {{act.discount}}% Off</h6>
-                             <h4 class="mb-4">Price : <span class="text-muted me-2"><del>{{act.price}} DT</del></span>
-                                <b>{{act.price-(act.price*(act.discount/100))}}DT</b>
-                            </h4>
-                            <h4 *ngIf="act.capacity>0">
-                                <span class="badge bg-soft-success text-success mb-4">available capacity {{act.capacity}}</span>
-                            </h4>
-                            <h4 *ngIf="act.capacity<=0">
-                                <span class="badge bg-soft-danger text-danger mb-4"> Not available places  {{act.capacity}} 
-                                </span>
-                            </h4>
 
-                           <h4>Description : <div class="text-muted mb-4" [innerHTML]="getSanitizedContent()"></div>
-                           </h4> 
-                            <div>
-                                <h4 class="mb-3">  Season : {{act.season}}</h4>
-                            </div>
-                            <div>
-                                <h4 *ngIf="act.active==1">  Status : active</h4>
-                                <h4 *ngIf="act.active==0">  Status : inactive</h4>
-                            </div>
-                        </div>
-                    </div> <!-- end col -->
+  <!-- Page Title -->
+  <section class="page-title centred">
+    <img class="bg-layer" src={{activity.image}}>
+    <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-12.png);"></div>
+    <div class="auto-container">
+      <div class="content-box">
+       
+        <div class="title">
+          <h1>{{activity.label}}</h1>
+        </div>
+      </div>
+    </div>
+    <div class="media-partner">
+      <ul class="media-links clearfix">
+        <li>
+          <h6>Follow on social media</h6>
+        </li>
+        <li><a href="index.html"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="index.html"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a href="index.html"><i class="fab fa-pinterest-p"></i></a></li>
+        <li><a href="index.html"><i class="fab fa-instagram"></i></a></li>
+      </ul>
+    </div>
+  </section>
+  <!-- End Page Title -->
 
+
+  <!-- activities-details -->
+  <section class="activities-details">
+    <div class="auto-container">
+      <div class="row clearfix">
+        <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+          <div class="activities-sidebar">
+            
+            <div class="sidebar-widget support-widget">
+              <div class="inner-box centred" style="background-image: url(assets/images/resource/sidebar-1.jpg);">
+                <div class="icon-box"><i class="flaticon-phone-call"></i></div>
+                <span>Contact us for Camping</span>
+               <h1>Téléphone :</h1> <h3><a href="tel:+216324222009">( +216 ) 324 222 009</a></h3>
+               <h1>Price :</h1> <h3>{{activity.price-(activity.price*(activity.discount/100))}}DT</h3>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+          <div class="activities-details-content">
+            <div class="content-one centred">
+              <div class="image-box"><img src="{{activity.image}}" alt=""></div>
+              <div class="lower-box">
+                <div class="icon-box">
+                  <div class="shape" style="background-image: url(assets/images/shape/shape-6.png);"></div>
+                  <i class="flaticon-parachute"></i>
+                </div>
+                <h2>{{activity.label}}</h2>
+                <div class="text">
+                  {{activity.description}}
+                </div>
+              </div>
+            </div>
+            <div class="content-two">
+              <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 image-column">
+                   <a> <img src="assets/images/banner/banner-2.jpg" alt="ddd" style="width: 400px; height: 400px;">
+                 </a>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 text-column">
+                  <div class="text-inner">
+                    <h2>Services Benefits</h2>
+                    <ul class="list-style-one clearfix">
+                      <li>The camping center allows campers to make advance reservations for campsites.</li>
+                      <li>Picnic Areas: Many camping centers have designated picnic areas where campers can enjoy meals, relax, and socialize.</li>
+                      <li>Security and Safety: Camping centers often have on-site security personnel and safety measures to ensure the well-being of campers.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+       
+
+
+          <div class="strikethrough-text centered" >
+            <div class="sec-title"  class="strikethrough-text centered">
+                <h2 style="color: #067e02	;"  class="strikethrough-text centered">Comping center of the activity</h2>
+            </div>
+        </div>
+
+            <div class="row" >
+              <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let camp of records">
+                <div class="news-block-one wow fadeInUp animated" data-wow-delay="600ms" data-wow-duration="1500ms">
+                  <div class="inner-box">
+                    <figure class="image-box"><a href="blog-details.html"><img [src]="camp.image" alt=""></a></figure>
+                    <div class="lower-content">
+                      <span class="post-date">{{ camp.label }}</span>
+                      <ul class="post-info clearfix">
+                        <li><i class="far fa-user"></i>{{ camp.capacity }} (capacity)</li>
+                        <li><i class="fas fa-dollar-sign"></i><a href="blog-details.html">{{ camp.price }} DT</a></li>
+                      </ul>
+                      <h4 class="brown-heading">{{ camp.location }}</h4>
                     </div>
-                  
-                    </div>
-                    </div>
-                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+         
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- activities-details end -->
+
+
+</div>

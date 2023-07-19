@@ -7,6 +7,8 @@ import { ActivitiesService } from 'src/app/services/activities.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Column } from 'src/app/shared/advanced-table/advanced-table.component';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
+import { SortEvent } from 'src/app/shared/advanced-table/sortable.directive';
+
 
 @Component({
   selector: 'app-activitys',
@@ -22,7 +24,7 @@ export class ActivitysComponent implements OnInit {
 
   constructor(  private activityService: ActivitiesService,
     private sanitizer: DomSanitizer,
-    private router: Router,private authService: AuthService) { }
+    private router: Router,private authService: AuthService) {}
 
     ngOnInit(): void {
       this.pageTitle = [{ label: 'activities', path: '/', active: true }];
@@ -103,7 +105,7 @@ export class ActivitysComponent implements OnInit {
     }
 
     onViewClicked(act: any): void {
-      this.router.navigate(['/admin/activities/view', act.id]);
+      this.router.navigate(['/activities/detail', act.id]);
     }
 
      // formats  status
@@ -256,7 +258,59 @@ export class ActivitysComponent implements OnInit {
     
 
     
+  /**
+ * Match table data with search input
+ * @param row Table row
+ * @param term Search the value
+ */
+  matches(row: Activity, term: string) {
+    return String(row.label).toLowerCase().includes(term)
+      || String(row.season).toUpperCase().includes(term)
+      || String(row.price).includes(term)
+      || String(row.description).includes(term);
+  }
+
+  /**
+   * Search Method
+  */
+  searchData(searchTerm: string): void {
+    if (searchTerm === '') {
+      this._fetchData();
+    }
+    else {
+      let updatedData = [...this.records];
+
+      //  filter
+      updatedData = updatedData.filter(record => this.matches(record, searchTerm));
+      this.records = updatedData;
+    }
+  }
+
     
-    
+  onSort(event: SortEvent): void {
+    if (event.direction === '') {
+      this.records = [...this.records];
+    } else {
+      this.records = [...this.records].sort((a, b) => {
+        const res = this.compare(this.getPropertyValue(a, event.column), this.getPropertyValue(b, event.column));
+        return event.direction === 'asc' ? res : -res;
+      });
+    }
+  }
+
+  compare(v1: string | number, v2: string | number): any {
+    if (typeof v1 === 'string' && typeof v2 === 'string') {
+      return v1.localeCompare(v2);
+    } else {
+      return v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
+    }
+    }
+
+    getPropertyValue(obj: any, key: string): any {
+      return obj[key];
+      }
+      
+
+
 
 }

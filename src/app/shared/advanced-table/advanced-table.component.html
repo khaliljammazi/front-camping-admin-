@@ -84,6 +84,9 @@
                             <a class="btn btn-success waves-effect waves-light" (click)="onPrintClick(record)" *ngIf="showPrintButton">
                                 <i class="mdi mdi-printer"></i>
                             </a>
+                            <button class="btn btn-success waves-effect waves-light" (click)="onIconClick(record.id)" *ngIf="showFavoriteButton">
+                                <i class="mdi mdi-heart"></i>
+                              </button>
                       
 
                   

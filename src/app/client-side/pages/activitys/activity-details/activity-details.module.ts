@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ActivityDetailsRoutingModule } from './activity-details-routing.module';
 import { ActivityDetailsComponent } from './activity-details.component';
 import { PageTitleModule } from 'src/app/shared/page-title/page-title.module';
-import { AdvancedTableModule } from '../advanced-table/advanced-table.module';
+import { AdvancedTableModule } from 'src/app/shared/advanced-table/advanced-table.module';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AdvancedTableModule } from '../advanced-table/advanced-table.module';
     CommonModule,
     ActivityDetailsRoutingModule,
     AdvancedTableModule,
-    PageTitleModule
+    PageTitleModule,
+    CarouselModule
   ]
 })
 export class ActivityDetailsModule { }
