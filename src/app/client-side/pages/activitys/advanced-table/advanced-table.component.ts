@@ -175,7 +175,7 @@ export class AdvancedTableComponent implements OnInit, AfterViewChecked {
     this.selectAll = (this.isSelected.filter(x => x === true).length === this.tableData.length);
   }
 
-  onIconClick(a: any,id:any): void {
+  onIconClick(a: any): void {
     this.iconClicked.emit(a);
   }
 

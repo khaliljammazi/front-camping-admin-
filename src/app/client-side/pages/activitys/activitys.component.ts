@@ -32,7 +32,7 @@ export class ActivitysComponent implements OnInit {
 
     _fetchData(): void {
       const currentUser = this.authService.currentUser();
-      if (currentUser.id !== undefined) {
+      if (currentUser.id != undefined){
       this.activityService.actUser(currentUser.id).subscribe(
         {
           next: (act: Activity[]) => {
@@ -43,11 +43,9 @@ export class ActivitysComponent implements OnInit {
           error: (err: any) => console.log(err)
   
         });
-      }
-      else {
+      }else{
         console.log('UserId undefined'); // Handle the case when user ID is undefined
       }
-  
     }
 
     initTableCofig(): void {
@@ -108,23 +106,17 @@ export class ActivitysComponent implements OnInit {
       this.router.navigate(['/admin/activities/view', act.id]);
     }
 
-
      // formats  status
-// formats  status
-ActivityFavoriteFormatter(act: Activity): any {
-  if (act.favorite) {
-    return this.sanitizer.bypassSecurityTrustHtml(
-      `<i class="fas fa-heart" style="color: red;"></i>`
-    );
-  } else {
-    return this.sanitizer.bypassSecurityTrustHtml(
-      `<i class="far fa-heart" style="color: red; background-color: white; padding: 2px; border-radius: 50%;"></i>`
+     ActivityFavoriteFormatter(act: Activity): any {
+      const iconClass = act.favorite ? 'fas fa-heart' : 'far fa-heart';
+      const iconStyle = act.favorite ? 'color: red;' : 'color: red; background-color: white; padding: 2px; border-radius: 50%;';
+    
+      return this.sanitizer.bypassSecurityTrustHtml(
+        `<i class="${iconClass}" style="${iconStyle}" (click)="onIconClick(${act.id})"></i>`
       );
-  }
-}
+    }
 
     
-
     // formats  image
     ActivityImageFormatter(act:Activity): any {
       if (act.image == null) {
@@ -139,12 +131,15 @@ ActivityFavoriteFormatter(act: Activity): any {
       }
     }
 
-    onIconClick(activityId: any) {
+  /*  onIconClick(activityId: any) {
       const currentUser = this.authService.currentUser();
       if (currentUser.id !== undefined) {
+        if(this.activityService.favoritesActivities(currentUser.id).contain(activityId)
+        
+        )
       this.activityService.addToFavorites(activityId, currentUser.id).subscribe(
         () => {
-          console.log("Activity added to favorites successfully.");
+          console.log(currentUser.id);
         },
         (error) => {
           console.error("Failed to add activity to favorites:", error);
@@ -155,4 +150,40 @@ ActivityFavoriteFormatter(act: Activity): any {
         console.log('UserId undefined'); // Handle the case when user ID is undefined
       }
     }
+    */
+
+    onIconClick(activityId: any) {
+      const currentUser = this.authService.currentUser();
+      if (currentUser.id !== undefined) {
+        this.activityService.favoritesActivities(currentUser.id).subscribe(favorites => {
+          if (favorites.includes(activityId)) {
+            this.activityService.deleteFromFavorites(activityId, currentUser.id as number).subscribe(
+              () => {
+                console.log(currentUser.id);
+              },
+              (error) => {
+                console.error('Failed to remove activity from favorites:', error);
+              }
+            );
+          } else {
+            this.activityService.addToFavorites(activityId, currentUser.id as number).subscribe(
+              () => {
+                console.log(currentUser.id);
+              },
+              (error) => {
+                console.error('Failed to add activity to favorites:', error);
+              }
+            );
+          }
+        });
+      } else {
+        console.log('UserId undefined');
+        // Handle the case when user ID is undefined
+      }
+    }
+    
+    
+    
+    
+
 }

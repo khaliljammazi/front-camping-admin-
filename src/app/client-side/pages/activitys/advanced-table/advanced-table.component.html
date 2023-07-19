@@ -67,15 +67,17 @@
                 </td>
                 <td *ngFor="let column of columns">
                     <div [innerHtml]="callFormatter(column,record)"></div>
+
                 </td>
                 <td>
                     <div class="button-list">
                         <a class="btn btn-primary waves-effect waves-light" (click)="onViewClick(record)">
                             <i class="mdi mdi-eye"></i>
                           </a>
-                          <button class="btn btn-success waves-effect waves-light" (click)="onIconClick(record.id, 1)">
+          
+                        <button class="btn btn-success waves-effect waves-light" (click)="onIconClick(record.id)">
                             <i class="mdi mdi-heart"></i>
-                        </button>
+                          </button>
                   
                     </div>
                     </td>

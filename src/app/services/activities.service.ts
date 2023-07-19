@@ -20,6 +20,8 @@ export class ActivitiesService {
   private favoriteUrl = this.apiUrl + '/api/activities/addTofavorites';
   private activeActivityUrl = this.apiUrl + '/api/activities/active';
   private actUrl = this.apiUrl + '/api/activities/AllActivities';
+  private removefavoriteUrl = this.apiUrl + '/api/activities/deleteFromfavorites';
+  private favoriteByUserUrl = this.apiUrl + '/api/activities/favorites';
 
 
   getActivity(): Observable<Activity[]> {
@@ -52,6 +54,13 @@ export class ActivitiesService {
     
   }
 
+  deleteFromFavorites(activityId: number, userId: number): Observable<any> {
+    const url = `${this.removefavoriteUrl}/${activityId}/${userId}`;
+    return this.http.post(url, {});
+    
+  }
+
+
   getActiveActivity(): Observable<Activity[]> {
     return this.http.get<Activity[]>(this.activeActivityUrl);
   }
@@ -62,6 +71,11 @@ export class ActivitiesService {
     
   }
 
+  favoritesActivities(userId: number): Observable<any> {
+    const url = `${this.favoriteByUserUrl}/${userId}`;
+    return this.http.get(url, {});
+    
+  }
   constructor(
     private http: HttpClient
   ) { }
