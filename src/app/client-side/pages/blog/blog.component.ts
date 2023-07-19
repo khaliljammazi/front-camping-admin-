@@ -123,6 +123,7 @@ this.loaderview();
 
  searchData(searchTerm: string): void {
   if (searchTerm == '') {
+    
     this.loaderview();
     return;
   }
