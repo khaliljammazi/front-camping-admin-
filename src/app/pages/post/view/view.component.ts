@@ -18,6 +18,8 @@ export class ViewComponent implements OnInit {
   post:Post=new Post();
   listcomment :Comment[]= [];
   pageTitle: BreadcrumbItem[] = [];
+  statusmsg: string = '';
+  
   constructor(
     private route : ActivatedRoute,
     private sanitizer: DomSanitizer,
@@ -58,12 +60,35 @@ export class ViewComponent implements OnInit {
   }
 
  changeStatusComment(id:number){
+  
     this.CommentService.getCommentById(id).subscribe(
       {
         next: (data: Comment) => {
-          data.active=!data.active;
+    
+         const stat= data.active=!data.active;
+         if (data.active == true) { 
+          this.statusmsg = 'Active';
+        } else {
+          this.statusmsg = 'Inactive';
+        } 
+             let  upcomment={
+            "id": data.id,
+            "details": data.details,
+            "rating": data.rating,
+            "createdAt": data.createdAt,
+            "user": {
+              "id": data.user.id
+            },
+            "post": {
+              "id": data.post.id
+              },
+            "active": stat
+          }
+
+
+
          
-          this.CommentService.updateComment(data).subscribe(
+          this.CommentService.updateComment(upcomment).subscribe(
             {
               next: (data: any) => {
                 console.log(data);
@@ -79,5 +104,6 @@ export class ViewComponent implements OnInit {
   getSanitizedContent(): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(this.post.details);
   }
+
 
 }

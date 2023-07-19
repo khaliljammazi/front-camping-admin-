@@ -26,7 +26,7 @@ export class CommentService {
     const url = `${this.CommentUrl}/${id}`;
     return this.http.delete<Comment>(url, this.httpOptions);
   }
-  updateComment( c: Comment): Observable<Comment> {
+  updateComment( c: any): Observable<Comment> {
     const url = `${this.CommentUrl}/${c.id}`;
     return this.http.put<Comment>(url, c, this.httpOptions);
   }
