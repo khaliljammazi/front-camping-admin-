@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { AddReservationRoutingModule } from './add-reservation-routing.module';
-import { AddReservationComponent } from './add-reservation.component';
+import { ReservationRoutingModule } from './reservation-routing.module';
+import { ReservationComponent } from './reservation.component';
 import { PageTitleModule } from 'src/app/shared/page-title/page-title.module';
 import { QuillModule } from 'ngx-quill';
 import { NgxDropzoneModule } from 'ngx-dropzone';
@@ -12,19 +12,19 @@ import { NgbDatepickerModule, NgbTimepickerModule, NgbTooltipModule, NgbTypeahea
 
 @NgModule({
   declarations: [
-    AddReservationComponent
+    ReservationComponent
   ],
   imports: [
     CommonModule,
-    AddReservationRoutingModule,
+    ReservationRoutingModule,
     PageTitleModule,
-        QuillModule,
-        NgxDropzoneModule,
-        Select2Module,
-        NgbTooltipModule,
-        NgbTypeaheadModule,
-        NgbDatepickerModule,
-        NgbTimepickerModule,
+    QuillModule,
+    NgxDropzoneModule,
+    Select2Module,
+    NgbTooltipModule,
+    NgbTypeaheadModule,
+    NgbDatepickerModule,
+    NgbTimepickerModule,
   ]
 })
-export class AddReservationModule { }
+export class ReservationModule { }

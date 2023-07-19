@@ -13,20 +13,21 @@ import { ActivitiesService } from "src/app/services/activities.service";
 import { User } from "src/app/models/user";
 import { UserService } from "src/app/services/user.service";
 import { AuthService } from "src/app/services/auth.service";
+import { Select2Data } from "ng-select2-component";
 
 @Component({
-  selector: "app-add-reservation",
-  templateUrl: "./add-reservation.component.html",
-  styleUrls: ["./add-reservation.component.scss"],
+  selector: 'app-reservation',
+  templateUrl: './reservation.component.html',
+  styleUrls: ['./reservation.component.scss']
 })
-export class AddReservationComponent implements OnInit {
+export class ReservationComponent implements OnInit {
   pageTitle: BreadcrumbItem[] = [];
   newReservation!: FormGroup;
   Reservation: Reservation = new Reservation();
   listactivty: Activity[] = [];
   Listuser: User[] = [];
   filteredUsers: User[] = [];
-  files: File[] = [];
+  activityy: Select2Data = [];
 
   selectedActivity: any[] = [];
   //
@@ -52,7 +53,7 @@ export class AddReservationComponent implements OnInit {
     ];
     this.userService.getAll().subscribe({
       next: (us: User[]) => {
-        this.Listuser = us.filter((user) => !user.roles.some((role) => role.name === 'ROLE_SUPER_ADMIN' || role.name === 'ROLE_ADMIN'));
+        this.Listuser = us;
 
       },
     });
@@ -73,7 +74,6 @@ export class AddReservationComponent implements OnInit {
       discount1: ["", Validators.required],
       price1: ["", Validators.required],
       campingPeriod: ["", Validators.required],
-      active: ["", Validators.required],
     });
 
     this.newReservation.controls["campingCenter"].valueChanges.subscribe(
@@ -137,24 +137,47 @@ export class AddReservationComponent implements OnInit {
       {
       next: (camp: CampingCenter[]) => {this.Listcamp = camp;},
     }
-    );}
+    );
+  
+  this.route.params.subscribe((params) => {
+this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
+  this.newReservation.controls["campingCenter"].setValue(res.label);
+  this.newReservation.controls["price"].setValue(res.price);
+  this.newReservation.controls["discount"].setValue(res.discount);
+  this.listactivty = res.activities;
+  this.newReservation.controls["activities"].valueChanges.subscribe(
+    (value: any) => {
+      this.activityService.getById(value).subscribe((res: any) => {
+        this.newReservation.controls["price1"].setValue(res.price);
+        this.newReservation.controls["discount1"].setValue(2);
+      });
+    }
+  );
+});
+  });
+  this.route.params.subscribe((params) => {
+    this.userService.getById(params.id).subscribe((res: any) => {
+      this.newReservation.controls["user"].setValue(res.nom);
+      this.newReservation.controls["email"].setValue(res.email);
+      this.newReservation.controls["nom"].setValue(res.nom);
+    }
+    );
+  });
 
-    
+    this.newReservation.controls["user"].setValue(this.authService.currentUser().id);
+    this.newReservation.controls["email"].setValue(this.authService.currentUser().email);
+    console.log(this.authService.currentUser());
+  
 
-  submitAction() {
-    let formData = this.newReservation.value;
-    let data = {
-      name: formData.nom,
-      email: formData.email,
-      phone: formData.phone,
-      dateStart: formData.dateStart,
-      dateEnd: formData.dateEnd,
-      numberReserved: formData.numberReserved,
-      totalAmount: this.totalAmount.toString(),
-      activities: JSON.stringify(this.selectedActivity),
-    };
+
+  
+  
+  
   
   }
+
+
+
   // convenience getter for easy access to form fields
   get form1() {
     return this.newReservation.controls;
@@ -180,13 +203,16 @@ export class AddReservationComponent implements OnInit {
 
     this.ReservationService.addReservation(postFormData).subscribe(
       (next) => {
+      //  this.router.navigate(["reservation/invoice/"+next.id]);
         Swal.fire({
           title: "Success",
           text: "Reservation added successfully!",
           icon: "success",
         });
-        this.newReservation.reset();
-        this.router.navigate(["../"], { relativeTo: this.route });
+        // this.newReservation.reset();
+       
+  
+        this.router.navigate(["reservation/invoice"+this.Reservation.id]);
       },
       (error) => {
         console.error("There was an error!", this.newReservation.value, error);
