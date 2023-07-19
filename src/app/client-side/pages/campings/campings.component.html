@@ -139,90 +139,86 @@
         </section>
         <!-- gallery-style-two end -->
 
-
-        <!-- testimonial-style-two -->
-        <section class="testimonial-style-two" id="testimonial">
-            <div class="bg-layer" style="background-image: url(assets/images/background/testimonial-bg.jpg);"></div>
-            <div class="auto-container">
-                <div class="row clearfix">
-                    <div class="col-lg-4 col-md-12 col-sm-12 title-column">
-                        <div class="sec-title">
-                            <span class="sub-title">What’s Happening</span>
-                            <h2>What They Say About Camp!</h2>
+        <!-- Feedback end -->
+        <section class="testimonial-section bg-color-2">
+            <div class="outer-container clearfix">
+              <div class="testimonial-inner pull-left">
+                <div class="shape" style="background-image: url(assets/images/shape/shape-8.png);"></div>
+                <div class="testimonial-content">
+                  <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                    <!-- Slides -->
+                    <div class="carousel-inner">
+                      <!-- Loop through feedbacks to create carousel items -->
+                      <div class="carousel-item" *ngFor="let feedback of feedbacks; let i = index" [class.active]="i === 0">
+                        <div class="inner-box">
+                          <div class="icon-box"><i class="flaticon-quote"></i></div>
+                          <div class="text">
+                            <h3>{{ feedback.description }}</h3>
+                          </div>
+                          <div class="author-box">
+                            <!-- Display user details if available -->
+                            <figure class="author-thumb"><img src="assets/images/testimonial-1.jpg" alt=""></figure>
+                            <span class="name">{{ feedback.user.nom }}</span>
+                            <span class="designation">{{ feedback.user.nom }}</span>
+                          </div>
                         </div>
+                      </div>
                     </div>
-                    <div class="col-lg-8 col-md-12 col-sm-12 inner-column">
-                        <div class="inner-content">
-                            <div class="two-item-carousel owl-carousel owl-theme owl-nav-none">
-                                <div class="testimonial-content">
-                                    <div class="text">
-                                        <p>Lorem ipsum is simply free text dolor sit amet, nott adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                    <div class="author-box">
-                                        <figure class="author-thumb"><img src="assets/images/resource/testimonial-2.jpg" alt=""></figure>
-                                        <span class="name">Kevin Martin</span>
-                                        <span class="designation">Kevin Martin</span>
-                                    </div>
-                                </div>
-                                <div class="testimonial-content">
-                                    <div class="text">
-                                        <p>Lorem ipsum is simply free text dolor sit amet, nott adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                    <div class="author-box">
-                                        <figure class="author-thumb"><img src="assets/images/resource/testimonial-3.jpg" alt=""></figure>
-                                        <span class="name">Jessica Brown</span>
-                                        <span class="designation">Kevin Martin</span>
-                                    </div>
-                                </div>
-                                <div class="testimonial-content">
-                                    <div class="text">
-                                        <p>Lorem ipsum is simply free text dolor sit amet, nott adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                    <div class="author-box">
-                                        <figure class="author-thumb"><img src="assets/images/resource/testimonial-2.jpg" alt=""></figure>
-                                        <span class="name">Kevin Martin</span>
-                                        <span class="designation">Kevin Martin</span>
-                                    </div>
-                                </div>
-                                <div class="testimonial-content">
-                                    <div class="text">
-                                        <p>Lorem ipsum is simply free text dolor sit amet, nott adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                    <div class="author-box">
-                                        <figure class="author-thumb"><img src="assets/images/resource/testimonial-3.jpg" alt=""></figure>
-                                        <span class="name">Jessica Brown</span>
-                                        <span class="designation">Kevin Martin</span>
-                                    </div>
-                                </div>
-                                <div class="testimonial-content">
-                                    <div class="text">
-                                        <p>Lorem ipsum is simply free text dolor sit amet, nott adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                    <div class="author-box">
-                                        <figure class="author-thumb"><img src="assets/images/resource/testimonial-2.jpg" alt=""></figure>
-                                        <span class="name">Kevin Martin</span>
-                                        <span class="designation">Kevin Martin</span>
-                                    </div>
-                                </div>
-                                <div class="testimonial-content">
-                                    <div class="text">
-                                        <p>Lorem ipsum is simply free text dolor sit amet, nott adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    </div>
-                                    <div class="author-box">
-                                        <figure class="author-thumb"><img src="assets/images/resource/testimonial-3.jpg" alt=""></figure>
-                                        <span class="name">Jessica Brown</span>
-                                        <span class="designation">Kevin Martin</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
+              </div>
+              <div class="faq-inner pull-right">
+                <div class="faq-content">
+                  <div class="sec-title">
+                    <span class="sub-title">Your Feedback Matters</span>
+                    <h2>Add Your Feedback</h2>
+                  </div>
+                  <ng-container *ngIf="authenticatedUser; else loginMessage">
+                    <form (ngSubmit)="submitFeedback()" #feedbackForm="ngForm">
+                      <div class="form-group">
+                        <label for="description">Feedback</label>
+                        <textarea
+                          id="description"
+                          name="description"
+                          class="form-control feedback-textarea" 
+                          [(ngModel)]="newFeedback.description"
+                          required
+                          rows="5" 
+                        ></textarea>
+                      </div>
+                      <br>
+                      <div class="form-group">
+                        <label for="rating">Rating</label>
+                        <br>
+                        <div class="rating-stars">
+                          <span
+                            *ngFor="let star of [1, 2, 3, 4, 5]"
+                            class="star"
+                            (mouseover)="fillStars(star)"
+                            (mouseout)="resetStars()"
+                            (click)="setRating(star)"
+                            [ngClass]="{ 'filled': star <= selectedRating }"
+                          >
+                            ★
+                          </span>
+                        </div>
+                      </div>
+                  
+                      <button type="submit" class="theme-btn btn-one">Submit Feedback</button>
+                    </form>
+                  </ng-container>
+          
+                  <!-- If the user is not authenticated, show login message -->
+                  <ng-template #loginMessage>
+                    <p>Please <a [routerLink]="['/login']">login</a> to submit feedback.</p>
+                  </ng-template>
+                </div>
+              </div>
             </div>
-        </section>
-        <!-- testimonial-style-two end -->
+          </section>
+          
 
-
+        
         <!-- weare-section -->
         <section class="weare-section bg-color-2">
             <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-11.png);"></div>
@@ -281,7 +277,7 @@
                         <h2>Join Annual Summer Camp</h2>
                     </div>
                     <div class="btn-box">
-                        <a href="" class="theme-btn btn-one">Make reseravtion</a>
+                        <a [routerLink]="['/reservation/camping-details', camping.id]" class="theme-btn btn-one">Make reseravtion</a>
                     </div>
                 </div>
             </div>

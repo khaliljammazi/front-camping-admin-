@@ -22,8 +22,8 @@ export class PostService {
   addpost(d: Post): Observable<Post> {
     return this.http.post<Post>(this.postUrl, d, this.httpOptions);
   }
-  addpostbyuserancamp(p: Post, id: number, id2: number): Observable<Post> {
-    const url = `${this.postUrl}/${id}/${id2}`;
+  addpostbyuserancamp(p: Post, id: number): Observable<Post> {
+    const url = `${this.postUrl}/${id}`;
 
     return this.http.post<Post>(url, p, this.httpOptions);
   } 
@@ -31,13 +31,17 @@ export class PostService {
     const url = `${this.postUrl}/${id}`;
     return this.http.delete<Post>(url, this.httpOptions);
   }
-  updatePost( d: Post): Observable<Post> {
+  updatePost( d: any): Observable<Post> {
     const url = `${this.postUrl}/${d.id}`;
     return this.http.put<Post>(url, d, this.httpOptions);
   }
   getPostById(id: number): Observable<Post> {
     const url = `${this.postUrl}/${id}`;
     return this.http.get<Post>(url);
+  }
+   getPostsByUserMostComments(iduser: number, limit: number): Observable<Post[]> {
+    const url = `${this.postUrl}/most-comments/${iduser}?limit=${limit}`;
+    return this.http.get<Post[]>(url);
   }
   
   constructor(    private http: HttpClient) { }

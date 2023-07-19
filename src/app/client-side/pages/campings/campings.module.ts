@@ -5,6 +5,8 @@ import { CampingsRoutingModule } from './campings-routing.module';
 import { CampingsComponent } from './campings.component';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from 'src/environments/environment.prod';
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -14,6 +16,7 @@ import { environment } from 'src/environments/environment.prod';
   imports: [
     CommonModule,
     CampingsRoutingModule,
+    FormsModule,
     AgmCoreModule.forRoot({
       apiKey: environment.GOOGLE_MAPS_API_KEY
     }),
