@@ -125,6 +125,7 @@ this.loaderview();
   if (searchTerm == '') {
     
     this.loaderview();
+    
     return;
   }
   this.listofpostwithcomment = this.listofpostwithcomment.filter((post: any) => {
