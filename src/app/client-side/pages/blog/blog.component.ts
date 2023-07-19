@@ -63,26 +63,7 @@ this.loaderview();
                 }
                 )
                 this.listofpostwithcomment = listofpostfiltred;
-                //list of acttviy in camp
-                const listofactivity = this.listofpostwithcomment.map((post: any) => {
-                  return post.post.campingCenter.activities.map((activity: any) => {
-                    return {act:activity.season,campname:post.post.campingCenter.label};
-
-                  }
-                  
-                  )
-                  .filter((thing: any, index: any, self: any) =>
-                    index === self.findIndex((t: any) => (
-                      t.act === thing.act && t.campname === thing.campname
-                    ))
-                  )
-
-                }
-                );
-
-                console.log(listofactivity);
-
-
+              
 
                
                 // resent post
@@ -103,10 +84,13 @@ this.loaderview();
                     return tagFrequency;
                   }
                   );
+                  console.log(tagFrequency);
          
                   const sortedTags = Object.keys(tagFrequency).sort((a, b) => tagFrequency[b] - tagFrequency[a]);
                   // Get the top 3 tags
+             
                   this.top3tags = sortedTags.slice(0, 3);
+                  console.log(this.top3tags);
                   
 
                 
@@ -147,6 +131,16 @@ this.loaderview();
   }
   );
  
+  }
+  filtredbytag(tag: string) {
+    if (tag == '') {
+      this.loaderview();
+      return;
+    }
+    this.listofpostwithcomment = this.listofpostwithcomment.filter((post: any) => {
+      return post.post.tags.includes(tag);
+    }
+    );
   }
 
 

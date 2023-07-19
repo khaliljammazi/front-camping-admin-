@@ -9,8 +9,6 @@ import { PostService } from 'src/app/services/post.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
-import { CampCenterService } from 'src/app/services/camp-center.service';
-import { CampingCenter } from 'src/app/models/CampingCenter';
 
 @Component({
   selector: 'app-add',
@@ -29,15 +27,13 @@ pageTitle: BreadcrumbItem[] = [];
  test: any;
  loader = false;
  user:User=new User();
-  campingCenters: CampingCenter[] = [];
   formpost: any;
   constructor(
     private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     private PostService: PostService,
     private router: Router,
-    private userservice:AuthService ,
-    private campCenterService: CampCenterService
+    private userservice:AuthService 
 
   ) { }
 
@@ -48,19 +44,13 @@ pageTitle: BreadcrumbItem[] = [];
       details: ['', Validators.required],
       active: ['', Validators.required],
       image: ['', Validators.required],
-      campingCenterId: ['', Validators.required]
+  
 
      
     });
 this.user= this.userservice.currentUser();
 console.log(this.user);
-this.campCenterService.getCamps().subscribe(
-  {
-    next: (camp: CampingCenter[]) => {
-      this.campingCenters = camp;
-    }
-  }
-);
+
 
 
  }
@@ -126,7 +116,7 @@ this.campCenterService.getCamps().subscribe(
     return this.sanitizer.bypassSecurityTrustResourceUrl(encodeURI(URL.createObjectURL(f)));
   }
   onSubmit(): void {
-  let id:number= this.user.id || 0;
+  let id:number= this.user.id || 1;
   
 const regex = /#(\w+)/g;
 const tags = [];
@@ -136,7 +126,6 @@ while ((match = regex.exec(this.newPost.value.details))) {
 }
 const detailwithouttags = this.newPost.value.details.replace(regex, '');
 
-let idcamping:number= this.newPost.value.campingCenterId || 0;
 //formpost 
 this.formpost = {
   title: this.newPost.value.title,
@@ -150,7 +139,7 @@ this.formpost = {
 
 
 
-    this.PostService.addpostbyuserancamp(this.formpost,id,idcamping).subscribe(
+    this.PostService.addpostbyuserancamp(this.formpost,id).subscribe(
       
    next => {
         Swal.fire({
