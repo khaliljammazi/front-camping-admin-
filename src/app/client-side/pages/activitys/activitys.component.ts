@@ -112,10 +112,10 @@ export class ActivitysComponent implements OnInit {
       const iconStyle = act.favorite ? 'color: red;' : 'color: red; background-color: white; padding: 2px; border-radius: 50%;';
     
       return this.sanitizer.bypassSecurityTrustHtml(
-        `<i class="${iconClass}" style="${iconStyle}" (click)="onIconClick(${act.id})"></i>`
+        `<i class="${iconClass}" style="${iconStyle}"></i>`
       );
     }
-
+    
     
     // formats  image
     ActivityImageFormatter(act:Activity): any {
@@ -150,7 +150,6 @@ export class ActivitysComponent implements OnInit {
         console.log('UserId undefined'); // Handle the case when user ID is undefined
       }
     }
-    */
 
     onIconClick(activityId: any) {
       const currentUser = this.authService.currentUser();
@@ -181,7 +180,81 @@ export class ActivitysComponent implements OnInit {
         // Handle the case when user ID is undefined
       }
     }
+
+    onIconClick(activityId: any): void {
+      const currentUser = this.authService.currentUser();
+      if (currentUser.id !== undefined) {
+        this.activityService.favoritesActivities(currentUser.id).subscribe(favorites => {
+          if (favorites.includes(activityId)) {
+            this.activityService.deleteFromFavorites(activityId, currentUser.id as number).subscribe(
+              () => {
+                console.log('Activity removed from favorites');
+                // Update the records array to set the 'favorite' property to false for the specific activity
+                const index = this.records.findIndex((activity) => activity.id === activityId);
+                if (index !== -1) {
+                  this.records[index].favorite = false;
+                }
+              },
+              (error) => {
+                console.error('Failed to remove activity from favorites:', error);
+              }
+            );
+          } else {
+            this.activityService.addToFavorites(activityId, currentUser.id as number).subscribe(
+              () => {
+                console.log('Activity added to favorites');
+                // Update the records array to set the 'favorite' property to true for the specific activity
+                const index = this.records.findIndex((activity) => activity.id === activityId);
+                if (index !== -1) {
+                  this.records[index].favorite = true;
+                }
+              },
+              (error) => {
+                console.error('Failed to add activity to favorites:', error);
+              }
+            );
+          }
+        });
+      } else {
+        console.log('UserId undefined');
+        // Handle the case when user ID is undefined
+      }
+    }*/
     
+      onIconClick(activityId: any): void {
+      const currentUser = this.authService.currentUser();
+      if (currentUser.id !== undefined) {
+        const index = this.records.findIndex((activity) => activity.id === activityId);
+        if (index !== -1) {
+          const activity = this.records[index];
+          if (activity.favorite) {
+            this.activityService.deleteFromFavorites(activityId, currentUser.id).subscribe(
+              () => {
+                console.log('Activity removed from favorites');
+                this.records[index].favorite = false; // Update the favorite property
+              },
+              (error) => {
+                console.error('Failed to remove activity from favorites:', error);
+              }
+            );
+          } else {
+            this.activityService.addToFavorites(activityId, currentUser.id).subscribe(
+              () => {
+                console.log('Activity added to favorites');
+                this.records[index].favorite = true; // Update the favorite property
+              },
+              (error) => {
+                console.error('Failed to add activity to favorites:', error);
+              }
+            );
+          }
+        }
+      } else {
+        console.log('UserId undefined');
+      }
+    }
+    
+
     
     
     
