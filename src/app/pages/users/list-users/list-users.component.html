@@ -1,0 +1,24 @@
+<app-page-title [breadcrumbItems]="pageTitle" title="Users"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <button  routerLink="add" type="button" class="btn btn-sm btn-blue waves-effect waves-light float-end">
+                    <i class="mdi mdi-plus-circle"></i> Add User
+                </button>
+                <h4 class="header-title mb-4">User List</h4>
+                <!-- table start -->
+                <app-advanced-table [tableData]="records" [columns]="columns" [pagination]="true"
+                    [pageSizeOptions]="pageSizeOptions" [hasRowSelection]="true" [isSearchable]="true"
+                    (search)="searchData($event)" [isSortable]="true" (sort)="onSort($event)"  
+                    (changeStatusClicked)="onStatusChangeClicked($event)"
+                    (viewClicked)="onViewClicked($event)"
+                     (editClicked)="onEditClicked($event)">
+                </app-advanced-table>   
+                <!-- table end -->
+
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>

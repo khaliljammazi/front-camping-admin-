@@ -8,6 +8,11 @@ const routes: Routes = [
   { path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule) },
   { path: 'ecommerces', loadChildren: () => import('./ecommerces/ecommerces.module').then(m => m.EcommercesModule) },
   { path: 'activities', loadChildren: () => import('./activitys/activitys.module').then(m => m.ActivitysModule) },
+  { path: 'activitys', loadChildren: () => import('./activitys/activitys.module').then(m => m.ActivitysModule) },
+  { path: 'listcamps', loadChildren: () => import('./listcamps/listcamps.module').then(m => m.ListcampsModule) },
+  { path: 'blog', loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule) },
+
+  
 
 ];
 

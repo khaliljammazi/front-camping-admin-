@@ -70,15 +70,20 @@
                 </td>
                 <td>
                     <div class="button-list">
-                        <a class="btn btn-primary waves-effect waves-light" (click)="onViewClick(record)">
-                            <i class="mdi mdi-eye"></i>
+
+                    
+                        <a class="btn btn-primary waves-effect waves-light" (click)="onViewClick(record)" *ngIf="showViewButton">
+                            <i class="mdi mdi-eye"></i> 
                           </a>
-                        <a class="btn btn-blue waves-effect waves-light" (click)="onEditClick(record)">
+                        <a class="btn btn-blue waves-effect waves-light" (click)="onEditClick(record)" *ngIf="showEditButton">
                             <i class="mdi mdi-pencil"></i>  
                           </a>
-                        <a class="btn btn-success waves-effect waves-light" (click)="onStatusChangeClick(record)">
+                        <a class="btn btn-success waves-effect waves-light" (click)="onStatusChangeClick(record)" *ngIf="showStatusChangeButton">
                             <i class="mdi mdi-list-status"></i> 
                           </a>
+                            <a class="btn btn-success waves-effect waves-light" (click)="onPrintClick(record)" *ngIf="showPrintButton">
+                                <i class="mdi mdi-printer"></i>
+                            </a>
                       
 
                   

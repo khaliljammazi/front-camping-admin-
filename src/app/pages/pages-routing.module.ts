@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SuperAdminGuard } from '../core/guards/super-admin.guard';
 
 const routes: Routes = [
   {
@@ -38,6 +39,11 @@ const routes: Routes = [
   { path: 'reservations', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) },
   { path: 'ecommerces', loadChildren: () => import('./ecommerces/ecommerces.module').then(m => m.EcommercesModule) },
   { path: 'activity-feedback', loadChildren: () => import('./activity-feedback/activity-feedback.module').then(m => m.ActivityFeedbackModule) },
+  { path: 'reservation/AddReservation', loadChildren: () => import('./reservation/add-reservation/add-reservation.module').then(m => m.AddReservationModule) },
+  { path: 'pages/reservation/UpdateReservation', loadChildren: () => import('./reservation/update-reservation/update-reservation.module').then(m => m.UpdateReservationModule) },
+  { path: 'stat', loadChildren: () => import('./stat/stat.module').then(m => m.StatModule) },
+  { path: 'post', loadChildren: () => import('./post/post.module').then(m => m.PostModule) },
+  { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) , canActivate: [SuperAdminGuard]},
 ];
 
 @NgModule({
