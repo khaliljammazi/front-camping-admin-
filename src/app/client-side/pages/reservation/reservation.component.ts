@@ -203,16 +203,14 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
 
     this.ReservationService.addReservation(postFormData).subscribe(
       (next) => {
-      //  this.router.navigate(["reservation/invoice/"+next.id]);
         Swal.fire({
           title: "Success",
           text: "Reservation added successfully!",
           icon: "success",
         });
-        // this.newReservation.reset();
-       
+        this.router.navigate(["reservation/camping-details/reservation/invoice/"+next.id]);
+
   
-        this.router.navigate(["reservation/invoice"+this.Reservation.id]);
       },
       (error) => {
         console.error("There was an error!", this.newReservation.value, error);

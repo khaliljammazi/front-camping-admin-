@@ -6,8 +6,8 @@ import { PostService } from 'src/app/services/post.service';
 import { Post } from 'src/app/models/Post';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
 import { error } from 'console';
+import { UserService } from 'src/app/services/user.service';
 import { filter } from 'rxjs/operators';
 
 @Component({

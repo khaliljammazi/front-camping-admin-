@@ -49,7 +49,7 @@
                                     <td>{{c.createdAt | date:'medium'}}</td>
                                     <td>
                                         <span [ngClass]="{'badge badge-soft-success float-end': c.active, 'badge badge-soft-danger float-end': !c.active}">
-                                          {{statusmsg}}
+                                            {{c.active ? 'active' : 'inactive'}}
                                         </span>
                                     </td>
                                     <td>

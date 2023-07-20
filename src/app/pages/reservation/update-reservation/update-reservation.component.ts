@@ -56,6 +56,12 @@ Reservation: Reservation=new Reservation();
         next: (Reservation: Reservation) => {
           this.Reservation = Reservation;
           this.editReservation.patchValue(this.Reservation);
+        this.editReservation.controls["campingCenter"].setValue(this.Reservation.campingCenter.id);
+        this.editReservation.controls["user"].setValue(this.Reservation.user.id);
+        this.editReservation.controls["activities"].setValue(this.Reservation.campingCenter.activities.map((activity: Activity) => activity.id));
+        console.log(this.Reservation);
+
+
     
         },
         error: (error) => console.log(error)
@@ -80,7 +86,9 @@ this.editReservation = this.fb.group({
   discount1: ["", Validators.required],
   price1: ["", Validators.required],
   campingPeriod: ["", Validators.required],
+  
 });
+
 
 
 this.editReservation.controls["campingCenter"].valueChanges.subscribe(
@@ -101,7 +109,15 @@ this.editReservation.controls["campingCenter"].valueChanges.subscribe(
     });
   }
 );
- 
+ this.editReservation.controls["user"].valueChanges.subscribe(
+    (value: any) => {
+      this.userService.getById(value).subscribe((res: any) => {
+        this.editReservation.controls["nom"].setValue(res.nom);
+        this.editReservation.controls["email"].setValue(res.email);
+      });
+    }
+  );
+
 // calculate camping period
 this.editReservation.controls["dateEnd"].valueChanges.subscribe(
   (value: any) => {
@@ -134,9 +150,7 @@ this.editReservation.controls["numberReserved"].valueChanges.subscribe(
     }
   }
 );
-this.editReservation.controls["user"].valueChanges.subscribe((value: any) => {
-  this.editReservation.controls["email"].setValue(this.Listuser.filter((u) => u.id == value).pop()?.email);
-});
+
 this.userService.getAll().subscribe({
   next: (us: User[]) => {
     this.Listuser = us.filter((user) => !user.roles.some((role) => role.name === 'ROLE_SUPER_ADMIN' || role.name === 'ROLE_ADMIN'));
@@ -162,14 +176,7 @@ this.route.params.subscribe((params) => {
   });
     });
   
-  this.route.params.subscribe((params) => {
-    this.userService.getById(params.id).subscribe((res: any) => {
-      // this.editReservation.controls["user"].setValue(res.nom);
-      this.editReservation.controls["email"].setValue(res.email);
-      this.editReservation.controls["nom"].setValue(res.nom);
-    }
-    );
-  });
+
     
   
 

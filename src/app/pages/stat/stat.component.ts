@@ -78,14 +78,15 @@ this.salesChart = {
 this.campservice.getcalculateADR().subscribe((data)=>{
 
   const list=data.map((item:any)=>{
-    return parseFloat(item.toFixed(2));
+    return parseFloat(item.toFixed(2))*20;
   })
+  console.log(list);
 
 
 this.lineChartOptions1 = {
   series: [
     {
-      name: "Average Daily Rate (ADR)",
+      name: "Average Rate per Month",
       data: list
     }
   ],
@@ -101,7 +102,7 @@ this.lineChartOptions1 = {
     }
   },
   dataLabels: {
-    enabled: false
+    enabled: true
   },
   stroke: {
     curve: "smooth",
@@ -113,8 +114,8 @@ this.lineChartOptions1 = {
   },
   grid: {
     row: {
-      colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-      opacity: 0.5
+      colors: ["#f3f3f3", "transparent"], 
+      opacity: 1
     }
   },
   colors: ['#727cf5'],

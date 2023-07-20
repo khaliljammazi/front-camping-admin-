@@ -90,7 +90,7 @@ export class ViewComponent implements OnInit {
          
           this.CommentService.updateComment(upcomment).subscribe(
             {
-              next: (data: any) => {
+              next: (data: any) => {   
                 console.log(data);
               }
             }
