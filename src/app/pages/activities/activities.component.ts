@@ -178,42 +178,51 @@ return obj[key];
  */
 
 
-onSort(event: SortEvent): void {
-  if (event.direction === '') {
-    this.records = [...this.records];
-  } else {
-    this.records = [...this.records].sort((a, b) => {
-      const res = this.compare(this.getPropertyValue(a, event.column), this.getPropertyValue(b, event.column));
-      return event.direction === 'asc' ? res : -res;
-    });
-  }
-}
-
-/**
-* Match table data with search input
-* @param row Table row
-* @param term Search the value
-*/
-matches(row: Activity, term: string) {
-  return row.label.toLowerCase().includes(term)
-    || row.description.toLowerCase().includes(term)
-    || String(row.price).includes(term)
-    || String(row.capacity).includes(term);
-}
-
-searchData(searchTerm: string): void {
-  if (searchTerm === '') {
-    this._fetchData();
-  }
-  else {
-    let updatedData = [...this.records];
-
-    //  filter
-    updatedData = updatedData.filter(record => this.matches(record, searchTerm));
-    this.records = updatedData;
+  /**
+   * Sort the table data
+   * @param event column name, sort direction
+   */
+  onSort(event: SortEvent): void {
+    if (event.direction === '') {
+      this.records = [...this.records];
+    } else {
+      this.records = [...this.records].sort((a, b) => {
+        const res = this.compare(this.getPropertyValue(a, event.column), this.getPropertyValue(b, event.column));
+        return event.direction === 'asc' ? res : -res;
+      });
+    }
   }
 
-}
+  /**
+ * Match table data with search input
+ * @param row Table row
+ * @param term Search the value
+ */
+  matches(row: Activity, term: string) {
+    return String(row.label).toLowerCase().includes(term)
+      || String(row.season).toUpperCase().includes(term)
+      || String(row.price).includes(term)
+      || String(row.description).includes(term);
+  }
+
+  /**
+   * Search Method
+  */
+  searchData(searchTerm: string): void {
+    if (searchTerm === '') {
+      this._fetchData();
+    }
+    else {
+      let updatedData = [...this.records];
+
+      //  filter
+      updatedData = updatedData.filter(record => this.matches(record, searchTerm));
+      this.records = updatedData;
+    }
+  }
+
+
+
 
   // formats Comp image
   imageFormatter(activity:Activity): any {

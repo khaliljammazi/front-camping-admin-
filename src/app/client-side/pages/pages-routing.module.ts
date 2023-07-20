@@ -11,8 +11,9 @@ const routes: Routes = [
   { path: 'activitys', loadChildren: () => import('./activitys/activitys.module').then(m => m.ActivitysModule) },
   { path: 'listcamps', loadChildren: () => import('./listcamps/listcamps.module').then(m => m.ListcampsModule) },
   { path: 'blog', loadChildren: () => import('./blog/blog.module').then(m => m.BlogModule) },
+  { path: 'detail/:id', loadChildren: () => import('./activitys/activity-details/activity-details.module').then(m => m.ActivityDetailsModule) },
   { path: 'reservation/camping-details/:id', loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule) },
-  { path: 'reservation/camping-details/reservation/invoice/:id', loadChildren: () => import('./reservation/invoice/invoice.module').then(m => m.InvoiceModule) },
+  { path: 'reservation/camping-details/reservation/invoice/:id', loadChildren: () => import('./reservation/invoice/invoice.module').then(m => m.InvoiceModule) }
 
   
 

@@ -22,6 +22,8 @@ export class ActivitiesService {
   private actUrl = this.apiUrl + '/api/activities/AllActivities';
   private removefavoriteUrl = this.apiUrl + '/api/activities/deleteFromfavorites';
   private favoriteByUserUrl = this.apiUrl + '/api/activities/favorites';
+  private campByactUrl = this.apiUrl + '/api/activities/campsByActivity';
+
 
 
   getActivity(): Observable<Activity[]> {
@@ -76,6 +78,12 @@ export class ActivitiesService {
     return this.http.get(url, {});
     
   }
+
+  getCamps(actId: number): Observable<any> {
+    const url = `${this.campByactUrl}/${actId}`;
+    return this.http.get(url, {});
+  }
+
   constructor(
     private http: HttpClient
   ) { }

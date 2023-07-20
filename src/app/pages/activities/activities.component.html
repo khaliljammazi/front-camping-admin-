@@ -16,9 +16,9 @@
                 </p>
                 <!-- table start -->
                <app-advanced-table [tableData]="records" [columns]="columns" [pagination]="true"
-                    [pageSizeOptions]="pageSizeOptions" [isSearchable]="true"
-                    (search)="searchData($event)" [isSortable]="true" 
-                    (sort)="onSort($event)" 
+               [pageSizeOptions]="pageSizeOptions" [isSearchable]="true"
+               (search)="searchData($event)" [isSortable]="true" 
+               (sort)="onSort($event)"
                     (viewClicked)="onViewClicked($event)"
                      (editClicked)="onEditClicked($event)" 
                      [showStatusChangeButton]="false"
@@ -27,7 +27,8 @@
                 <!-- table end --
                    </div>                                                                                                                                                                                                                                                                                                                                                                                                                   
 
-            </div> <!-- end card body-->
+            </div> 
+            <!-- end card body-->
         </div> <!-- end card -->
     </div><!-- end col-->
 </div>
