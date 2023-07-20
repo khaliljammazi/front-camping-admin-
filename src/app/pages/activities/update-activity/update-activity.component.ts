@@ -80,23 +80,23 @@ export class UpdateActivityComponent implements OnInit {
     *  adds new file in uploaded files
     */
   
-     onSelect(event: any) {
-       this.files.push(...event.addedFiles);
-         // Upload the files using Filestack
-         this.files.forEach((file) => {
-           this.filestackClient.upload(file)
-             .then((result) => {
-               // Handle the successful upload
-               console.log('Filestack upload result:', result);
-               this.act.patchValue({ image: result.url });
-  
-             })
-             .catch((error) => {
-               // Handle the upload error
-               console.error('Filestack upload error:', error);
-             });
-         });
-       }
+   onSelect(event: any) {
+    this.files.push(...event.addedFiles);
+      // Upload the files using Filestack
+      this.files.forEach((file) => {
+        this.filestackClient.upload(file)
+          .then((result) => {
+            // Handle the successful upload
+            console.log('Filestack upload result:', result);
+            this.act.patchValue({ image: result.url });
+
+          })
+          .catch((error) => {
+            // Handle the upload error
+            console.error('Filestack upload error:', error);
+          });
+      });
+    }
      
   
    trackByItemID(index: number, a:any): number { return a.id; }
@@ -132,6 +132,9 @@ export class UpdateActivityComponent implements OnInit {
    getPreviewUrl(f: File) {
      return this.sanitizer.bypassSecurityTrustResourceUrl(encodeURI(URL.createObjectURL(f)));
    }
+
+
+   
    onSubmit(): void {
   
      this.activityService.updateAct(this.act.value).subscribe(
