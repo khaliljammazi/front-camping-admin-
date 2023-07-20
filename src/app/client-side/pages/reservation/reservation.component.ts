@@ -14,6 +14,7 @@ import { User } from "src/app/models/user";
 import { UserService } from "src/app/services/user.service";
 import { AuthService } from "src/app/services/auth.service";
 import { Select2Data } from "ng-select2-component";
+import emailjs  from '@emailjs/browser';
 
 @Component({
   selector: 'app-reservation',
@@ -155,18 +156,12 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
   );
 });
   });
-  this.route.params.subscribe((params) => {
-    this.userService.getById(params.id).subscribe((res: any) => {
-      this.newReservation.controls["user"].setValue(res.nom);
-      this.newReservation.controls["email"].setValue(res.email);
-      this.newReservation.controls["nom"].setValue(res.nom);
-    }
-    );
-  });
 
-    this.newReservation.controls["user"].setValue(this.authService.currentUser().id);
+  
+
+    this.newReservation.controls["user"].setValue(this.authService.currentUser().nom);
+    
     this.newReservation.controls["email"].setValue(this.authService.currentUser().email);
-    console.log(this.authService.currentUser());
   
 
 
@@ -205,11 +200,21 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
       (next) => {
         Swal.fire({
           title: "Success",
-          text: "Reservation added successfully!",
+          text: "Reservation added successfully u gonna received an email check it please !",
           icon: "success",
         });
+        let user = this.Listuser.filter(
+          (u) => u.id == Number(this.newReservation.controls["user"].value)).pop();
+        if (user) delete user.authorities;
+        emailjs.init("nuCmof1hgHGy66rz_")
+        emailjs.send("service_mcgqkne","template_2mr29j3",{
+          nom:user?.nom,
+          CampingCenter : this.newReservation.controls["campingCenter"].value,
+          dateStart: this.newReservation.controls["dateStart"].value,
+          totalAmount: this.totalAmount,
+          });
         this.router.navigate(["reservation/camping-details/reservation/invoice/"+next.id]);
-
+       
   
       },
       (error) => {
