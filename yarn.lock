@@ -1037,6 +1037,11 @@
 "@discoveryjs/json-ext@0.5.6":
   version "0.5.6"
 
+"@emailjs/browser@^3.11.0":
+  version "3.11.0"
+  resolved "https://registry.npmjs.org/@emailjs/browser/-/browser-3.11.0.tgz"
+  integrity sha512-RkY3FKZ3fPdK++OeF46mRTFpmmQWCHUVHZH209P3NE4D5sg2Atg7S2wa3gw5062Gl4clt4Wn5SyC4WhlVZC5pA==
+
 "@fancyapps/ui@^5.0.19":
   version "5.0.19"
 
@@ -3056,6 +3061,9 @@ es-module-lexer@^0.9.0:
   version "0.9.3"
 
 esbuild-wasm@0.14.22:
+  version "0.14.22"
+
+esbuild-windows-64@0.14.22:
   version "0.14.22"
 
 esbuild@0.14.22:

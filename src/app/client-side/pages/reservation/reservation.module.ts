@@ -8,6 +8,7 @@ import { QuillModule } from 'ngx-quill';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Select2Module } from 'ng-select2-component';
 import { NgbDatepickerModule, NgbTimepickerModule, NgbTooltipModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { NgbDatepickerModule, NgbTimepickerModule, NgbTooltipModule, NgbTypeahea
     NgbTypeaheadModule,
     NgbDatepickerModule,
     NgbTimepickerModule,
-  ]
+    ReactiveFormsModule
+  ] 
 })
 export class ReservationModule { }

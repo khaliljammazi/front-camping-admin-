@@ -3,12 +3,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="text-uppercase bg-light p-3 mt-0 mb-2">Make Reservation
-                    <button style="margin-top: -1%; " type="button" class="btn btn-primary waves-effect waves-light float-end"
-                      [routerLink]="['./../reservation/invoice/',Reservation.id]"  >
-                        <i class="mdi mdi-printer"></i> Get Bill
-                    </button>
+                    
                 </h5>
-                <form [formGroup]="newReservation" #addReservation="ngForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="newReservation" #addReservation="ngForm" action="javascript:void(0)" (ngSubmit)="onSubmit()" >
 
                 <div class="card">
                     <div class="card-body bg-light" >
@@ -146,7 +143,6 @@
                     <i class="mdi mdi-cash"></i> Total Amount : {{totalAmount}} 
                 </button>
               
-                 
                 <div class="row">
                     <div class="col-12">
                         <div class="text-center mb-3">
