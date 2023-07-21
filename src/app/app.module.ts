@@ -10,7 +10,7 @@ import { FakeBackendProvider } from './core/helpers/fake-backend';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
 import { LayoutModule } from './layout/layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
+
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     LayoutModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    
 
   ],
   providers: [
