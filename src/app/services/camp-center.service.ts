@@ -46,6 +46,10 @@ export class CampCenterService {
     const url = `${this.campCenterUrl}/calculateADR`;
     return this.http.get<any>(url);
   }
+  getcalculateRevenuePerOccupiedSpace(): Observable<any> {
+    const url = `${this.campCenterUrl}/calculateRevenuePerOccupiedSpace`;
+    return this.http.get<any>(url);
+  }
 
 
 

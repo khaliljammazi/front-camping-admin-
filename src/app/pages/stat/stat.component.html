@@ -99,9 +99,26 @@
             </div>
         </div>
     </div> <!-- end col -->
+
 </div>
 
-<div class="row">
+
+<!-- end row -->
+
+
+
+    <div class="widget-chart text-center col-xl-4 col-md-6"> 
+        <app-ui-portlet-card cardTitle=" Total Revenue per occupied capacity">
+
+        <div id="total-revenue" class="mt-0">
+            <apx-chart class="apex-charts" [series]="revenuChart.series!" [chart]="revenuChart.chart!"
+                [plotOptions]="revenuChart.plotOptions!" [colors]="revenuChart.colors!"
+                [labels]="revenuChart.labels!"></apx-chart>
+        </div>
+        </app-ui-portlet-card>
+
+</div>
+  <div class="row">
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
@@ -118,4 +135,3 @@
 
    
 </div>
-<!-- end row -->

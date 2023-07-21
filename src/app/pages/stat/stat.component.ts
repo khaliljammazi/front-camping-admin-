@@ -22,7 +22,12 @@ export class StatComponent implements OnInit {
   performanceChartOptions!: ChartjsOptions;
 
   listAvtivity : any ;
-  statisticsData: StatisticsCard2[] = [];
+
+ 
+
+  revenuChart!: Partial<ChartOptions>;
+
+ statisticsData: StatisticsCard2[] = [];
   statistics: any;
 
   pageTitle: BreadcrumbItem[] = [];
@@ -149,6 +154,29 @@ this.lineChartOptions1 = {
 };
 }
 );
+this.campservice.getcalculateRevenuePerOccupiedSpace().subscribe((data)=>{
+  console.log(data);
+  const list=[];
+  list.push(data);
+
+this.revenuChart = {
+  series: list,
+  chart: {
+    height: 242,
+    type: 'radialBar',
+  },
+  plotOptions: {
+    radialBar: {
+      hollow: {
+        size: '65%',
+      }
+    },
+  },
+  colors: ['#f86262'],
+  labels: ['Revenue'],
+
+};
+});
 
 this.activityService.TopActivities().subscribe((data:any) => {
   // Assuming data is an array of arrays, as shown in your output.

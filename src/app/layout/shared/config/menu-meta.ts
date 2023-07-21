@@ -152,69 +152,32 @@ const MENU_ITEMS: MenuItem[] = [
             {
                 key: 'ecommerce-dashboard',
                 label: 'Dashboard',
-                link: '/ecommerces/dashboard',
+                link: 'ecommerces/dashboard',
                 parentKey: 'apps-ecommerce',
-            },
+            },/***************************************************************/
             {
                 key: 'ecommerce-products',
                 label: 'Products',
-                link: '/apps/ecommerces/products',
+                link: 'ecommerces/products',
                 parentKey: 'apps-ecommerce',
             },
-            {
-                key: 'ecommerce-details',
-                label: 'Product Details',
-                link: '/apps/ecommerce/product/details/',
-                parentKey: 'apps-ecommerce',
-            },
-            {
-                key: 'ecommerce-products-edit',
-                label: 'Add Product',
-                link: '/ecommerces/products/add-product',
-                parentKey: 'apps-ecommerce',
-            },
-            {
-                key: 'ecommerce-customers',
-                label: 'Customers',
-                link: '/apps/ecommerce/customers',
-                parentKey: 'apps-ecommerce',
-            },
+           
+           
+           
             {
                 key: 'ecommerce-orders',
                 label: 'Orders',
-                link: '/apps/ecommerce/orders',
+                link: 'ecommerces/commands',
                 parentKey: 'apps-ecommerce',
             },
-            {
-                key: 'ecommerce-order-details',
-                label: 'Order Details',
-                link: '/ecommerce/order/details',
-                parentKey: 'apps-ecommerce',
-            },
-            {
-                key: 'ecommerce-sellers',
-                label: 'Sellers',
-                link: '/apps/ecommerce/sellers',
-                parentKey: 'apps-ecommerce',
-            },
-            {
-                key: 'ecommerce-shopping-cart',
-                label: 'Shopping Cart',
-                link: '/apps/ecommerce/shopping-cart',
-                parentKey: 'apps-ecommerce',
-            },
-            {
-                key: 'ecommerce-checkout',
-                label: 'Checkout',
-                link: '/apps/ecommerce/checkout',
-                parentKey: 'apps-ecommerce',
-            },
+         
+           
         ],
     },
 
 
     
-    
+  /****************************************** hedhom Zaydin ************************************************************** */  
 
     { key: 'apps', label: 'Apps', isTitle: true },
     {
@@ -248,7 +211,7 @@ const MENU_ITEMS: MenuItem[] = [
             {
                 key: 'ecommerce-products',
                 label: 'Products',
-                link: '/ecommerces/products',
+                link: '/app/pages/ecommerces/products',
                 parentKey: 'apps-ecommerce',
             },
             {
@@ -300,7 +263,7 @@ const MENU_ITEMS: MenuItem[] = [
                 parentKey: 'apps-ecommerce',
             },
         ],
-    },
+    },/******houni */
     {
         key: 'apps-crm',
         label: 'CRM',
