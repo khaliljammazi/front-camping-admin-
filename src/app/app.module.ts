@@ -26,7 +26,9 @@ import { FormsModule } from '@angular/forms';
     SweetAlert2Module.forRoot(),
     AppRoutingModule,
     LayoutModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
+
   ],
   providers: [
     Title,

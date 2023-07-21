@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Command, ProductCommand } from 'src/app/models/command';
 import { ChartOptions } from 'src/app/pages/charts/apex/apex-chart.model';
+import { CommandService } from 'src/app/services/command.service';
+import { ProductService } from 'src/app/services/product.service';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
-import { RECENTPRODUCTS, TRANSACTIONHISTORY } from '../shared/data';
-import { Product, Transaction } from '../shared/ecommerce.model';
+import { RECENTPRODUCTS, TRANSACTIONHISTORY } from '../../../apps/ecommerce/shared/data';
+import { Product, Transaction } from '../../../apps/ecommerce/shared/ecommerce.model';
 
 @Component({
   selector: 'app-ecommerce-dashboard',
@@ -16,14 +19,22 @@ export class DashboardComponent implements OnInit {
   transactionHistory: Transaction[] = [];
   recentProducts: Product[] = [];
   worldMapConfig: any = {};
-
-  constructor () { }
+  productCommands:ProductCommand[]=[]
+  commands:Command[]=[]
+  products:Product[]=[]
+  totalPriceSum = 0;
+  totalItems=0
+  totalProducts=0
+  data:any
+  constructor (private commandService:CommandService,private productService: ProductService,) { }
 
   ngOnInit(): void {
     this.pageTitle = [{ label: 'Ecommerce', path: '/' }, { label: 'Dashboard', path: '/', active: true }];
     this._fetchData();
     this._initChart();
     this.initMapConfig();
+    this.ProductData()
+    this.OrdersData();
   }
 
   /**
@@ -135,5 +146,47 @@ export class DashboardComponent implements OnInit {
       },
     }
   }
-
+  calculateTotalPrice():any|number {
+    let totalPrice = 0;
+    this.productCommands.forEach((pc) => {
+      totalPrice += pc.priceTotal ?? 0;
+      //this.totalPrices=totalPrice
+    });
+    return totalPrice;
+  }
+  OrdersData(): void {
+    
+    this.commandService.getAllCommands().subscribe(
+     (response: Command[]) => {
+       this.commands = response;
+       this.data = this.commands.map(command => command.productCommands);
+       //this.totalPrices = this.calculateTotalPrice();
+       this.totalItems = this.commands.length;
+       this.data.forEach((innerArray: ProductCommand[]) => {
+        innerArray.forEach((productCommand: ProductCommand) => {
+          const priceTotal = productCommand.priceTotal;
+          this.totalPriceSum += priceTotal??0;
+          
+        });
+      });
+       console.log("or",this.data);
+       
+        
+     },
+     (error: any) => {
+       console.error('Error fetching products', error);
+     }
+   );
+ }
+ ProductData(): void {
+  this.productService.getAllProducts().subscribe(
+   (response: any) => {
+     this.products = response;
+     this.totalProducts=this.products.length
+   },
+   (error: any) => {
+     console.error('Error fetching products', error);
+   }
+ );
+}
 }
