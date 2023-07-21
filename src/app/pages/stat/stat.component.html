@@ -1,5 +1,11 @@
-<app-page-title [breadcrumbItems]="pageTitle" title="stat"></app-page-title>
+<app-page-title [breadcrumbItems]="pageTitle" title="Statistics "></app-page-title>
 
+<div class="row">
+    <div class="col-md-6 col-xl-3" *ngFor="let item of statisticsData">
+        <app-widget-statistics-card2 [variant]="item.variant" [description]="item.description" [stats]="item.stats"
+            [icon]="item.icon" [progress]="item.progress" [options]="item.options"></app-widget-statistics-card2>
+    </div> <!-- end col -->
+</div>
 <div class="row">
 <div class="col-xl-4 col-md-6">
 
@@ -94,3 +100,22 @@
         </div>
     </div> <!-- end col -->
 </div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+            
+                <h4 class="header-title">Statistics Reservation per Month</h4>
+                <div class="mt-3 chartjs-chart">
+                    <canvas id="revenue-chart" baseChart height="300" [datasets]="revenueChartOptions.datasets"
+                        [type]="revenueChartOptions.type" [labels]="revenueChartOptions.chartLabels"
+                        [options]="revenueChartOptions.chartOptions"></canvas>
+                </div>
+            </div>
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+   
+</div>
+<!-- end row -->

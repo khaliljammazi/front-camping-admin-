@@ -1,3 +1,4 @@
+import { ReservationService } from 'src/app/services/reservation.service';
 import { Component, OnInit } from '@angular/core';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 import { ChartOptions } from '../charts/apex/apex-chart.model';
@@ -5,6 +6,9 @@ import { CampCenterService } from 'src/app/services/camp-center.service';
 import { map } from 'rxjs/operators';
 import { ActivitiesService } from 'src/app/services/activities.service';
 import { Activity } from 'src/app/models/Activity';
+import { StatisticsCard2 } from 'src/app/shared/widget/statistics-card2/statistics-card2.model';
+import { ChartjsOptions } from '../charts/chartjs/chartjs.model';
+
 
 @Component({
   selector: 'app-stat',
@@ -14,7 +18,12 @@ import { Activity } from 'src/app/models/Activity';
 export class StatComponent implements OnInit {
   salesChart!: Partial<ChartOptions>;
   lineChartOptions1: Partial<ChartOptions> = {};
+  revenueChartOptions!: ChartjsOptions;
+  performanceChartOptions!: ChartjsOptions;
+
   listAvtivity : any ;
+  statisticsData: StatisticsCard2[] = [];
+  statistics: any;
 
   pageTitle: BreadcrumbItem[] = [];
   list : any;
@@ -22,7 +31,8 @@ export class StatComponent implements OnInit {
   unocpiied : any;
   constructor(
     private campservice : CampCenterService,
-    private activityService:ActivitiesService
+    private activityService:ActivitiesService,
+    private ReservationService: ReservationService,
   ) { }
 
   ngOnInit(): void {
@@ -148,17 +158,83 @@ this.activityService.TopActivities().subscribe((data:any) => {
   });
   console.log(this.listAvtivity); // Array of Activity objects
 });
-  
+const initialMonthArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-}
-  /**
-   * initialize charts
-   */
-  initChart(): void {
-   
+this.ReservationService.getReservationStatisticsByMonth().subscribe((data)=>{
+  this.statistics = data;
+  this.statistics.forEach((entry:any) => {
+    const monthNumber = entry[0];
+    const value = entry[1];
 
-  
+    initialMonthArray[monthNumber - 1] = value;
+  });
+
+  console.log(initialMonthArray);
+
+this.revenueChartOptions = {
+  type: 'line',
+  chartOptions: {
+    maintainAspectRatio: false,
+    hover: {
+      intersect: true
+    },
+    plugins: {
+      filler: {
+        propagate: false
+      },
+      legend: {
+        display: false
+      },
+      tooltip: {
+        intersect: false
+      }
+    },
+    scales: {
+      xAxes: {
+        grid: {
+          color: "rgba(0,0,0,0.05)"
+        }
+      },
+      yAxes: {
+        ticks: {
+          stepSize: 20
+        },
+        display: true,
+        grid: {
+          color: "rgba(0,0,0,0)",
+        }
+      }
+    }
+  },
+  chartLabels: ["jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"],
+  datasets: [{
+    label: "Current Week",
+    backgroundColor: 'rgba(26, 188, 156, 0.3)',
+    borderColor: '#1fa083',
+    data: initialMonthArray,
+    tension: 0.4,
+    fill: {
+      target: 'origin',
+      above: 'rgba(26, 188, 156, 0.3)',
+    },
+    pointBackgroundColor: 'transparent',
+    pointHoverBackgroundColor: 'transparent',
+    pointBorderColor: '#1fa083',
+    pointHoverBorderColor: '#1fa083',
+    pointBorderWidth: 1.5,
+    capBezierPoints: true,
+  }]
+};
+});
+    
+
+
+
   }
+
+
+
+
 
 
 }
