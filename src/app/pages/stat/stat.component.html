@@ -34,7 +34,7 @@
 
 </div> <!-- end col-->
 <div class="col-xl-8 col-md-6">
-    <app-ui-portlet-card cardTitle=" Average Daily Rate by Month">
+    <app-ui-portlet-card cardTitle=" Average  Rate by Month">
 
         <div id="line-chart">
             <apx-chart class="apex-charts" [series]="lineChartOptions1.series!" [chart]="lineChartOptions1.chart!"
@@ -45,4 +45,52 @@
 
     </app-ui-portlet-card>
 </div>
+</div>
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="float-end" ngbDropdown>
+              
+                   
+                </div>
+
+                <h4 class="header-title mb-3" i18n>Top 5 Reserved activities </h4>
+
+                <div class="table-responsive">
+                    <table class="table table-borderless table-hover table-nowrap table-centered m-0">
+
+                        <thead class="table-light">
+                            <tr>
+                                <th  i18n>Picture</th>
+                                <th i18n>Label</th>
+                                <th i18n>Number</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let record of listAvtivity">
+                                <td style="width: 36px;">
+                                    <img [src]="record.imageUrl" alt="contact-img" title="contact-img"
+                                        class="rounded-circle avatar-sm" />
+                                </td>
+
+                                <td>
+                                    <h5 class="m-0 fw-normal" i18n>{{record.name}}</h5>
+
+                                </td>
+
+
+                                <td>
+                                     {{record.id}}
+                                </td>
+
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
 </div>

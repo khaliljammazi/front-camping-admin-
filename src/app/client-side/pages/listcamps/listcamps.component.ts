@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CampingCenter } from 'src/app/models/CampingCenter';
 import { CampCenterService } from 'src/app/services/camp-center.service';
+import { FeedbackService } from 'src/app/services/feedback.service';
 
 @Component({
   selector: 'app-listcamps',
@@ -10,7 +11,8 @@ import { CampCenterService } from 'src/app/services/camp-center.service';
 export class ListcampsComponent implements OnInit {
   searchTerm = '';
   selectedOption: number = 0;
-    camps: CampingCenter[] = [];
+  camps: any[] = [];
+
   page = 1;
   pageSize = 8;
   range = 0;
@@ -18,13 +20,18 @@ export class ListcampsComponent implements OnInit {
   loader: boolean = false;
   
   constructor(
-private CampCenterService: CampCenterService
+private CampCenterService: CampCenterService,
+private FeedbackService: FeedbackService
   ) { }
 
   ngOnInit(): void {
     this.CampCenterService.getCamps().subscribe((c) => {
       this.camps = c.filter((camp)=>camp.active);
-      })
+      
+      
+    });
+    
+
   }
 
   /**
@@ -120,6 +127,9 @@ private CampCenterService: CampCenterService
     showcard():void {
       this.show = !this.show;
     }
+  
+  
+    
 
 
   

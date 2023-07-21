@@ -34,9 +34,8 @@ Reservation: Reservation=new Reservation();
  Listuser: User[] = [];
  totalAmount: number = 0;
  Listcamp: CampingCenter[] = [];
-
-//  Reservation: Reservation = new Reservation();
  listactivty: Activity[] = [];
+ 
  constructor(
    private fb: FormBuilder,
    private sanitizer: DomSanitizer,
@@ -57,6 +56,12 @@ Reservation: Reservation=new Reservation();
         next: (Reservation: Reservation) => {
           this.Reservation = Reservation;
           this.editReservation.patchValue(this.Reservation);
+        this.editReservation.controls["campingCenter"].setValue(this.Reservation.campingCenter.id);
+        this.editReservation.controls["user"].setValue(this.Reservation.user.id);
+        this.editReservation.controls["activities"].setValue(this.Reservation.campingCenter.activities.map((activity: Activity) => activity.id));
+        console.log(this.Reservation);
+
+
     
         },
         error: (error) => console.log(error)
@@ -81,7 +86,9 @@ this.editReservation = this.fb.group({
   discount1: ["", Validators.required],
   price1: ["", Validators.required],
   campingPeriod: ["", Validators.required],
+  
 });
+
 
 
 this.editReservation.controls["campingCenter"].valueChanges.subscribe(
@@ -95,14 +102,22 @@ this.editReservation.controls["campingCenter"].valueChanges.subscribe(
         (value: any) => {
           this.activityService.getById(value).subscribe((res: any) => {
             this.editReservation.controls["price1"].setValue(res.price);
-            this.editReservation.controls["discount1"].setValue(2);
+            this.editReservation.controls["discount1"].setValue(res.discount);
           });
         }
       ); 
     });
   }
 );
- 
+ this.editReservation.controls["user"].valueChanges.subscribe(
+    (value: any) => {
+      this.userService.getById(value).subscribe((res: any) => {
+        this.editReservation.controls["nom"].setValue(res.nom);
+        this.editReservation.controls["email"].setValue(res.email);
+      });
+    }
+  );
+
 // calculate camping period
 this.editReservation.controls["dateEnd"].valueChanges.subscribe(
   (value: any) => {
@@ -135,14 +150,14 @@ this.editReservation.controls["numberReserved"].valueChanges.subscribe(
     }
   }
 );
+
 this.userService.getAll().subscribe({
   next: (us: User[]) => {
     this.Listuser = us.filter((user) => !user.roles.some((role) => role.name === 'ROLE_SUPER_ADMIN' || role.name === 'ROLE_ADMIN'));
   },
 });
-this.editReservation.controls["user"].valueChanges.subscribe((value: any) => {
-    this.editReservation.controls["email"].setValue(this.Listuser.filter((u) => u.id == value).pop()?.email);
-  });
+
+
 
 this.CampCenterService.getCamps().subscribe(
   {
@@ -150,7 +165,20 @@ this.CampCenterService.getCamps().subscribe(
 }
 );
 
+this.route.params.subscribe((params) => {
+  this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
+    this.editReservation.controls["campingCenter"].setValue(res.id);
+    this.editReservation.controls["price"].setValue(res.price);
+    this.editReservation.controls["discount"].setValue(res.discount);
+    this.listactivty = res.activities;
+   console.log(res.id);
+   
+  });
+    });
+  
 
+    
+  
 
 
 
@@ -159,28 +187,7 @@ this.CampCenterService.getCamps().subscribe(
  // convenience getter for easy access to form fields
  get form1() { return this.editReservation.controls; }
 
- /**
-  *  adds edit file in uploaded files
-  */
 
-   onSelect(event: any) {
-     this.files.push(...event.addedFiles);
-       // Upload the files using Filestack
-       this.files.forEach((file) => {
-         this.filestackClient.upload(file)
-           .then((result) => {
-             // Handle the successful upload
-             console.log('Filestack upload result:', result);
-             this.editReservation.patchValue({ image: result.url });
-
-           })
-           .catch((error) => {
-             // Handle the upload error
-             console.error('Filestack upload error:', error);
-           });
-       });
-     }
-   
  /**
   * add edit members in selected members
   * @param event member data
@@ -200,40 +207,9 @@ this.CampCenterService.getCamps().subscribe(
  removeActivity(index: number): void {
    this.selectedActivity.splice(index, 1);
  }
- trackByItemID(index: number, a:any): number { return a.id; }
 
 
- /**
-  *   removes file from uploaded files
-  */
- onRemove(event: any) {
-   this.files.splice(this.files.indexOf(event), 1);
- }
-
- /**
- * Formats the size
- */
- getSize(f: File) {
-   const bytes = f.size;
-   if (bytes === 0) {
-     return '0 Bytes';
-   }
-   const k = 1024;
-   const dm = 2;
-   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-   const i = Math.floor(Math.log(bytes) / Math.log(k));
-   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
- }
-
-
- /**
-  * Returns the preview url
-  */
- getPreviewUrl(f: File) {
-   return this.sanitizer.bypassSecurityTrustResourceUrl(encodeURI(URL.createObjectURL(f)));
- }
-
+ 
  onSubmit(): void {
   const id = this.route.snapshot.params['id'];
   let user = this.Listuser.filter(
@@ -257,24 +233,6 @@ this.CampCenterService.getCamps().subscribe(
   };
 
   this.ReservationService.updateReservation(postFormData).subscribe(
-  // let user = this.Listuser.filter(
-  //   (u) => u.id == Number(this.editReservation.controls["user"].value)).pop();
-  // if (user) delete user.authorities;
-  // const postFormData = {
-  //   id: this.Reservation.id, // Include the reservation ID
-  //   active: this.Reservation.active, // Include the active status
-  //   isConfirmed: this.Reservation.isConfirmed, // Include the isConfirmed status
-  //   numberReserved: this.editReservation.controls["numberReserved"].value,
-  //   campingPeriod: this.editReservation.controls["campingPeriod"].value,
-  //   totalAmount: this.totalAmount,
-  //   dateStart: this.editReservation.controls["dateStart"].value,
-  //   dateEnd: this.editReservation.controls["dateEnd"].value,
-  //   campingCenter: this.Listcamp.filter(
-  //     (u) =>  u.id == Number(this.editReservation.controls["campingCenter"].value)).pop(),activities: this.Listcamp.filter((u) => u.id == Number(this.editReservation.controls["activities"].value)),user: user,
-  // };
-  
-  //  this.ReservationService.updateReservation(reservationId,this.editReservation.value).subscribe(
-     
   next => {
        Swal.fire({
          title: 'Success',

@@ -37,6 +37,7 @@
                                     <th> user</th>
                                     <th>comment</th>
                                     <th>date</th>
+                                    <th>status</th>
                                     <th>action</th>
                                     
                                 </tr>
@@ -47,7 +48,13 @@
                                     <td>{{c.details}}</td>
                                     <td>{{c.createdAt | date:'medium'}}</td>
                                     <td>
+                                        <span [ngClass]="{'badge badge-soft-success float-end': c.active, 'badge badge-soft-danger float-end': !c.active}">
+                                            {{c.active ? 'active' : 'inactive'}}
+                                        </span>
+                                    </td>
+                                    <td>
                                         <button type="button" class="btn btn-danger btn-sm waves-effect waves-light" (click)="changeStatusComment(c.id)">change status</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

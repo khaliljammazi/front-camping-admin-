@@ -40,12 +40,42 @@
         </div> <!-- end col-->
     </div>
     <!-- end row-->
-    <div class="row" style="padding-left: 100px ;display: flex;" >
-       <div class="col-md-6 box_1">
-        <!--img src="../../../../../assets/images/pic_2.jpg" alt="product-pic" class="img-fluid " height="" /-->
-       </div>
-       <div class="col-md-5 box_2"></div>
-    </div>
+    
+<section class="banner-section centred">
+    <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-1.png);"></div>
+<owl-carousel-o [options]="carouselOptions" class="banner-carousel">
+  <ng-container *ngFor="let slide of slidesStore">
+    <ng-template  carouselSlide ="slide.id">
+        <div class="slide-item">
+
+      <img class="image-layer"  [src]="slide.image"  >
+      <div class="auto-container">
+        <div class="content-box">
+          <div class="shape" style="background-image: url(assets/images/shape/shape-2.png);"></div>
+          <span>{{ slide.caption }}</span>
+          <h2>{{ slide.heading }}</h2>
+          <div class="btn-box">
+            <a [routerLink]="slide.link" class="theme-btn btn-one">{{ slide.buttonText }}</a>
+          </div>
+        </div>
+      </div>
+      
+      </div>
+    </ng-template>
+  </ng-container>
+
+</owl-carousel-o>
+
+<div class="media-partner">
+    <ul class="media-links clearfix">
+        <li><h6>Follow on social media</h6></li>
+        <li><a href="index.html"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="index.html"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a href="index.html"><i class="fab fa-pinterest-p"></i></a></li>
+        <li><a href="index.html"><i class="fab fa-instagram"></i></a></li>
+    </ul>
+</div>
+</section>
     <div class="row" style="margin:20px ;">
         <div class="col-md-6 col-xl-3" *ngFor="let product of products | slice: (page-1) * pageSize : page * pageSize">
             <div class="card product-box">
@@ -79,7 +109,7 @@
                             <div class="col-auto">
                                 <div class="product-price-tag" style="color:black ;">
                                    <span>{{product.price }} DT</span><br>
-                                   <button class="btn " (click)="addToCart(product.id)" style="background-color: #ffbf37;color:black;"   > <span>Add to cart <i class="bi bi-cart3"></i></span></button> 
+                                   <button class="btn " (click)="addToCart(product.id)" style="background-color: #ff6f29;color:white;" [disabled]="!product.active||product.stock==0"  > <span>Add to cart <i class="bi bi-cart3"></i></span></button> 
                                    
     
                                 </div>

@@ -4,7 +4,6 @@ import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 import { Product } from 'src/app/models/product';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
-import { Command, ProductCommand } from 'src/app/models/command';
 import { Column } from 'src/app/shared/advanced-table/advanced-table.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
@@ -113,7 +112,7 @@ export class ProductsComponent implements OnInit {
   }
     
   editProduct(productId: number) {
-    this.router.navigate(['/ecommerces/products/add-product', productId],{ relativeTo: this.route });
+    this.router.navigate(['/admin/ecommerces/products/add-product', productId],{ relativeTo: this.route });
   }
 
   deleteProduct(productId: number): void {

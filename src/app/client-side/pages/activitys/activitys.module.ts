@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { ActivitysRoutingModule } from './activitys-routing.module';
 import { ActivitysComponent } from './activitys.component';
+import { PageTitleModule } from 'src/app/shared/page-title/page-title.module';
+import { AdvancedTableModule } from 'src/app/shared/advanced-table/advanced-table.module';
+//import { AdvancedTableModule } from './advanced-table/advanced-table.module';
 
 
 @NgModule({
@@ -11,7 +14,9 @@ import { ActivitysComponent } from './activitys.component';
   ],
   imports: [
     CommonModule,
-    ActivitysRoutingModule
+    ActivitysRoutingModule,
+    AdvancedTableModule,
+    PageTitleModule
   ]
 })
 export class ActivitysModule { }

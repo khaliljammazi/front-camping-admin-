@@ -3,6 +3,11 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { CampCenterService } from 'src/app/services/camp-center.service';
 import { Fancybox } from '@fancyapps/ui';
 import { CampingCenter } from 'src/app/models/CampingCenter';
+import { Post } from 'src/app/models/Post';
+import { PostService } from 'src/app/services/post.service';
+import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-home',
@@ -83,10 +88,13 @@ export class HomeComponent implements OnInit {
     }
   ];
   camps: any[] = [];
+  listPost : any = [];
 
   constructor(
     private campService: CampCenterService,
-    private elRef: ElementRef
+    private elRef: ElementRef,
+    private PostService : PostService,
+    private UserService : AuthService
   ) { }
 
   ngOnInit(): void {
@@ -107,7 +115,38 @@ export class HomeComponent implements OnInit {
 
 
     })
+    console.log(this.UserService.currentUser().id);
+
+    
+
+    
+      if(this.UserService.currentUser().id){
+        console.log(this.UserService.currentUser().id);
+        this.PostService.getPostsByUserMostComments(this.UserService.currentUser().id,3).subscribe((data)=>{
+          if(data.length>0){
+           this.listPost = data.filter((post)=>post.active) ;
+          }else{
+            this.PostService.getPost().subscribe((data)=>{
+              this.listPost = data.filter((post)=>post.active).slice(0,3) ;
+            }
+              );
+
+            }
+        
+
+        }
+          );
+      } else 
+        this.PostService.getPost().subscribe((data)=>{
+          this.listPost = data.filter((post)=>post.active).slice(0,3) ;
+        }
+          );
+      
+       
+  
+        
   }
+
   ngOnDestroy() {
     Fancybox.unbind(this.elRef.nativeElement);
     Fancybox.close();

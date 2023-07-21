@@ -1,0 +1,160 @@
+    <div class="row">
+        <div >
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-uppercase bg-light p-3 mt-0 mb-2">Make Reservation
+                    
+                </h5>
+                <form [formGroup]="newReservation" #addReservation="ngForm" action="javascript:void(0)" (ngSubmit)="onSubmit()" >
+
+                <div class="card">
+                    <div class="card-body bg-light" >
+                        <h5 class="text-uppercase">Custmer Détails</h5>
+                    <br>
+                        <div class="row">
+                   
+                      <div class="col">
+                        <div class="mb-3">
+                          <label class="form-label">Nom<span class="text-danger">*</span></label>
+                      <select [ngClass]="{ 'is-invalid': addReservation.submitted && form1.nom.invalid }" class="form-select" aria-label="Default select example" formControlName="user">
+                        <option *ngFor="let u of Listuser"   [value]="u.id" >
+                          {{ u.nom }}
+                        </option>
+                      </select>
+                    </div> 
+                      </div>
+                      <div class="col">
+                         <label class="form-label">Email<span
+                            class="text-danger">*</span></label>
+                            <input type="text" id="email" class="form-control"  formControlName="email" [ngClass]="{ 'is-invalid': addReservation.submitted && form1.email.invalid }"  >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                    <div class="card-body bg-light" >
+                        <h5 class="text-uppercase">Choose Camping Center</h5>
+                        <br>
+                        <div class="row">
+                      <div class="col">
+                        <div class="mb-3">
+                            <label class="form-label">Camping center <span class="text-danger">*</span></label>
+                            <!-- <input type="text" id="campingCenter" class="form-control" required formControlName="campingCenter"
+                            [ngClass]="{ 'is-invalid': addReservation.submitted && form1.campingCenter.invalid }"  >  -->
+                            <select [ngClass]="{ 'is-invalid': addReservation.submitted && form1.campingCenter.invalid }" class="form-select"  formControlName="campingCenter" >
+                                      <option *ngFor="let camping of Listcamp" [value]="camping.id">
+                                        {{ camping.label }}
+                                      </option>
+                                    </select>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Price<span
+                            class="text-danger">*</span></label>
+                    <input type="number" id="price" class="form-control" required formControlName="price"
+                        [ngClass]="{ 'is-invalid': addReservation.submitted && form1.price.invalid }" readonly >
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Discount<span
+                            class="text-danger">*</span></label>
+                    <input type="number" id="price" class="form-control" required formControlName="discount"
+                        [ngClass]="{ 'is-invalid': addReservation.submitted && form1.discount.invalid }" readonly >
+                    
+                    </div>
+                </div>
+              </div>
+            </div>
+                    <div class="card" *ngIf="listactivty.length > 0">
+                        <div class="card-body bg-light" >
+                            <h5 class="text-uppercase">Choose Activities</h5>
+                            <br>
+                            <div class="row">
+                          <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label">Activities<span
+                                        class="text-danger">*</span></label>
+                               <select [ngClass]="{ 'is-invalid': addReservation.submitted && form1.activities.invalid }" class="form-select" aria-label="Default select example"  formControlName="activities" >
+                                 <option *ngFor="let act of listactivty" [value]="act.id"> 
+                                {{act.label}}
+                                  </option> 
+                                </select>
+                                <!-- <select2 id="selec2-2" [ngClass]="{ 'is-invalid': addReservation.submitted && form1.activities.invalid }" class="form-select" aria-label="Default select example" multiple="true" formControlName="activities" >
+                                  <option *ngFor="let act of listactivty" [value]="act.id"> 
+                                 {{act.label}}
+                                   </option> 
+                                 </select2> -->
+                            </div>
+                          </div>
+                      
+                          <div class="col">
+                            <label class="form-label">Price<span
+                                class="text-danger">*</span></label>
+                        <input type="number" id="price1" class="form-control" required formControlName="price1"
+                            [ngClass]="{ 'is-invalid': addReservation.submitted && form1.price1.invalid }" readonly required>
+                          </div>
+                          <div class="col">
+                            <label class="form-label">Discount<span
+                                class="text-danger">*</span></label>
+                        <input type="number" id="discount1" class="form-control" required formControlName="discount1"
+                            [ngClass]="{ 'is-invalid': addReservation.submitted && form1.discount1.invalid }" readonly required>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                
+
+               <div class="card">
+                        <div class="card-body bg-light" >
+                            <h5 class="text-uppercase">Choose a specific time</h5>
+                            <br>
+                            <div class="row">
+                          <div class="col">
+                            <label class="form-label">Start date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" required name="dateStart"
+                                formControlName="dateStart"
+                                [ngClass]="{  'is-invalid': addReservation.submitted && form1.dateStart.invalid }">
+                        </div>
+                          
+                          <div class="col">
+                            <label  class="form-label" >End date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" required name="dateEnd"
+                                formControlName="dateEnd"
+                                [ngClass]="{  'is-invalid': addReservation.submitted && form1.dateEnd.invalid }">
+                       </div>
+                       <div class="col">
+                        <label class="form-label">Camping period<span
+                            class="text-danger">*</span></label>
+                    <input type="number" id="campingPeriod" class="form-control" 
+                        required formControlName="campingPeriod"
+                        [ngClass]="{ 'is-invalid': addReservation.submitted && form1.campingPeriod.invalid }">
+                     
+                      </div>
+                       <div class="col">
+                        <label class="form-label">Number Reserved<span
+                            class="text-danger">*</span></label>
+                    <input type="number" id="numberReserved" class="form-control" 
+                        required formControlName="numberReserved"
+                        [ngClass]="{ 'is-invalid': addReservation.submitted && form1.numberReserved.invalid }">
+                     
+                      </div>
+                        </div>
+                      </div>
+                    </div>  <button type="button" class="btn btn-primary waves-effect waves-light float-end" >
+                    <i class="mdi mdi-cash"></i> Total Amount : {{totalAmount}} 
+                </button>
+              
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-center mb-3">
+                            <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1" [routerLink]="['reservation/invoice/',Reservation.id]"  >Save</button>
+                            <button type="button" class="btn w-sm btn-danger waves-effect" [routerLink]="['../']">Cancel</button>
+                        </div>
+                    </div> 
+                </div>
+            </form>  
+        </div>
+                </div>
+    </div> 
+</div>
+         
+      

@@ -116,7 +116,7 @@ export class AddProductComponent implements OnInit {
             icon: 'success',
           });
           console.log('Product updated successfully', response);
-          this.router.navigate(['/ecommerces/products']);
+          this.router.navigate(['admin/ecommerces/products']);
         },
         (error: any) => {
           console.error('Error updating product', error);
@@ -131,7 +131,7 @@ export class AddProductComponent implements OnInit {
             icon: 'success',
           });
           console.log('Product added successfully', response);
-          this.router.navigate(['/ecommerces/products']);
+          this.router.navigate(['admin/ecommerces/products']);
         },
         (error: any) => {
           console.error('Error adding product', error);

@@ -3,11 +3,8 @@
         <div >
             <div class="card">
                 <div class="card-body">
-                    <h5 class="text-uppercase bg-light p-3 mt-0 mb-2">Add section
-                    <button style="margin-top: -1%; " type="button" class="btn btn-primary waves-effect waves-light float-end"
-                        >
-                        <i class="mdi mdi-printer"></i> Get Bill
-                    </button>
+                    <h5 class="text-uppercase bg-light p-3 mt-0 mb-2">Update section
+                 
                 </h5>
                 <form [formGroup]="editReservation" #updateReservation="ngForm" (ngSubmit)="onSubmit()">
 
@@ -43,11 +40,11 @@
                       <div class="col">
                         <div class="mb-3">
                             <label for="camp-activity" class="form-label">Camping center <span class="text-danger">*</span></label>
-                                    <select [ngClass]="{ 'is-invalid': updateReservation.submitted && form1.campingCenter.invalid }" class="form-select" aria-label="Default select example" formControlName="campingCenter">
-                                      <option *ngFor="let camping of Listcamp" [value]="camping.id">
-                                        {{ camping.label }}
-                                      </option>
-                                    </select>
+                            <select [ngClass]="{ 'is-invalid': updateReservation.submitted && form1.campingCenter.invalid }" class="form-select" aria-label="Default select example" formControlName="campingCenter">
+                              <option *ngFor="let camping of Listcamp" [value]="camping.id">
+                                {{ camping.label }}
+                              </option>
+                            </select>
                         </div>
                       </div>
                       <div class="col">

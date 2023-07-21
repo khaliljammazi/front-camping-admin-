@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-update',
@@ -27,7 +28,8 @@ export class UpdateComponent implements OnInit {
     private sanitizer: DomSanitizer,
 private PostService: PostService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userservice:AuthService
   ) { }
 
   ngOnInit(): void {
@@ -57,9 +59,8 @@ this.Post = this.fb.group({
   details: ['', Validators.required],
   active: ['', Validators.required],
   image: ['', Validators.required],
-  User: [''],
-  campingCenter: [''],
   created_at: [''],
+
 });
   }
 
@@ -139,10 +140,23 @@ const created_at = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date
   date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 this.Post.patchValue({ created_at: created_at });
 console.log(this.Post.value);
+let  update={
+  "id": this.Post.value.id,
+  "title": this.Post.value.title,
+  "details": this.Post.value.details,
+  "active": this.Post.value.active,
+  "image": this.Post.value.image,
+  "tags": this.Post.value.tags,
+  "user": {
+    "id": this.userservice.currentUser().id}
+
+}
+console.log(update);
+
 
 
  
-    this.PostService.updatePost(this.Post.value).subscribe(
+    this.PostService.updatePost(update).subscribe(
       
    next => {
         Swal.fire({

@@ -16,11 +16,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-activity.component.scss']
 })
 export class AddActivityComponent implements OnInit {
+
   filestackClient = filestack.init('AImPrCDnyQeifHkYOX3sLz');
   pageTitle: BreadcrumbItem[] = [];
    newActivity!: FormGroup;
    files: File[] = [];
+   seasons: string[] = ['SPRING', 'SUMMER', 'AUTUMN', 'WINTER'];
    campingCenters: CampingCenter[] = [];   
+   loader = false;
+
   constructor( private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     private activityService: ActivitiesService,
@@ -34,12 +38,13 @@ export class AddActivityComponent implements OnInit {
  // product form
  this.newActivity = this.fb.group({ 
   label: ['', Validators.required],
-  location: ['', Validators.required],
   discount: ['', Validators.required],
   description: ['', Validators.required],
   price: ['', Validators.required],
-  status: ['', Validators.required],
+  season: ['', Validators.required],
   image: ['', Validators.required],
+  duration: ['', Validators.required],
+  capacity: ['', Validators.required],
   campingCenterId: ['', Validators.required]
 
 
@@ -61,22 +66,24 @@ get form1() { return this.newActivity.controls; }
 
 onSelect(event: any) {
   this.files.push(...event.addedFiles);
+  this.loader = true;
     // Upload the files using Filestack
     this.files.forEach((file) => {
       this.filestackClient.upload(file)
         .then((result) => {
+          this.loader = false;
           // Handle the successful upload
           console.log('Filestack upload result:', result);
           this.newActivity.patchValue({ image: result.url });
 
         })
         .catch((error) => {
+          this.loader = false;
           // Handle the upload error
           console.error('Filestack upload error:', error);
         });
     });
   }
-
 
   trackByItemID(index: number, a:any): number { return a.id; }
 

@@ -31,7 +31,7 @@
                             </div>
                             <div class="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms" *ngFor="let post of listofpostwithcomment">
                                 <div class="inner-box" >
-                                    <figure class="image-box"><a routerLink="blog-Detail" >
+                                    <figure class="image-box"><a [routerLink]="['/blog/blog-Detail', post.post.id]" >
                                         <img src={{post.post.image}} alt=""></a></figure>
                                     <div class="lower-content">
                                         <span class="post-date">{{post.post.createdAt | date:'medium'}}</span>
@@ -41,9 +41,9 @@
                                         </ul>
                                         <div class="text-muted mb-4" [innerHTML]="getSanitizedContent(post.post.details)"> </div>
 
-                                        <h3><a routerLink="blog-Detail">{{post.post.title}}</a></h3>
+                                        <h3><a [routerLink]="['/blog/blog-Detail', post.post.id]">{{post.post.title}}</a></h3>
                                         <div class="link">
-                                            <a routerLink="blog-Detail">Read More</a>
+                                            <a [routerLink]="['/blog/blog-Detail', post.post.id]">Read More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -77,29 +77,19 @@
                                         <figure class="post-thumb"><img src={{post.post.image}}
                                             alt=""></figure>
                                         <div class="post-date"><i class="far fa-comments"></i> {{post.comment.length}} Comments</div>
-                                        <h6><a routerLink="blog-Detail">{{post.post.title}}</a></h6>
+                                        <h6><a [routerLink]="['//blog/blog-Detail', post.post.id]">{{post.post.title}}</a></h6>
                                     </div>
                                   
                                 </div>
                             </div>
-                            <div class="sidebar-widget category-widget">
-                                <div class="widget-title">
-                                    <h4>Categories</h4>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="category-list clearfix">
-                                        <li><a href="blog-details.html">Summer Camp</a></li>
-                                       
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="sidebar-widget tags-widget">
+                      
+                            <div class="sidebar-widget tags-widget" (click)="filtredbytag('')">
                                 <div class="widget-title">
                                     <h4>Popular Tags</h4>
                                 </div>
                                 <div class="widget-content">
                                     <ul class="tags-list clearfix" *ngFor="let tag of top3tags">
-                                        <li><a >{{tag}}</a></li>
+                                        <li><a (click)="filtredbytag(tag)">{{tag}}</a></li>
                                  
                                        
                                     </ul>
