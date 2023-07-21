@@ -43,13 +43,15 @@ export class InvoiceComponent implements OnInit {
     };
   }
   _fetchreservation(): void {
-    const id = this.route.snapshot.paramMap.get("id");
-    this.ReservationService.getReservationById(Number(id)).subscribe({
+    this.route.params.subscribe((params) => {
+
+    this.ReservationService.getReservationById(params.id).subscribe({
       next: (reserv: Reservation) => {
         this.reservation = reserv;
         console.log(this.reservation);
         this.listactivty = reserv.activities;
       },
     });
-  }
+  });
+}
 }
