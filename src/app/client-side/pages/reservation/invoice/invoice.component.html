@@ -1,0 +1,187 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <!-- Logo & title -->
+        <div class="clearfix">
+          <div class="float-start">
+            <div class="auth-logo">
+              <div class="logo logo-dark">
+                <span class="logo-lg">
+                  <img
+                    src="../assets/images/logo-dark.png"
+                    alt=""
+                    height="22"
+                  />
+                </span>
+              </div>
+
+              <div class="logo logo-light">
+                <span class="logo-lg">
+                  <img
+                    src="../assets/images/logo-light.png"
+                    alt=""
+                    height="22"
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="float-end">
+            <h4 class="m-0 d-print-none">Print Reservation</h4>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mt-3">
+              <p>
+                <b
+                  >Hello, {{ reservation.user.nom }}
+                  {{ reservation.user.prenom }}</b
+                >
+              </p>
+              <p class="text-muted">
+                Thanks a lot because you keep purchasing our products. Our
+                company promises to provide high quality products for you as
+                well as outstanding customer service for every transaction.
+              </p>
+            </div>
+          </div>
+          <!-- end col -->
+          <div class="col-md-4 offset-md-2">
+            <div class="mt-3 float-end">
+              <p>
+                <strong>Reservation Start Date : </strong>
+                <span class="float-end">
+                  &nbsp;&nbsp;&nbsp;&nbsp; {{ reservation.dateStart }}</span
+                >
+              </p>
+              <p>
+                <strong>Reservation End Date : </strong>
+                <span class="float-end">
+                  &nbsp;&nbsp;&nbsp;&nbsp; {{ reservation.dateEnd }}</span
+                >
+              </p>
+              <p>
+                <strong>Camping lasts : </strong>
+                <span class="float-end">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  {{ reservation.campingPeriod }} day(s)</span
+                >
+              </p>
+ 
+              <p>
+                <strong>Reservation No. : </strong>
+                <span class="float-end">000{{ reservation.id }} </span>
+              </p>
+            </div>
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+
+        <div class="row mt-3">
+          <div class="col-sm-6">
+            <h6>Custmer Address</h6>
+            <address>
+              {{ reservation.user.nom }} {{ reservation.user.prenom }} <br />
+              {{ reservation.user.email }} <br />
+            </address>
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+        <br />
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-centered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th style="width: 15%">camping Center</th>
+                    <th style="width: 15%">Number of person reserved</th>
+                    <th>camping price</th>
+                    <th>camping discount</th>
+                    <th>activity price</th>
+                    <th style="width: 10%">activity discount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ reservation.id }}</td>
+                    <td>
+                      <b>{{ reservation.campingCenter.label }}</b> <br />
+                      <p *ngFor="let activities of listactivty">
+                        {{ activities.label }}
+                      </p>
+                    </td>
+                    <td>{{ reservation.numberReserved }}</td>
+                    <td>{{ reservation.campingCenter.price }}</td>
+                    <td>{{ reservation.campingCenter.discount }}</td>
+                    <td *ngFor="let activities of listactivty">
+                      {{ activities.price }}
+                    </td>
+                    <td *ngFor="let activities of listactivty">
+                      {{ activities.discount }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- end table-responsive -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="clearfix pt-5">
+              <h6 class="text-muted">Notes:</h6>
+
+              <small class="text-muted">
+                {{ invoiceData.notes }}
+              </small>
+            </div>
+          </div>
+          <!-- end col -->
+          <div class="col-sm-6">
+            <div class="float-end">
+              <p>
+                <b>Sub-total:</b>
+                <span class="float-end">{{ reservation.totalAmount }}</span>
+              </p>
+              <p>
+                <b>Discount :</b>
+                <span class="float-end">
+                  &nbsp;&nbsp;&nbsp;
+                  {{ reservation.campingCenter.discount }} %</span
+                >
+              </p>
+              <h3>{{ reservation.totalAmount }} DT</h3>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+
+        <div class="mt-4 mb-1">
+          <div class="text-end d-print-none">
+            <a
+              href="javascript:window.print()"
+              class="btn btn-primary waves-effect waves-light me-1"
+              ><i class="mdi mdi-printer me-1"></i> Print</a
+            >
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row -->

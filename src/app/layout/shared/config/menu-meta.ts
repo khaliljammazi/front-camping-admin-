@@ -56,12 +56,21 @@ const MENU_ITEMS: MenuItem[] = [
         
     },
     {
+        key: 'dashboard',
+        label: 'Dashboard',
+        isTitle: false,
+        icon: 'bar-chart-2',
+        collapsed: true,
+        link: '/admin/stat',
+    },
+    {
         key: 'Camping-center',
         label: 'Camping-centers',
         isTitle: false,
         icon: 'home',
         collapsed: true,
         children: [
+
             {
                 key: 'Camping-center',
                 label: 'Camping-center',
@@ -80,14 +89,37 @@ const MENU_ITEMS: MenuItem[] = [
         ]
     },
     {
-        key: 'Activities ',
-        label: 'Activity',
+        key: 'Activities',
+        label: 'Activities',
         isTitle: false,
         icon: 'activity',
         collapsed: true,
-        link: '/admin/activities',
-       
+        children: [
+
+            {
+                key: 'Activities ',
+                label: 'Activity',
+                link: '/admin/activities',
+                parentKey: 'Activities',
+            },
+            {
+                key: 'Activities-feedbacks',
+                label: 'Activities-feedbacks',
+                link: '/admin/activity-feedback',
+                parentKey: 'Activities',
+            },
+            
+        ]
     },
+    // {
+    //     key: 'Activities ',
+    //     label: 'Activity',
+    //     isTitle: false,
+    //     icon: 'activity',
+    //     collapsed: true,
+    //     link: '/admin/activities',
+       
+    // },
     {
         key: 'Reservations ',
         label: 'Reservations',
@@ -97,6 +129,19 @@ const MENU_ITEMS: MenuItem[] = [
         link: '/admin/reservations',
         
     },
+    {
+        key: 'Posts',
+        label: 'Posts',
+        isTitle: false,
+        icon: 'file-text',
+        collapsed: true,
+        link: '/admin/post',
+    },
+
+    
+    
+
+    { key: 'apps', label: 'Apps', isTitle: true },
     {
         key: 'ecommerces',
         label: 'Ecommerce',

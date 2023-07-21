@@ -1,0 +1,123 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Add  post"></app-page-title>
+
+<form [formGroup]="newPost" #addPost="ngForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
+
+                    <div class="mb-3">
+                        <label for="post-title" class="form-title">Post title <span
+                                class="text-danger">*</span></label>
+                        <input type="text" id="post-title" class="form-control" 
+                            required formControlName="title"
+                            [ngClass]="{ 'is-invalid': addPost.submitted && form1.title.invalid }">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="post-details" class="form-label">post details <span
+                                class="text-danger">*</span></label>
+
+                        <div id="snow-editor">
+                            <quill-editor formControlName="details" [styles]="{height: '150px'}" #quillEditor
+                                [sanitize]="true">
+                            </quill-editor>
+                        </div> <!-- end Snow-editor-->
+                    </div>
+       
+
+                    <div class="mb-3">
+                        <label class="mb-2">Status <span class="text-danger">*</span></label>
+                        <br />
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check me-2">
+                                <input class="form-check-input" type="radio" value=true 
+                                    formControlName="active" id="inlineRadio1" checked>
+                                <label class="form-check-label" for="inlineRadio1">Active</label>
+                            </div>
+                            <div class="form-check me-2">
+                                <input class="form-check-input" type="radio" value=false 
+                                    formControlName="active" id="inlineRadio2">
+                                <label class="form-check-label" for="inlineRadio2">Inactive</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- end card -->
+        </div> <!-- end col -->
+
+        <div class="col-lg-6">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">image</h5>
+                    
+
+                    <ngx-dropzone (change)="onSelect($event)" class="dropzone"
+                        accept="image/jpeg,image/jpg,image/png,image/gif">
+                        <ngx-dropzone-label>
+                            <i class="h1 text-muted dripicons-cloud-upload"></i>
+                            <h3>Drop files here or click to upload.</h3>
+                            <span class="text-muted font-13">( Selected files are
+                                <strong>not</strong> actually uploaded.)</span>
+                        </ngx-dropzone-label>
+                        <div class="dropzone-spinner" *ngIf="loader">
+                            <div class="spinner-border text-success" role="status">
+                              <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div>
+                    </ngx-dropzone>
+
+                    <!-- Preview -->
+                    <div class="dropzone-previews mt-3" id="file-previews">
+                        <!-- file preview template -->
+                        <div id="uploadPreviewTemplate" *ngFor="let f of files">
+                            <div class="card mt-1 mb-0 shadow-none border">
+                                <div class="p-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <img class="avatar-sm rounded bg-light" [alt]="f.name"
+                                                [src]="getPreviewUrl(f)">
+                                        </div>
+                                        <div class="col ps-0">
+                                            <a href="javascript:void(0);" class="text-muted fw-bold">{{f.name}}</a>
+                                            <p class="mb-0">{{getSize(f)}}</p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <!-- Button -->
+                                            <a href="javascript:void(0)" class="btn btn-link btn-lg text-muted"
+                                                (click)="onRemove($event)">
+                                                <i class="dripicons-cross"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end col-->
+
+          
+
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center mb-3">
+                <button type="button" class="btn w-sm btn-danger waves-effect" routerLink="admin/post">
+                    Cancel
+                </button>
+                <button type="submit" class="btn w-sm btn-success waves-effect waves-light me-1">Save</button>
+            </div>
+        </div> <!-- end col -->
+    </div>
+    <!-- end row -->
+
+</form>

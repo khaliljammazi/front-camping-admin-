@@ -1,0 +1,112 @@
+ <!-- Page Title -->
+ <section class="page-title centred">
+    <div class="bg-layer" style="background-image: url(assets/images/background/page-title.jpg);"></div>
+    <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-12.png);"></div>
+    <div class="auto-container">
+        <div class="content-box">
+            <ul class="bread-crumb clearfix">
+                <li><a href="index.html">Home</a></li>
+                <li>Blog Details</li>
+            </ul>
+            <div class="title">
+                <h1>Blog Details</h1>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- End Page Title -->
+
+
+<!-- sidebar-page-container -->
+<section class="sidebar-page-container">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-lg-8 col-md-12 col-sm-12 content-side" >
+                <div class="blog-details-content">
+                    <div class="news-block-one">
+                        <div class="inner-box">
+                            <figure class="image-box"><img src={{Post.image}} alt=""></figure>
+                            <div class="lower-content">
+                                <span class="post-date">{{Post.created_at | date:'medium'}}</span>
+                                <ul class="post-info clearfix">
+                                    <li><i class="far fa-user"></i><a>by {{Post.user.username}}</a></li>
+                                    <li><i class="far fa-comments"></i><a>{{comments.length}} Comments</a></li>
+                                    <li><i class="far fa-heart"></i><a>{{postrating }} Likes</a></li>
+                                </ul>
+                                <h3>{{Post.title}}</h3>
+                                <div class="text" [innerHTML]="getSanitizedContent(Post.details)">
+                                </div>
+                                <div class="post-share-option clearfix">
+                                    <ul class="post-tags clearfix pull-left">
+                                        <li><h4>Tags</h4></li>  
+                                        <li *ngFor="let tag of Post.tags"><a>{{tag}}</a></li>
+                                    </ul>
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-box">
+                        <div class="group-title">
+                            <h3>{{comments.length}} Comments</h3>
+                        </div>
+                   
+                   
+                        <div class="comment" *ngFor="let c of comments">
+                            <figure class="thumb-box">
+                                <img src="{{c.user.avatar}}" alt=""/>
+                            </figure>
+                            <div class="comment-inner">
+                                <div class="comment-info clearfix">
+                                    <h4>{{c.user.username}}  <span></span></h4>
+                                </div>
+                                <div class="text-danger mb-2 font-13">
+                                    <i class="fa bi-heart-fill me-1" *ngFor="let item of [].constructor(c.rating || 0); let i = index"></i>
+                                </div>
+                                <p>{{c.details}}</p>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comments-form-area">
+             
+                        <div class="group-title">
+                            <h3>Leave a Comment</h3>
+                        </div>
+                        <div class="form-inner">
+                            <form  #f="ngForm" (submit)="add()" id="contact-form" class="default-form">
+                                <div class="row clearfix">
+                                    
+                         
+                             <label class="col-lg-12 col-md-12 col-sm-12 form-group">Rate this post</label>
+                            <ngb-rating [(rate)]="currentRate" 	[max]="5">
+                                <ng-template let-fill="fill" let-index="index">
+                                    <i class="bi-heart{{fill === 100 ? '-fill' : ''}}" [class.filled]="fill === 100" [class.low]="index < 3"></i>
+                                </ng-template>
+                            </ngb-rating>
+                                  
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                        <textarea 
+                                        #details="ngModel"
+                                        [(ngModel)]="comment.details"
+                                        required
+                                        name="details" placeholder="Write a comment" required></textarea>
+                            
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 form-group message-btn mr-0">
+                                        <button class="theme-btn btn-one" type="submit" name="submit-form">
+                                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                            <span>Submit comment</span></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+        </div>
+    </div>
+</section>
+<!-- sidebar-page-container end -->

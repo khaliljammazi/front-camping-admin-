@@ -4,7 +4,7 @@
         <header class="main-header header-style-one">
             <div class="header-lower">
                 <div class="logo-box">
-                    <figure class="logo"><a href="index.html"><img src="assets/images/logo.png" alt=""></a></figure>
+                    <figure class="logo"><a [routerLink]="['/']"><img src="assets/images/logo.png" alt=""></a></figure>
                 </div>
                 <div class="outer-box">
                     <div class="menu-area">
@@ -17,28 +17,12 @@
                         <nav class="main-menu navbar-expand-md navbar-light">
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li class="dropdown"><a routerLink="/client-side">Home</a>
+                                    <li class="dropdown"><a routerLink="/">Home</a>
                                        
                                     </li> 
-                                    <li class=" dropdown"><a href="index.html">Activities</a>
-                                        <ul>
-                                            <li><a href="activities.html">Activities</a></li>
-                                            <li><a href="climbing.html">Climbing</a></li>
-                                            <li><a href="adventure.html">Adventure</a></li>
-                                            <li><a href="camping.html">Camping</a></li>
-                                            <li><a href="diving.html">Diving</a></li>
-                                            <li><a href="parachute.html">Parachute</a></li>
-                                            <li><a href="throwing.html">Throwing</a></li>
-                                        </ul>
+                                    <li class=" dropdown"><a routerLink="/activities">Activities</a>
                                     </li>
-                                    <li class="dropdown"><a href="index.html">Pages</a>
-                                        <ul>
-                                            <li><a href="about.html">About Us</a></li>
-                                            <li><a href="team.html">Our Team</a></li>
-                                            <li><a href="gallery.html">Our Gallery</a></li>
-                                            <li><a href="error.html">404</a></li>
-                                        </ul>
-                                    </li>
+                               
                                     <li class="dropdown"><a href="index.html">Elements</a>
                                         <div class="megamenu">
                                             <div class="row clearfix">
@@ -55,27 +39,12 @@
                                                         <li><a href="team-element-1.html">Team Block 01</a></li>
                                                     </ul>
                                                 </div>
-                                                <div class="col-lg-6 column">
-                                                    <ul>
-                                                        <li><h4>Elements 2</h4></li>
-                                                        <li><a href="team-element-2.html">Team Block 02</a></li>
-                                                        <li><a href="feature-element-1.html">Feature Block 01</a></li>
-                                                        <li><a href="feature-element-2.html">Feature Block 02</a></li>
-                                                        <li><a href="video-element.html">Video Block</a></li>
-                                                        <li><a href="gallery-element.html">Gallery Block</a></li>
-                                                        <li><a href="testimonial-element.html">Testimonial Block</a></li>
-                                                        <li><a href="cta-element.html">Cta Block</a></li>
-                                                        <li><a href="clients-element.html">Clients Block</a></li>
-                                                    </ul>
-                                                </div>                                      
+                                                                                  
                                             </div>                                            
                                         </div>
                                     </li>
-                                    <li class="dropdown"><a href="index.html">Blog</a>
-                                        <ul>
-                                            <li><a href="blog.html">Our Blog</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
+                                    <li class="dropdown"><a routerLink="blog">Forum</a>
+                                     
                                     </li>                              
                                     <li><a routerLink="contact">contact</a></li>
                                     <li><a routerLink="products">Products</a></li>
@@ -84,7 +53,21 @@
                         </nav>
                     </div>
                     <div class="menu-right-content">
-                       
+                        <div class="search-box-outer">
+                            <button *ngIf="isAdmin" type="button" class="btn w-sm btn-success waves-effect " [routerLink]="['/admin']">Admin panel</button>
+                        </div>
+                        <div class="search-box-outer">
+                            <div class="dropdown">
+                                <button *ngIf="!!loggedInUser && loggedInUser.id > 0 else elseBlock" class="search-box-btn" type="button" id="auth" [routerLink]="['/auth/logout']">
+                                    <i class="icon-logout"></i>
+                                </button>
+                                <ng-template #elseBlock >
+                                    <button class="search-box-btn" type="button" id="auth" [routerLink]="['/auth/signin-signup']">
+                                        <i class="icon-login"></i>
+                                    </button>
+                                </ng-template>
+                            </div>
+                        </div>
                         <div class="search-box-outer">
                             <div class="dropdown">
                                 <button class="search-box-btn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flaticon-magnifying-glass"></i></button>

@@ -1,0 +1,34 @@
+<app-page-title [breadcrumbItems]="pageTitle" title="Posts"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+               
+                        <a routerLink="add" class="btn btn-success waves-effect waves-light"><i
+                                class='fe-plus me-1'></i> Add New</a>
+                    </div>
+
+                  
+                </div>
+               <div class="row">
+                <p class="text-muted font-14"> 
+                    la liste des camping center cliquer sur details pour voir puls details
+                </p>
+                <!-- table start -->
+                <app-advanced-table [tableData]="records" [columns]="columns" [pagination]="true"
+                    [pageSizeOptions]="pageSizeOptions" [hasRowSelection]="true" [isSearchable]="true"
+                    (search)="searchData($event)" [isSortable]="true" (sort)="onSort($event)"  
+                    (changeStatusClicked)="onStatusChangeClicked($event)" 
+                    (viewClicked)="onViewClicked($event)"
+                     (editClicked)="onEditClicked($event)">
+                </app-advanced-table>   
+                <!-- table end -->
+                   </div>
+
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>

@@ -13,6 +13,7 @@ import { ActivitiesService } from "src/app/services/activities.service";
 import { User } from "src/app/models/user";
 import { UserService } from "src/app/services/user.service";
 import { AuthService } from "src/app/services/auth.service";
+import emailjs  from '@emailjs/browser';
 
 @Component({
   selector: "app-add-reservation",
@@ -25,7 +26,7 @@ export class AddReservationComponent implements OnInit {
   Reservation: Reservation = new Reservation();
   listactivty: Activity[] = [];
   Listuser: User[] = [];
-
+  filteredUsers: User[] = [];
   files: File[] = [];
 
   selectedActivity: any[] = [];
@@ -50,6 +51,12 @@ export class AddReservationComponent implements OnInit {
       { label: "Reservation", path: "/" },
       { label: "Add Reservation", path: "/", active: true },
     ];
+    this.userService.getAll().subscribe({
+      next: (us: User[]) => {
+        this.Listuser = us.filter((user) => !user.roles.some((role) => role.name === 'ROLE_SUPER_ADMIN' || role.name === 'ROLE_ADMIN'));
+
+      },
+    });
 
     this.newReservation = this.fb.group({
       numberReserved: ["", Validators.required],
@@ -67,6 +74,7 @@ export class AddReservationComponent implements OnInit {
       discount1: ["", Validators.required],
       price1: ["", Validators.required],
       campingPeriod: ["", Validators.required],
+      active: ["", Validators.required],
     });
 
     this.newReservation.controls["campingCenter"].valueChanges.subscribe(
@@ -121,11 +129,7 @@ export class AddReservationComponent implements OnInit {
       }
     );
 
-    this.userService.getAll().subscribe({
-      next: (us: User[]) => {
-        this.Listuser = us;
-      },
-    });
+  
     this.newReservation.controls["user"].valueChanges.subscribe((value: any) => {
         this.newReservation.controls["email"].setValue(this.Listuser.filter((u) => u.id == value).pop()?.email);
       });
@@ -136,22 +140,8 @@ export class AddReservationComponent implements OnInit {
     }
     );}
 
-  // getactivitiesDetail(value: any) {
-  //   this.ReservationService.getActiviteByCampincenter(value.id).subscribe((res:any)=>{
-  //     this.activity=res;
-  //     this.newReservation.controls['price'].setValue(res.price);
-  //     this.newReservation.controls['discount'].setValue(2);
-  //     this.newReservation.controls['totaAmount'].setValue(res.price*2-res.discount);
-  //   },
-  //   (error) => { console.error(' error:', error);
-  // }
-  //   )
-  //     }
+    
 
-  // ValidateActivityAdded() {
-  //   if (this.selectedActivity.length === 0) {
-  //     return true;
-  //   }
   submitAction() {
     let formData = this.newReservation.value;
     let data = {
@@ -164,25 +154,7 @@ export class AddReservationComponent implements OnInit {
       totalAmount: this.totalAmount.toString(),
       activities: JSON.stringify(this.selectedActivity),
     };
-    /* this.ReservationService.generateReport(data).subscribe((res:any)=>{
-  this.ReservationService.getPDF(res).subscribe((res:any)=>{
-   this.downloadFileFile(res.uuid);
-   this.newReservation.reset();
-   this.selectedActivity=[];
-   this.totalAmount=0;
-  },
-  (error) => { console.error(' error:', error);
-}
-  )
-
-})}
-downloadFileFile(fileName:string) {
-  var data ={
-    "uuid":fileName
-  }
-  this.ReservationService.getPDF(data).subscribe((res:any)=>{
-    saveAs(res,fileName + '.pdf');
-  }) */
+  
   }
   // convenience getter for easy access to form fields
   get form1() {
@@ -211,9 +183,19 @@ downloadFileFile(fileName:string) {
       (next) => {
         Swal.fire({
           title: "Success",
-          text: "Reservation added successfully!",
+          text: "Reservation added successfully u gonna received an email check it please !",
           icon: "success",
         });
+        let user = this.Listuser.filter(
+          (u) => u.id == Number(this.newReservation.controls["user"].value)).pop();
+        if (user) delete user.authorities;
+        emailjs.init("nuCmof1hgHGy66rz_")
+        emailjs.send("service_mcgqkne","template_2mr29j3",{
+          nom:user?.nom,
+          CampingCenter : this.newReservation.controls["campingCenter"].value,
+          dateStart: this.newReservation.controls["dateStart"].value,
+          totalAmount: this.totalAmount,
+          });
         this.newReservation.reset();
         this.router.navigate(["../"], { relativeTo: this.route });
       },

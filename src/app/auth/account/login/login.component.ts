@@ -56,9 +56,12 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
           (data: any) => {
+            this.loading = false;
             this.router.navigate([this.returnUrl]);
           },
           (error: any) => {
+            console.log(error);
+            if((error as String).includes("400")) error = "Bad credentials";
             this.error = error;
             this.loading = false;
           });

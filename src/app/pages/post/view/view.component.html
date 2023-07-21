@@ -1,0 +1,64 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Post Details"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-5">
+                     <img src={{post.image}} alt=""class="img-fluid mx-auto d-block rounded">
+
+                    </div> <!-- end col -->
+                    <div class="col-lg-7">
+                        <div class="ps-xl-3 mt-3 mt-xl-0">
+                            <h4 class="mb-3">{{post.title}}</h4>
+                           <!--  <p class="text-muted float-start me-3">
+                                <span class="mdi mdi-star" *ngFor="let item of [1,2,3,4,5];let i=index"
+                                    [class.text-warning]="i<=post.rating!"></span>
+
+                            </p> -->
+                           
+
+                            <div class="text-muted mb-4" [innerHTML]="getSanitizedContent()"></div>
+                             
+                            <div>
+                                
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+                       
+                    </div>
+                    <h3 class="mt-4">Comments:</h3>
+                    <div class="table-responsive mt-4">
+                        <table class="table table-bordered table-centered mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th> user</th>
+                                    <th>comment</th>
+                                    <th>date</th>
+                                    <th>status</th>
+                                    <th>action</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let c of listcomment">
+                                    <td>{{c.user.username}}</td>
+                                    <td>{{c.details}}</td>
+                                    <td>{{c.createdAt | date:'medium'}}</td>
+                                    <td>
+                                        <span [ngClass]="{'badge badge-soft-success float-end': c.active, 'badge badge-soft-danger float-end': !c.active}">
+                                            {{c.active ? 'active' : 'inactive'}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm waves-effect waves-light" (click)="changeStatusComment(c.id)">change status</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                    </div>
+                    </div>

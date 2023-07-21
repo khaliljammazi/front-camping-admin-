@@ -1,0 +1,103 @@
+
+
+        <!-- Page Title -->
+        <section class="page-title centred">
+            <div class="bg-layer" style="background-image: url(assets/images/background/page-title.jpg);"></div>
+            <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-12.png);"></div>
+            <div class="auto-container">
+                <div class="content-box">
+                    <ul class="bread-crumb clearfix">
+                        <li><a href="index.html">Home</a></li>
+                        <li>Our Blog</li>
+                    </ul>
+                    <div class="title">
+                        <h1>Our Blog</h1>
+                    </div>
+                </div>
+            </div>
+      
+        </section>
+        <!-- End Page Title -->
+
+
+        <!-- sidebar-page-container -->
+        <section class="sidebar-page-container">
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                        <div class="blog-classic-content">
+                            <div class="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                            
+                            </div>
+                            <div class="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms" *ngFor="let post of listofpostwithcomment">
+                                <div class="inner-box" >
+                                    <figure class="image-box"><a [routerLink]="['/blog/blog-Detail', post.post.id]" >
+                                        <img src={{post.post.image}} alt=""></a></figure>
+                                    <div class="lower-content">
+                                        <span class="post-date">{{post.post.createdAt | date:'medium'}}</span>
+                                        <ul class="post-info clearfix">
+                                            <li><i class="far fa-user"></i>{{post.post.user.username}}</li>
+                                            <li><i class="far fa-comments"></i>{{post.comment.length}} Comments</li>
+                                        </ul>
+                                        <div class="text-muted mb-4" [innerHTML]="getSanitizedContent(post.post.details)"> </div>
+
+                                        <h3><a [routerLink]="['/blog/blog-Detail', post.post.id]">{{post.post.title}}</a></h3>
+                                        <div class="link">
+                                            <a [routerLink]="['/blog/blog-Detail', post.post.id]">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                              
+                            </div>
+                            <div class="news-block-one wow fadeInUp animated" data-wow-delay="00ms" data-wow-duration="1500ms">
+                            
+                            </div>
+                     
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                        <div class="blog-sidebar">
+                            <div class="search-widget">
+                                <form  class="search-form">
+                                    <div class="form-group">
+                                        <input type="search" name="search-field" placeholder="Search"  [(ngModel)]="searchTerm"
+                                        (ngModelChange)="searchData($event)">
+                                        <button type="submit"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="sidebar-widget post-widget">
+                                <div class="widget-title">
+                                    <h4>Recent Posts</h4>
+                                </div>
+                                <div class="post-inner" *ngFor="let post of resentpost">
+                                    <div class="post">
+                                        <figure class="post-thumb"><img src={{post.post.image}}
+                                            alt=""></figure>
+                                        <div class="post-date"><i class="far fa-comments"></i> {{post.comment.length}} Comments</div>
+                                        <h6><a [routerLink]="['//blog/blog-Detail', post.post.id]">{{post.post.title}}</a></h6>
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                      
+                            <div class="sidebar-widget tags-widget" (click)="filtredbytag('')">
+                                <div class="widget-title">
+                                    <h4>Popular Tags</h4>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="tags-list clearfix" *ngFor="let tag of top3tags">
+                                        <li><a (click)="filtredbytag(tag)">{{tag}}</a></li>
+                                 
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- sidebar-page-container end -->
