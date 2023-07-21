@@ -4,7 +4,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as filestack from 'filestack-js';
 import { relative } from 'path';
+import { CampingCenter } from 'src/app/models/CampingCenter';
 import { ActivitiesService } from 'src/app/services/activities.service';
+import { CampCenterService } from 'src/app/services/camp-center.service';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 import Swal from 'sweetalert2';
 
@@ -14,6 +16,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./update-activity.component.scss']
 })
 export class UpdateActivityComponent implements OnInit {
+  campingCenters: CampingCenter[] = [];   
+
   filestackClient = filestack.init('AImPrCDnyQeifHkYOX3sLz');
   pageTitle: BreadcrumbItem[] = [];
    act!: FormGroup;
@@ -22,6 +26,7 @@ export class UpdateActivityComponent implements OnInit {
 
    selectedActivity: any[] = [];
    constructor(
+    private campCenterService: CampCenterService,
      private fb: FormBuilder,
      private sanitizer: DomSanitizer,
      private activityService: ActivitiesService,
@@ -43,6 +48,9 @@ export class UpdateActivityComponent implements OnInit {
         } else {
           this.act.patchValue({ active: 'false' });
         }
+
+        this.act.patchValue({ campingCenterId: this.act.value.campingCenterId });
+
       },
     }
     
@@ -60,7 +68,9 @@ export class UpdateActivityComponent implements OnInit {
    price: ['', Validators.required],
    active: ['', Validators.required],
    image: ['', Validators.required],
-   season: ['', Validators.required]  });
+   season: ['', Validators.required],
+   campingCenterId: ['', Validators.required]
+  });
   
 
   this.selectedActivity = [
@@ -70,6 +80,15 @@ export class UpdateActivityComponent implements OnInit {
      image: 'https://loremflickr.com/320/240'
    }
   ];
+
+
+  this.campCenterService.getCamps().subscribe(
+    {
+      next: (camp: CampingCenter[]) => {
+        this.campingCenters = camp;
+      }
+    }
+  );
   
   }
   
@@ -133,20 +152,20 @@ export class UpdateActivityComponent implements OnInit {
      return this.sanitizer.bypassSecurityTrustResourceUrl(encodeURI(URL.createObjectURL(f)));
    }
 
-
-   
    onSubmit(): void {
   
-     this.activityService.updateAct(this.act.value).subscribe(
+     this.activityService.updateAct(this.act.value,this.act.value.campingCenterId).subscribe(
        
     next => {
          Swal.fire({
            title: 'Success',
-           text: 'act updated successfully.',
+           text: 'actitvity is updated successfully.',
             icon: 'success',
          });
          this.act.reset();
          this.router.navigate(['../../'],{relativeTo:this.route});
+         console.log(this.act);
+
        },
        error => {
          console.error('There was an error!', this.act.value, error);
