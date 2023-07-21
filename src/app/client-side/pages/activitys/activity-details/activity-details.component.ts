@@ -98,6 +98,7 @@ export class ActivityDetailsComponent implements OnInit {
         {
           next: (data: any) => {
             this.activity = data;
+            this.fetchFeedbacks();
           }
         }
       );
@@ -106,7 +107,7 @@ export class ActivityDetailsComponent implements OnInit {
 
     this.router.params.subscribe(params => {
       const activityId = Number(params['id']);
-      console.log(activityId);
+      console.log("activity id", activityId);
 
       this.actService.getCamps(activityId).subscribe(
         {
@@ -118,6 +119,14 @@ export class ActivityDetailsComponent implements OnInit {
         }
       );
     });
+    this.fetchFeedbacks();
+    this.newFeedback = new FeedBack();
+
+    if (!this.authenticatedUser) {
+      this.authService.initializeUser();
+    }
+    this.authenticatedUser = this.authService.currentUser();
+    console.log('Selected User:', this.authenticatedUser);
   
   }
 
@@ -127,16 +136,15 @@ export class ActivityDetailsComponent implements OnInit {
   }
 
   fetchFeedbacks() {
-    this.feedbackService
-      .getActivityFeedbacks(this.activity.id)
-      .subscribe(
-        (feedbacks: FeedBack[]) => {
-          this.feedbacks = feedbacks;
-        },
-        (error) => {
-          console.error('Error fetching feedbacks:', error);
-        }
-      );
+    this.feedbackService.getActivityFeedbacks(this.activity.id).subscribe(
+      (feedbacks: FeedBack[]) => {
+        this.feedbacks = feedbacks;
+        console.log('Fetched feedbacks:', this.feedbacks);
+      },
+      (error) => {
+        console.error('Error fetching feedbacks:', error);
+      }
+    );
   }
 
   setRating(rating: number) {
