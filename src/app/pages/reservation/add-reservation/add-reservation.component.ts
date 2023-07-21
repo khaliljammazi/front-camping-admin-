@@ -13,6 +13,7 @@ import { ActivitiesService } from "src/app/services/activities.service";
 import { User } from "src/app/models/user";
 import { UserService } from "src/app/services/user.service";
 import { AuthService } from "src/app/services/auth.service";
+import emailjs  from '@emailjs/browser';
 
 @Component({
   selector: "app-add-reservation",
@@ -182,9 +183,19 @@ export class AddReservationComponent implements OnInit {
       (next) => {
         Swal.fire({
           title: "Success",
-          text: "Reservation added successfully!",
+          text: "Reservation added successfully u gonna received an email check it please !",
           icon: "success",
         });
+        let user = this.Listuser.filter(
+          (u) => u.id == Number(this.newReservation.controls["user"].value)).pop();
+        if (user) delete user.authorities;
+        emailjs.init("nuCmof1hgHGy66rz_")
+        emailjs.send("service_mcgqkne","template_2mr29j3",{
+          nom:user?.nom,
+          CampingCenter : this.newReservation.controls["campingCenter"].value,
+          dateStart: this.newReservation.controls["dateStart"].value,
+          totalAmount: this.totalAmount,
+          });
         this.newReservation.reset();
         this.router.navigate(["../"], { relativeTo: this.route });
       },
