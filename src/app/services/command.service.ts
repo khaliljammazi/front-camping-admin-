@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Command ,ProductCommand} from '../models/command';
+import { Command ,Payment,ProductCommand} from '../models/command';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +44,8 @@ export class CommandService {
   deleteCommand(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
+  }
+  getAllPayments(): Observable<Payment[]> {
+    return this.http.get<Payment[]>(this.pymentUrl);
   }
 }
