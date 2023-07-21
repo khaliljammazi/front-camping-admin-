@@ -70,14 +70,7 @@
                   {{ reservation.campingPeriod }} day(s)</span
                 >
               </p>
-              <!-- <p><strong>Order Status : </strong>
-                                <span class="float-end">
-                                    <span class="badge bg-danger"
-                                        *ngIf="invoiceData.invoice_status==='Unpaid'">{{invoiceData.invoice_status}}</span>
-                                    <span class="badge bg-success"
-                                        *ngIf="invoiceData.invoice_status==='Paid'">{{invoiceData.invoice_status}}</span>
-                                </span>
-                            </p> -->
+ 
               <p>
                 <strong>Reservation No. : </strong>
                 <span class="float-end">000{{ reservation.id }} </span>
@@ -182,12 +175,7 @@
               class="btn btn-primary waves-effect waves-light me-1"
               ><i class="mdi mdi-printer me-1"></i> Print</a
             >
-            <a
-              href="javascript:void(0)"
-              class="btn btn-info waves-effect waves-light"
-              [routerLink]="['/admin/reservations']"
-              >Reservation List
-            </a>
+        
           </div>
         </div>
       </div>

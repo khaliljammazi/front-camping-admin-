@@ -29,7 +29,7 @@ export class ReservationComponent implements OnInit {
   Listuser: User[] = [];
   filteredUsers: User[] = [];
   activityy: Select2Data = [];
-camp :any;
+
   selectedActivity: any[] = [];
   //
   Listcamp: CampingCenter[] = [];
@@ -52,18 +52,14 @@ camp :any;
       { label: "Reservation", path: "/" },
       { label: "Add Reservation", path: "/", active: true },
     ];
+
+
     this.userService.getAll().subscribe({
       next: (us: User[]) => {
         this.Listuser = us;
 
       },
     });
-    this.route.params.subscribe((params) =>
-    { this.CampCenterService.getCampingById(params.id).subscribe((res: any) => 
-      {
-        this.camp = res;
-   });
-  });
 
     this.newReservation = this.fb.group({
       numberReserved: ["", Validators.required],
@@ -94,7 +90,7 @@ camp :any;
             (value: any) => {
               this.activityService.getById(value).subscribe((res: any) => {
                 this.newReservation.controls["price1"].setValue(res.price);
-                this.newReservation.controls["discount1"].setValue(2);
+                this.newReservation.controls["discount1"].setValue(res.discount);
               });
             }
           );
@@ -140,6 +136,11 @@ camp :any;
         this.newReservation.controls["email"].setValue(this.Listuser.filter((u) => u.id == value).pop()?.email);
       });
 
+    this.CampCenterService.getCamps().subscribe(
+      {
+      next: (camp: CampingCenter[]) => {this.Listcamp = camp;},
+    }
+    );
   
   this.route.params.subscribe((params) => {
 this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
@@ -163,15 +164,19 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
     this.newReservation.controls["user"].setValue(this.authService.currentUser().nom);
     
     this.newReservation.controls["email"].setValue(this.authService.currentUser().email);
-  
 
 
+    // this.CampCenterService.getCamps().subscribe(
+    //   {
+    //   next: (camp: CampingCenter[]) => {this.Listcamp = camp;},
+    // }
+    // );
   
-  
+
+ 
   
   
   }
-
 
 
   // convenience getter for easy access to form fields
@@ -183,14 +188,18 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
     let user = this.Listuser.filter(
       (u) => u.id == Number(this.newReservation.controls["user"].value)).pop();
     if (user) delete user.authorities;
+  
     const postFormData = {
       numberReserved: this.newReservation.controls["numberReserved"].value,
       campingPeriod: this.newReservation.controls["campingPeriod"].value,
       totalAmount: this.totalAmount,
       dateStart: this.newReservation.controls["dateStart"].value,
       dateEnd: this.newReservation.controls["dateEnd"].value,
-      campingCenter:this.camp,
-      activities: this.newReservation.controls["activities"].value,
+      campingCenter: this.Listcamp.filter(
+        (u) =>
+          u.id == Number(this.newReservation.controls["campingCenter"].value)
+      ).pop(),
+      activities: this.Listcamp.filter((u) => u.id == Number(this.newReservation.controls["activities"].value)),
       user: user,
     };
 
@@ -216,9 +225,8 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
   
       },
       (error) => {
-        console.log(postFormData);
+        console.error("There was an error!", this.newReservation.value, error);
         Swal.fire({
-
           title: "Error",
           text: "An error occurred while adding the reservation.",
           icon: "error",
