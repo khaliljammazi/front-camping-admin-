@@ -47,9 +47,15 @@ export class ShoppingCartComponent implements OnInit {
   }
  
 
-   calculatePriceTotal(quantity:number, unitPrice:number) {
+   calculatePriceTotal(quantity:number, unitPrice:number,discount:number) {
+    
+    
    
-      const priceTotal = quantity * unitPrice;
+
+    const discountedPrice = unitPrice - (unitPrice * (discount/ 100));
+    const priceTotal = quantity * discountedPrice;
+    //return discountedPrice;
+      
       
       return priceTotal;
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 import { Product } from 'src/app/models/product';
@@ -6,13 +6,87 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ShoppingCartService } from 'src/app/services/shopping-cart.service';
 import { Command, ProductCommand } from 'src/app/models/command';
 import Swal from 'sweetalert2';
-
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { CampCenterService } from 'src/app/services/camp-center.service';
+import { Fancybox } from '@fancyapps/ui';
 @Component({
   selector: 'app-ecommerce-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
+  carouselOptions: OwlOptions = {
+    loop: true,
+      margin: 0,
+      nav: true,
+      animateOut: 'fadeOut',
+      animateIn: 'fadeIn',
+      autoplay: true,
+      autoplayTimeout: 6000,
+      navText: ['<span class="far fa-arrow-left"></span>', '<span class="far-angle-right"></span>'],
+
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 1
+      },
+      800: {
+        items: 1
+      },
+      1024: {
+        items: 1
+      }
+    },
+   
+  }
+  carouselOptions1 = {
+    loop: true,
+    margin: 30,
+    nav: true,
+    smartSpeed: 500,
+    autoplay: true,
+    autoplayTimeout: 1000,
+    autoplayHoverPause: true,
+    navText: ['<span class="far fa-angle-left"></span>', '<span class="far fa-angle-right"></span>'],
+    responsive: {
+      0: {
+        items: 1
+      },
+      480: {
+        items: 1
+      },
+      600: {
+        items: 2
+      },
+      1800: {
+        items: 2
+      },
+      1024: {
+        items: 3
+      }
+    }
+  };
+  slidesStore = [
+    {
+      id: 'slide1',
+      image: 'assets/images/banner/banner-1.jpg',
+      caption: 'Join the Summer Adventure',
+      heading: 'Camping With Friends Gives Joy',
+      link: 'listcamps',
+      buttonText: 'Discover More'
+    },
+    {
+      id: 'slide2',
+      image: 'assets/images/banner/banner-2.jpg',
+      caption: 'Join the Summer Adventure',
+      heading: 'Camping With Friends Gives Joy',
+      link: 'listcamps',
+      buttonText: 'Discover More'
+    }
+  ];
+  camps: any[] = [];
 
   pageTitle: BreadcrumbItem[] = [];
   products: Product[] = [];
@@ -28,12 +102,31 @@ export class ProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private shoppingCartService: ShoppingCartService,
+    private campService: CampCenterService,
+    private elRef: ElementRef
     
   ) { }
 
   ngOnInit(): void {
     this._fetchData();
- console.log("sort",this.selectedSortOption);
+ 
+ Fancybox.bind(this.elRef.nativeElement, '[data-fancybox]', {
+  // Custom options
+});
+this.campService.getCamps().subscribe((c) => {
+  this.camps = c.filter((camp)=>camp.active).map((camp) => {
+    return {
+      id: camp.id,
+      imageSrc: camp.image,
+      imageAlt: camp.label,
+      title: camp.label,
+      link: 'camping-details/' + camp.id
+    }
+  })
+
+
+
+})
  
   }
 
@@ -57,7 +150,7 @@ export class ProductsComponent implements OnInit {
   
   }
 
-  editProduct(productId: number) {
+  /*editProduct(productId: number) {
     this.router.navigate(['/ecommerces/products/add-product', productId],{ relativeTo: this.route });
   }
   deleteProduct(productId: number): void {
@@ -73,7 +166,7 @@ export class ProductsComponent implements OnInit {
         }
       );
     }
-  }
+  }*/
 
   _fetchData(): void {
      this.productService.getAllProducts().subscribe(
@@ -128,6 +221,9 @@ export class ProductsComponent implements OnInit {
       this.products = this.originalProducts.filter(product => product.stock === 0);
     }
   }
-  
+  ngOnDestroy() {
+    Fancybox.unbind(this.elRef.nativeElement);
+    Fancybox.close();
+  }
   
 }

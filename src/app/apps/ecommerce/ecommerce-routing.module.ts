@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'products-edit/:id', loadChildren: () => import('./add-product/add-product.module').then(m => m.AddProductModule) },
   { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule) },
   { path: 'customers', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule) },
-  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
+  { path: 'dashboard', loadChildren: () => import('../../pages/ecommerces/dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: 'order/details', loadChildren: () => import('./order-detail/order-detail.module').then(m => m.OrderDetailModule) },
   { path: 'orders', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule) },
   { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule) },

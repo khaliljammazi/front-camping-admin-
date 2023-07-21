@@ -102,7 +102,7 @@ this.editReservation.controls["campingCenter"].valueChanges.subscribe(
         (value: any) => {
           this.activityService.getById(value).subscribe((res: any) => {
             this.editReservation.controls["price1"].setValue(res.price);
-            this.editReservation.controls["discount1"].setValue(2);
+            this.editReservation.controls["discount1"].setValue(res.discount);
           });
         }
       ); 

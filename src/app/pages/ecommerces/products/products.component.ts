@@ -112,7 +112,7 @@ export class ProductsComponent implements OnInit {
   }
     
   editProduct(productId: number) {
-    this.router.navigate(['/ecommerces/products/add-product', productId],{ relativeTo: this.route });
+    this.router.navigate(['/admin/ecommerces/products/add-product', productId],{ relativeTo: this.route });
   }
 
   deleteProduct(productId: number): void {

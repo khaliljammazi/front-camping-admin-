@@ -1,35 +1,30 @@
 <!-- page title -->
-<app-page-title [breadcrumbItems]="pageTitle" title="Dashboard"></app-page-title>
+<app-page-title [breadcrumbItems]="pageTitle" title="Ecommerce Dashboard"></app-page-title>
 
 
 <div class="row">
-    <div class="col-md-6 col-xl-3">
+    <div class="col-md-6 col-xl-4">
         <app-widget-statistics-card4 variant="primary" iconContainerClass="rounded bg-soft-primary"
-            description="Total Revenue" [stats]="58947" icon="dripicons-wallet" [options]="{prefix:'$'}">
+            description="Total Revenue" [stats]="totalPriceSum" icon="dripicons-wallet" [options]="{prefix:'DT'}">
         </app-widget-statistics-card4>
 
     </div> <!-- end col-->
 
-    <div class="col-md-6 col-xl-3">
+    <div class="col-md-6 col-xl-4">
         <app-widget-statistics-card4 variant="success" iconContainerClass="rounded bg-soft-success" description="Orders"
-            [stats]="1845" icon="dripicons-basket">
+            [stats]="totalItems" icon="dripicons-basket">
         </app-widget-statistics-card4>
 
     </div> <!-- end col-->
 
-    <div class="col-md-6 col-xl-3">
-        <app-widget-statistics-card4 variant="info" iconContainerClass="rounded bg-soft-info" description="Stores"
-            [stats]="825" icon="dripicons-store">
+    <div class="col-md-6 col-xl-4">
+        <app-widget-statistics-card4 variant="info" iconContainerClass="rounded bg-soft-info" description="Products"
+            [stats]="totalProducts" icon="dripicons-store">
         </app-widget-statistics-card4>
 
     </div> <!-- end col-->
 
-    <div class="col-md-6 col-xl-3">
-        <app-widget-statistics-card4 variant="warning" iconContainerClass="rounded bg-soft-warning"
-            description="Sellers" [stats]="2430" icon="dripicons-user-group">
-        </app-widget-statistics-card4>
-
-    </div> <!-- end col-->
+     <!-- end col-->
 </div>
 <!-- end row -->
 

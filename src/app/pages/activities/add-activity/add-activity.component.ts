@@ -23,6 +23,8 @@ export class AddActivityComponent implements OnInit {
    files: File[] = [];
    seasons: string[] = ['SPRING', 'SUMMER', 'AUTUMN', 'WINTER'];
    campingCenters: CampingCenter[] = [];   
+   loader = false;
+
   constructor( private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     private activityService: ActivitiesService,
@@ -64,22 +66,24 @@ get form1() { return this.newActivity.controls; }
 
 onSelect(event: any) {
   this.files.push(...event.addedFiles);
+  this.loader = true;
     // Upload the files using Filestack
     this.files.forEach((file) => {
       this.filestackClient.upload(file)
         .then((result) => {
+          this.loader = false;
           // Handle the successful upload
           console.log('Filestack upload result:', result);
           this.newActivity.patchValue({ image: result.url });
 
         })
         .catch((error) => {
+          this.loader = false;
           // Handle the upload error
           console.error('Filestack upload error:', error);
         });
     });
   }
-
 
   trackByItemID(index: number, a:any): number { return a.id; }
 
