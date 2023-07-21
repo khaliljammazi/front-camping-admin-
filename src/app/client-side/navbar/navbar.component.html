@@ -81,8 +81,13 @@
                         </nav>
                     </div>
                     <div class="menu-right-content">
+                        <div class="d-flex pe-2 mt-1">
+                            <button *ngIf="isAdmin" type="button" class="btn btn-sm btn-success waves-effect" [routerLink]="['/admin']">Admin panel</button>
+                        </div>
                         <div class="search-box-outer">
-                            <button *ngIf="isAdmin" type="button" class="btn w-sm btn-success waves-effect " [routerLink]="['/admin']">Admin panel</button>
+                            <button *ngIf="!!loggedInUser && loggedInUser.id > 0 " class="search-box-btn" type="button" id="profile" [routerLink]="['/profile']">
+                                <i class="fe-user"></i>
+                            </button>
                         </div>
                         <div class="search-box-outer">
                             <div class="dropdown">

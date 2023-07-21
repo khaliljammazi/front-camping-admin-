@@ -418,7 +418,7 @@ const MENU_ITEMS: MenuItem[] = [
         collapsed: true,
         children: [
             { key: 'contacts-list', label: 'Members List', link: '/admin/apps/contacts/list', parentKey: 'apps-contacts' },
-            { key: 'contacts-profile', label: 'Profile', link: '/admin/apps/contacts/profile', parentKey: 'apps-contacts' },
+            { key: 'contacts-profile', label: 'Profile', link: '/admin/profile', parentKey: 'apps-contacts' },
         ],
     },
     {

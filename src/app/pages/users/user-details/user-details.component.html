@@ -6,8 +6,11 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-1">
-                        <img src={{user.avatar}} alt="" class="img-fluid mx-auto d-block rounded">
+                    <div class="col-lg-1 user-avatar width">
+                        <img *ngIf="user.avatar; else noAvatar"  src={{user.avatar}} alt="" class="rounded-circle width">
+                        <ng-template #noAvatar>
+                            <div class="initials">{{ user.prenom?.charAt(0) }}{{ user.nom?.charAt(0) }}</div>
+                          </ng-template>
                     </div> <!-- end col -->
                     <div class="col-lg-7 d-flex justify-content-between">
                         <div class="ps-xl-3 mt-3 mt-xl-0">
@@ -16,11 +19,11 @@
                             <h4 class="mb-4">Email: <span class="text-muted me-2"> {{user.email}}</span>
                             </h4>
                         </div>
-                        <div class="col-lg-3 d-flex flex-column justify-content-end gap-1">
+                        <!-- <div class="col-lg-3 d-flex flex-column justify-content-end gap-1">
                             <button type="button"
                                 class="btn w-sm btn-success waves-effect waves-light" [routerLink]="['../../']">Update</button>
                             <button type="button" class="btn w-sm btn-danger waves-effect" >Cancel</button>
-                        </div>
+                        </div> -->
                     </div>
                 </div> <!-- end col -->
 
