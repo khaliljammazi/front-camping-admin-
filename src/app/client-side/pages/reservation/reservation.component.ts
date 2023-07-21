@@ -14,6 +14,7 @@ import { User } from "src/app/models/user";
 import { UserService } from "src/app/services/user.service";
 import { AuthService } from "src/app/services/auth.service";
 import { Select2Data } from "ng-select2-component";
+import emailjs  from '@emailjs/browser';
 
 @Component({
   selector: 'app-reservation',
@@ -28,7 +29,7 @@ export class ReservationComponent implements OnInit {
   Listuser: User[] = [];
   filteredUsers: User[] = [];
   activityy: Select2Data = [];
-
+camp :any;
   selectedActivity: any[] = [];
   //
   Listcamp: CampingCenter[] = [];
@@ -57,6 +58,12 @@ export class ReservationComponent implements OnInit {
 
       },
     });
+    this.route.params.subscribe((params) =>
+    { this.CampCenterService.getCampingById(params.id).subscribe((res: any) => 
+      {
+        this.camp = res;
+   });
+  });
 
     this.newReservation = this.fb.group({
       numberReserved: ["", Validators.required],
@@ -133,11 +140,6 @@ export class ReservationComponent implements OnInit {
         this.newReservation.controls["email"].setValue(this.Listuser.filter((u) => u.id == value).pop()?.email);
       });
 
-    this.CampCenterService.getCamps().subscribe(
-      {
-      next: (camp: CampingCenter[]) => {this.Listcamp = camp;},
-    }
-    );
   
   this.route.params.subscribe((params) => {
 this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
@@ -155,18 +157,12 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
   );
 });
   });
-  this.route.params.subscribe((params) => {
-    this.userService.getById(params.id).subscribe((res: any) => {
-      this.newReservation.controls["user"].setValue(res.nom);
-      this.newReservation.controls["email"].setValue(res.email);
-      this.newReservation.controls["nom"].setValue(res.nom);
-    }
-    );
-  });
 
-    this.newReservation.controls["user"].setValue(this.authService.currentUser().id);
+  
+
+    this.newReservation.controls["user"].setValue(this.authService.currentUser().nom);
+    
     this.newReservation.controls["email"].setValue(this.authService.currentUser().email);
-    console.log(this.authService.currentUser());
   
 
 
@@ -193,11 +189,8 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
       totalAmount: this.totalAmount,
       dateStart: this.newReservation.controls["dateStart"].value,
       dateEnd: this.newReservation.controls["dateEnd"].value,
-      campingCenter: this.Listcamp.filter(
-        (u) =>
-          u.id == Number(this.newReservation.controls["campingCenter"].value)
-      ).pop(),
-      activities: this.Listcamp.filter((u) => u.id == Number(this.newReservation.controls["activities"].value)),
+      campingCenter:this.camp,
+      activities: this.newReservation.controls["activities"].value,
       user: user,
     };
 
@@ -205,16 +198,27 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
       (next) => {
         Swal.fire({
           title: "Success",
-          text: "Reservation added successfully!",
+          text: "Reservation added successfully u gonna received an email check it please !",
           icon: "success",
         });
+        let user = this.Listuser.filter(
+          (u) => u.id == Number(this.newReservation.controls["user"].value)).pop();
+        if (user) delete user.authorities;
+        emailjs.init("nuCmof1hgHGy66rz_")
+        emailjs.send("service_mcgqkne","template_2mr29j3",{
+          nom:user?.nom,
+          CampingCenter : this.newReservation.controls["campingCenter"].value,
+          dateStart: this.newReservation.controls["dateStart"].value,
+          totalAmount: this.totalAmount,
+          });
         this.router.navigate(["reservation/camping-details/reservation/invoice/"+next.id]);
-
+       
   
       },
       (error) => {
-        console.error("There was an error!", this.newReservation.value, error);
+        console.log(postFormData);
         Swal.fire({
+
           title: "Error",
           text: "An error occurred while adding the reservation.",
           icon: "error",
