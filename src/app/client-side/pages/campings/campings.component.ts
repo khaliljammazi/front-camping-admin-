@@ -7,9 +7,9 @@ import { CampCenterService } from 'src/app/services/camp-center.service';
 import { MapConfig } from 'src/app/pages/maps/google-map/google-map.model';
 import { FeedBack } from 'src/app/models/FeedBack';
 import { FeedbackService } from 'src/app/services/feedback.service';
-import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
-import { ElementRef, Renderer2 } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -23,9 +23,8 @@ export class CampingsComponent implements OnInit {
   gmapConfig2!: MapConfig;
   feedbacks: FeedBack[] = [];
   newFeedback: FeedBack = new FeedBack();
-  authenticatedUser: User | undefined; 
+  authenticatedUser: User | undefined;
   selectedRating: number = 0;
-
 
   constructor(
     private route: ActivatedRoute,
@@ -33,14 +32,12 @@ export class CampingsComponent implements OnInit {
     private campingsService: CampCenterService,
     private feedbackService: FeedbackService,
     private sanitizer: DomSanitizer,
-    private userService: UserService,
-    private renderer: Renderer2
-
-  ) { }
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.campingsService.getCampingById(params['id']).subscribe(camping => {
+    this.route.params.subscribe((params) => {
+      this.campingsService.getCampingById(params['id']).subscribe((camping) => {
         if (camping) {
           this.camping = camping;
           const vlat = parseFloat(this.camping.location.split(',')[0]);
@@ -54,8 +51,8 @@ export class CampingsComponent implements OnInit {
                 lat: vlat,
                 lng: vlng,
                 title: this.camping.label,
-              }
-            ]
+              },
+            ],
           };
           this.fetchFeedbacks();
         } else {
@@ -64,70 +61,107 @@ export class CampingsComponent implements OnInit {
       });
     });
 
-    this.userService.getById(1).subscribe(
-      (user: User) => {
-        this.authenticatedUser = user;
-      },
-      (error) => {
-        console.error('Error fetching authenticated user:', error);
-      }
-    );
+
+
+    this.newFeedback = new FeedBack();
+
+    if (!this.authenticatedUser) {
+      this.authService.initializeUser();
+    }
+    this.authenticatedUser = this.authService.currentUser();
+    console.log('Selected User:', this.authenticatedUser);
+
   }
 
   fetchFeedbacks() {
-    this.feedbackService.getCampingCenterFeedbacks(this.camping.id).subscribe(
-      (feedbacks: FeedBack[]) => {
-        this.feedbacks = feedbacks;
-      },
-      (error) => {
-        console.error('Error fetching feedbacks:', error);
-      }
-    );
+    this.feedbackService
+      .getCampingCenterFeedbacks(this.camping.id)
+      .subscribe(
+        (feedbacks: FeedBack[]) => {
+          this.feedbacks = feedbacks;
+        },
+        (error) => {
+          console.error('Error fetching feedbacks:', error);
+        }
+      );
   }
+
   setRating(rating: number) {
     this.selectedRating = rating;
-    this.newFeedback.rating = rating; // Update the newFeedback rating as well
+    this.newFeedback.rating = rating;
     console.log('Selected rating:', this.selectedRating);
   }
 
   fillStars(star: number) {
-    // Update the selectedRating to the current hovered star
     this.selectedRating = star;
   }
 
   resetStars() {
-    // Reset the selectedRating to the newFeedback.rating (if any)
     this.selectedRating = this.newFeedback.rating || 0;
   }
+
   getSanitizedContent(): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(this.desc);
   }
 
   submitFeedback() {
-    if (this.authenticatedUser) {
-      this.newFeedback.campingCenter = this.camping;
-      this.newFeedback.user = this.authenticatedUser;
-
-      this.feedbackService.addFeedback(this.newFeedback).subscribe(
-        (feedback: FeedBack) => {
-          this.feedbacks.push(feedback);
-          this.newFeedback = new FeedBack();
-        },
-        (error) => {
-          console.error('Error submitting feedback:', error);
+    this.authenticatedUser = this.authService.currentUser();
+  
+    if (!Object.keys(this.authenticatedUser).length) {
+      Swal.fire({
+        title: 'Please Log In',
+        text: 'Please log in to submit feedback.',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Sign In / Sign Up',
+        cancelButtonText: 'No, thanks',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/auth/signin-signup']);
         }
-      );
-    } else {
-      alert('Please log in to submit feedback.');
+      });
+  
+      return;
     }
+  
+    this.newFeedback.id = 0;
+    this.newFeedback.campingCenter = this.camping;
+    this.newFeedback.user = {
+      id: this.authenticatedUser.id || 0,
+      roles: this.authenticatedUser.roles, 
+    };
+  
+    this.feedbackService.addFeedback(this.newFeedback).subscribe(
+      (feedback: FeedBack) => {
+        this.feedbacks.push(feedback);
+        this.newFeedback = new FeedBack();
+  
+        Swal.fire({
+          title: 'Success',
+          text: 'Feedback added successfully!',
+          icon: 'success',
+        });
+      },
+      (error) => {
+        console.error('Error submitting feedback:', error);
+  
+        Swal.fire({
+          title: 'Error',
+          text: 'An error occurred while submitting the feedback.',
+          icon: 'error',
+        });
+      }
+    );
   }
-
+  
+  
+  
   mapReady(map: any): void {
     map.setOptions({
       zoomControl: 'true',
       zoomControlOptions: {
-        position: google.maps.ControlPosition.TOP_LEFT
-      }
+        position: google.maps.ControlPosition.TOP_LEFT,
+      },
     });
   }
 }
