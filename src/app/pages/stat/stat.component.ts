@@ -3,6 +3,8 @@ import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 import { ChartOptions } from '../charts/apex/apex-chart.model';
 import { CampCenterService } from 'src/app/services/camp-center.service';
 import { map } from 'rxjs/operators';
+import { ActivitiesService } from 'src/app/services/activities.service';
+import { Activity } from 'src/app/models/Activity';
 
 @Component({
   selector: 'app-stat',
@@ -12,6 +14,7 @@ import { map } from 'rxjs/operators';
 export class StatComponent implements OnInit {
   salesChart!: Partial<ChartOptions>;
   lineChartOptions1: Partial<ChartOptions> = {};
+  listAvtivity : any ;
 
   pageTitle: BreadcrumbItem[] = [];
   list : any;
@@ -19,6 +22,7 @@ export class StatComponent implements OnInit {
   unocpiied : any;
   constructor(
     private campservice : CampCenterService,
+    private activityService:ActivitiesService
   ) { }
 
   ngOnInit(): void {
@@ -136,6 +140,14 @@ this.lineChartOptions1 = {
 }
 );
 
+this.activityService.TopActivities().subscribe((data:any) => {
+  // Assuming data is an array of arrays, as shown in your output.
+  this.listAvtivity = data.map((d: any[]) => {
+    const [name, imageUrl, id] = d;
+    return { name, imageUrl, id }; // Returning an object directly
+  });
+  console.log(this.listAvtivity); // Array of Activity objects
+});
   
 
 }

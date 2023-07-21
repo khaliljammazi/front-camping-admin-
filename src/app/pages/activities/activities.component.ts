@@ -103,7 +103,7 @@ export class ActivitiesComponent implements OnInit {
    ActivityStatusFormatter(act:Activity): any {
     if (act.active) {
       return this.sanitizer.bypassSecurityTrustHtml(
-        `<span class="btn btn-soft-success rounded-pill waves-effect waves-light">Active</span>`
+        `<span class="btn btn-soft-success rounded-pill waves-effect waves-light">Coming soon</span>`
       );
     }
     else {

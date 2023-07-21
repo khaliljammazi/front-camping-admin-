@@ -98,7 +98,11 @@
                             <span class="text-muted font-13">(This is just a demo dropzone. Selected files are
                                 <strong>not</strong> actually uploaded.)</span>
                         </ngx-dropzone-label>
-
+                        <div class="dropzone-spinner" *ngIf="loader">
+                            <div class="spinner-border text-success" role="status">
+                              <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div>
                     </ngx-dropzone>
 
                     <!-- Preview -->
