@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; 
 
 import { ActivityDetailsRoutingModule } from './activity-details-routing.module';
 import { ActivityDetailsComponent } from './activity-details.component';
@@ -16,6 +17,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     CommonModule,
     ActivityDetailsRoutingModule,
     AdvancedTableModule,
+    FormsModule,
     PageTitleModule,
     CarouselModule
   ]

@@ -9,6 +9,8 @@ import { PageTitleModule } from 'src/app/shared/page-title/page-title.module';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { UiModule } from 'src/app/shared/ui/ui.module';
+import { NgChartsModule } from 'ng2-charts';
+import { DashboardThreeRoutingModule } from '../dashboard/dashboard-three/dashboard-three-routing.module';
 
 
 @NgModule({
@@ -22,7 +24,11 @@ import { UiModule } from 'src/app/shared/ui/ui.module';
     PageTitleModule,
     UiModule,
     WidgetModule,
-    StatRoutingModule
+    StatRoutingModule,
+    NgChartsModule,
+    PageTitleModule,
+    WidgetModule,
+    DashboardThreeRoutingModule
   ]
 })
 export class StatModule { }

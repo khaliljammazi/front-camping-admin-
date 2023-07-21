@@ -41,4 +41,7 @@ export class ReservationService {
   exportPdf(): Observable<Blob> {
     return this.http.get(this.ReservationUrl + '/export/pdf' ,{responseType: 'blob'});
     }
+    getReservationStatisticsByMonth(){
+      return this.http.get(this.ReservationUrl + '/statistics');
+    }
 }
