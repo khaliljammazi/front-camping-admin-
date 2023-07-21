@@ -28,7 +28,7 @@ export class ReservationComponent implements OnInit {
   Listuser: User[] = [];
   filteredUsers: User[] = [];
   activityy: Select2Data = [];
-
+camp :any;
   selectedActivity: any[] = [];
   //
   Listcamp: CampingCenter[] = [];
@@ -57,6 +57,12 @@ export class ReservationComponent implements OnInit {
 
       },
     });
+    this.route.params.subscribe((params) =>
+    { this.CampCenterService.getCampingById(params.id).subscribe((res: any) => 
+      {
+        this.camp = res;
+   });
+  });
 
     this.newReservation = this.fb.group({
       numberReserved: ["", Validators.required],
@@ -133,11 +139,6 @@ export class ReservationComponent implements OnInit {
         this.newReservation.controls["email"].setValue(this.Listuser.filter((u) => u.id == value).pop()?.email);
       });
 
-    this.CampCenterService.getCamps().subscribe(
-      {
-      next: (camp: CampingCenter[]) => {this.Listcamp = camp;},
-    }
-    );
   
   this.route.params.subscribe((params) => {
 this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
@@ -193,11 +194,8 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
       totalAmount: this.totalAmount,
       dateStart: this.newReservation.controls["dateStart"].value,
       dateEnd: this.newReservation.controls["dateEnd"].value,
-      campingCenter: this.Listcamp.filter(
-        (u) =>
-          u.id == Number(this.newReservation.controls["campingCenter"].value)
-      ).pop(),
-      activities: this.Listcamp.filter((u) => u.id == Number(this.newReservation.controls["activities"].value)),
+      campingCenter:this.camp,
+      activities: this.newReservation.controls["activities"].value,
       user: user,
     };
 
@@ -213,8 +211,9 @@ this.CampCenterService.getCampingById(params.id).subscribe((res: any) => {
   
       },
       (error) => {
-        console.error("There was an error!", this.newReservation.value, error);
+        console.log(postFormData);
         Swal.fire({
+
           title: "Error",
           text: "An error occurred while adding the reservation.",
           icon: "error",
