@@ -109,7 +109,7 @@ const MENU_ITEMS: MenuItem[] = [
                 label: 'Dashboard',
                 link: 'ecommerces/dashboard',
                 parentKey: 'apps-ecommerce',
-            },/*********************************************************************************************************** */
+            },/***************************************************************/
             {
                 key: 'ecommerce-products',
                 label: 'Products',
