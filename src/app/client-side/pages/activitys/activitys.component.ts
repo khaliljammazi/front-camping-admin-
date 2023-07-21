@@ -39,7 +39,6 @@ export class ActivitysComponent implements OnInit {
         {
           next: (act: Activity[]) => {
             this.records = act;
-            
           
           },
           error: (err: any) => console.log(err)
@@ -133,96 +132,6 @@ export class ActivitysComponent implements OnInit {
       }
     }
 
-  /*  onIconClick(activityId: any) {
-      const currentUser = this.authService.currentUser();
-      if (currentUser.id !== undefined) {
-        if(this.activityService.favoritesActivities(currentUser.id).contain(activityId)
-        
-        )
-      this.activityService.addToFavorites(activityId, currentUser.id).subscribe(
-        () => {
-          console.log(currentUser.id);
-        },
-        (error) => {
-          console.error("Failed to add activity to favorites:", error);
-        }
-      );
-      }
-      else {
-        console.log('UserId undefined'); // Handle the case when user ID is undefined
-      }
-    }
-
-    onIconClick(activityId: any) {
-      const currentUser = this.authService.currentUser();
-      if (currentUser.id !== undefined) {
-        this.activityService.favoritesActivities(currentUser.id).subscribe(favorites => {
-          if (favorites.includes(activityId)) {
-            this.activityService.deleteFromFavorites(activityId, currentUser.id as number).subscribe(
-              () => {
-                console.log(currentUser.id);
-              },
-              (error) => {
-                console.error('Failed to remove activity from favorites:', error);
-              }
-            );
-          } else {
-            this.activityService.addToFavorites(activityId, currentUser.id as number).subscribe(
-              () => {
-                console.log(currentUser.id);
-              },
-              (error) => {
-                console.error('Failed to add activity to favorites:', error);
-              }
-            );
-          }
-        });
-      } else {
-        console.log('UserId undefined');
-        // Handle the case when user ID is undefined
-      }
-    }
-
-    onIconClick(activityId: any): void {
-      const currentUser = this.authService.currentUser();
-      if (currentUser.id !== undefined) {
-        this.activityService.favoritesActivities(currentUser.id).subscribe(favorites => {
-          if (favorites.includes(activityId)) {
-            this.activityService.deleteFromFavorites(activityId, currentUser.id as number).subscribe(
-              () => {
-                console.log('Activity removed from favorites');
-                // Update the records array to set the 'favorite' property to false for the specific activity
-                const index = this.records.findIndex((activity) => activity.id === activityId);
-                if (index !== -1) {
-                  this.records[index].favorite = false;
-                }
-              },
-              (error) => {
-                console.error('Failed to remove activity from favorites:', error);
-              }
-            );
-          } else {
-            this.activityService.addToFavorites(activityId, currentUser.id as number).subscribe(
-              () => {
-                console.log('Activity added to favorites');
-                // Update the records array to set the 'favorite' property to true for the specific activity
-                const index = this.records.findIndex((activity) => activity.id === activityId);
-                if (index !== -1) {
-                  this.records[index].favorite = true;
-                }
-              },
-              (error) => {
-                console.error('Failed to add activity to favorites:', error);
-              }
-            );
-          }
-        });
-      } else {
-        console.log('UserId undefined');
-        // Handle the case when user ID is undefined
-      }
-    }*/
-    
       onIconClick(activityId: any): void {
       const currentUser = this.authService.currentUser();
       if (currentUser.id !== undefined) {
@@ -234,6 +143,7 @@ export class ActivitysComponent implements OnInit {
               () => {
                 console.log('Activity removed from favorites');
                 this.records[index].favorite = false; // Update the favorite property
+                this._fetchData();
               },
               (error) => {
                 console.error('Failed to remove activity from favorites:', error);
@@ -244,6 +154,8 @@ export class ActivitysComponent implements OnInit {
               () => {
                 console.log('Activity added to favorites');
                 this.records[index].favorite = true; // Update the favorite property
+                this._fetchData();
+
               },
               (error) => {
                 console.error('Failed to add activity to favorites:', error);
