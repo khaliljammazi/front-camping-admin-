@@ -179,12 +179,11 @@ this.revenuChart = {
 });
 
 this.activityService.TopActivities().subscribe((data:any) => {
-  // Assuming data is an array of arrays, as shown in your output.
   this.listAvtivity = data.map((d: any[]) => {
     const [name, imageUrl, id] = d;
-    return { name, imageUrl, id }; // Returning an object directly
+    return { name, imageUrl, id };
   });
-  console.log(this.listAvtivity); // Array of Activity objects
+  console.log(this.listAvtivity); 
 });
 const initialMonthArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 

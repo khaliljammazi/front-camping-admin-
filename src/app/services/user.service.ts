@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { environment } from "src/environments/environment.prod";
 import { TokenService } from "./token.service";
-import { Role, User } from "../models/user";
+import { Role, User, UserStat } from "../models/user";
 
 @Injectable({
   providedIn: "root",
@@ -24,6 +24,17 @@ export class UserService {
     const url = this.url + id;
     return this.httpClient.get<User>(url);
   }
+
+
+ getStatsByMonthAndUserId(id: number): Observable<UserStat[]> {
+  const url = this.url +"stats-by-date/"+ id;
+  return this.httpClient.get<UserStat[]>(url);
+}
+getStatsBySeasonalActivitiesAndUserId(id: number): Observable<UserStat[]> {
+  const url = this.url +"stats-by-season/"+ id;
+  return this.httpClient.get<UserStat[]>(url);
+}
+
 
   /**
    * Returns all users

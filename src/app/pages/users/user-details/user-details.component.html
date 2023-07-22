@@ -6,11 +6,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-1 user-avatar width">
-                        <img *ngIf="user.avatar; else noAvatar"  src={{user.avatar}} alt="" class="rounded-circle width">
+                    <div class="col-lg-1 user-avatar width-100">
+                        <img *ngIf="user.avatar; else noAvatar" src={{user.avatar}} alt=""
+                            class="rounded-circle width-150">
                         <ng-template #noAvatar>
                             <div class="initials">{{ user.prenom?.charAt(0) }}{{ user.nom?.charAt(0) }}</div>
-                          </ng-template>
+                        </ng-template>
                     </div> <!-- end col -->
                     <div class="col-lg-7 d-flex justify-content-between">
                         <div class="ps-xl-3 mt-3 mt-xl-0">
@@ -26,8 +27,15 @@
                         </div> -->
                     </div>
                 </div> <!-- end col -->
-
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        <app-user-statistics-by-month [userId]="id"></app-user-statistics-by-month>
+    </div>
+    <div class="col-lg-4">
+        <app-user-statistics-by-season [userId]="id"></app-user-statistics-by-season>
     </div>
 </div>

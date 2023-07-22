@@ -12,6 +12,7 @@ import { BreadcrumbItem } from "src/app/shared/page-title/page-title.model";
 export class UserDetailsComponent implements OnInit {
   user: User = new User();
   pageTitle: BreadcrumbItem[] = [];
+  id!: number;
 
   constructor(
     private userService: UserService,
@@ -20,12 +21,11 @@ export class UserDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageTitle = [{ label: "User details", path: "/", active: true }];
-
-    this.userService.getById(this.route.snapshot.params.id).subscribe({
+    this.id = this.route.snapshot.params.id;
+    this.userService.getById(this.id).subscribe({
       next: (data: User) => {
         this.user = data;
       },
     });
   }
-
 }
