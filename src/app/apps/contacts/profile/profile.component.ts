@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.pageTitle = [{ label: 'Contacts', path: '/' }, { label: 'Profile', path: '/', active: true }];
+    this.pageTitle = [ { label: 'Profile', path: '/', active: true }];
 
     this.route.queryParams.subscribe(params => {
       if (params && params.hasOwnProperty('id')) {

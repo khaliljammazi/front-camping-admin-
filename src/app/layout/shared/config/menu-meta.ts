@@ -80,15 +80,7 @@ const MENU_ITEMS: MenuItem[] = [
             
         ]
     },
-    // {
-    //     key: 'Activities ',
-    //     label: 'Activity',
-    //     isTitle: false,
-    //     icon: 'activity',
-    //     collapsed: true,
-    //     link: '/admin/activities',
-       
-    // },
+   
     {
         key: 'Reservations ',
         label: 'Reservations',
@@ -146,9 +138,10 @@ const MENU_ITEMS: MenuItem[] = [
     },
 
 
-  
+ 
+        ];
+    
 
-];
 
 // menu items for two column menu layout 
 const TWO_COl_MENU_ITEMS: MenuItem[] = [];

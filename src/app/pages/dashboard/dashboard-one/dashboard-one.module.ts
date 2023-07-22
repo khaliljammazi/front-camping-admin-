@@ -6,6 +6,7 @@ import { NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstr
 import { WidgetModule } from 'src/app/shared/widget/widget.module';
 import { DashboardOneRoutingModule } from './dashboard-one-routing.module';
 import { DashboardOneComponent } from './dashboard-one.component';
+import { PageTitleModule } from 'src/app/shared/page-title/page-title.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { DashboardOneComponent } from './dashboard-one.component';
     NgbDropdownModule,
     NgbDatepickerModule,
     NgApexchartsModule,
+    PageTitleModule,
     WidgetModule,
     DashboardOneRoutingModule
   ]

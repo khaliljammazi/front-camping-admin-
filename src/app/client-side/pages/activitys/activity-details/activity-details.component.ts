@@ -138,7 +138,8 @@ export class ActivityDetailsComponent implements OnInit {
   fetchFeedbacks() {
     this.feedbackService.getActivityFeedbacks(this.activity.id).subscribe(
       (feedbacks: FeedBack[]) => {
-        this.feedbacks = feedbacks;
+        this.feedbacks = feedbacks.filter((feedback) => feedback.rating >= 4);
+  
         console.log('Fetched feedbacks:', this.feedbacks);
       },
       (error) => {
@@ -146,6 +147,7 @@ export class ActivityDetailsComponent implements OnInit {
       }
     );
   }
+  
 
   setRating(rating: number) {
     this.selectedRating = rating;
