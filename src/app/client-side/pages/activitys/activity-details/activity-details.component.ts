@@ -165,6 +165,7 @@ export class ActivityDetailsComponent implements OnInit {
 
   submitFeedback() {
     this.authenticatedUser = this.authService.currentUser();
+    if (!this.authenticatedUser) {
   
     if (!Object.keys(this.authenticatedUser).length) {
       Swal.fire({
@@ -181,15 +182,16 @@ export class ActivityDetailsComponent implements OnInit {
       });
   
       return;
-    }
+    }}
   
     this.newFeedback.id = 0;
-    this.newFeedback.activity = this.activity;
+    this.newFeedback.activity = new Activity();
+    this.newFeedback.activity.id = this.activity.id;
     this.newFeedback.user = {
       id: this.authenticatedUser.id || 0,
       roles: this.authenticatedUser.roles, 
     };
-  
+    console.log(this.newFeedback)
     this.feedbackService.addFeedback(this.newFeedback).subscribe(
       (feedback: FeedBack) => {
         this.feedbacks.push(feedback);
@@ -202,6 +204,8 @@ export class ActivityDetailsComponent implements OnInit {
         });
       },
       (error) => {
+        console.log(this.newFeedback);
+        console.log(this.authenticatedUser);
         console.error('Error submitting feedback:', error);
   
         Swal.fire({

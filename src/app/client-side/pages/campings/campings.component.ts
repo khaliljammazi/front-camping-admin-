@@ -128,6 +128,8 @@ export class CampingsComponent implements OnInit {
   
     this.newFeedback.id = 0;
     this.newFeedback.campingCenter = this.camping;
+    this.newFeedback.campingCenter = new CampingCenter()
+    this.newFeedback.campingCenter.id = this.camping.id;
     this.newFeedback.user = {
       id: this.authenticatedUser.id || 0,
       roles: this.authenticatedUser.roles, 
