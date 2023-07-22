@@ -138,10 +138,13 @@
             <li class="dropdown notification-list  topbar-dropdown" ngbDropdown>
                 <a ngbDropdownToggle class="nav-link nav-user  me-0 waves-effect waves-light" id="profileMenuDropdown"
                     href="javascript:void(0)" aria-expanded="false">
-                    <span class="account-user-avatar">
-                        <img [src]="loggedInUser.avatar" alt="user-image" class="rounded-circle">
-                    </span>
-                    <span class="pro-user-name ms-1">
+                    <div class="account-user-avatar ">
+                        <img *ngIf="loggedInUser.avatar; else noAvatar"  src={{loggedInUser.avatar}} alt="user-image" class="rounded-circle ">
+                        <ng-template #noAvatar>
+                            <div class="initials bg-info ">{{ loggedInUser.prenom?.charAt(0) }}{{ loggedInUser.nom?.charAt(0) }}</div>
+                        </ng-template>
+                    </div>
+                    <span class="pro-user-name ms-1 invisible">
                         {{loggedInUser.firstName}} <i class="mdi mdi-chevron-down"></i>
                     </span>
 
@@ -149,7 +152,7 @@
                 <div ngbDropdownMenu aria-labelledby="profileMenuDropdown" class="dropdown-menu-end profile-dropdown">
                     <!-- item -->
                     <div ngbDropdownItem class="dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">Welcome !</h6>
+                        <h6 class="text-overflow m-0">Welcome  {{ loggedInUser.prenom}} {{ loggedInUser.nom}}!</h6>
                     </div>
                     <!-- item -->
                     <a *ngFor="let option of profileOptions;" class="notify-item" ngbDropdownItem>
