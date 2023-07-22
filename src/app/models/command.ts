@@ -16,9 +16,11 @@ export class Command {
     productCommands!: ProductCommand[];
   }
   export class  Payment{
-   
-    PaymentStatus?:string;
-    PaymentResponse?:string;
+    paymentMethod!:string
+    paymentStatus!:string
+   paymentResponse!:string
+    commandId!:number
+    createdAt!:Date
   }
   export class ProductCommand {
     id?: number;
