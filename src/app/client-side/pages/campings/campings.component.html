@@ -157,7 +157,7 @@
                             <h3>{{ feedback.description }}</h3>
                         </div>
                         <div class="author-box">
-                            <figure class="author-thumb"><img src="assets/images/testimonial-1.jpg" alt=""></figure>
+                            <figure class="author-thumb"><img src="{{feedback.user.avatar}}" alt=""></figure>
                             <span class="name">{{ feedback.user.nom }}</span>
                             <span class="designation">{{ feedback.user.prenom }}</span>
                         </div>
@@ -200,7 +200,6 @@
           </form>
         </ng-container>
           
-                  <!-- If the user is not authenticated, show login message -->
                   <ng-template #loginMessage>
                     <p>Please <a [routerLink]="['/auth/signin-signup']">login</a> to submit feedback.</p>
                   </ng-template>
@@ -208,7 +207,6 @@
               </div>
             </div>
           </section>
-        <!-- weare-section -->
         <section class="weare-section bg-color-2">
             <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-11.png);"></div>
             <div class="auto-container">
@@ -254,11 +252,9 @@
                 </div>
             </div>
         </section>
-        <!-- weare-section end -->
 
 
 
-        <!-- cta-section -->
         <section class="cta-section">
             <div class="auto-container">
                 <div class="inner-container">
@@ -271,7 +267,6 @@
                 </div>
             </div>
         </section>
-        <!-- cta-section end -->
 
 
         <section class="google-map-section">
