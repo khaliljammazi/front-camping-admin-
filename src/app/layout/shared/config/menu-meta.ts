@@ -195,7 +195,7 @@ const MENU_ITEMS: MenuItem[] = [
         link: '/admin/apps/chat',
     },
 
-    {
+    /*{
         key: 'apps-ecommerce',
         label: 'Ecommerce',
         isTitle: false,
@@ -263,7 +263,7 @@ const MENU_ITEMS: MenuItem[] = [
                 parentKey: 'apps-ecommerce',
             },
         ],
-    },/******houni */
+    },*/
     {
         key: 'apps-crm',
         label: 'CRM',

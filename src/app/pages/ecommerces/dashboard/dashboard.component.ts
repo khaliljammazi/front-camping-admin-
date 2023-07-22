@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Command, ProductCommand } from 'src/app/models/command';
+import { Command, ProductCommand,Payment } from 'src/app/models/command';
 import { ChartOptions } from 'src/app/pages/charts/apex/apex-chart.model';
 import { CommandService } from 'src/app/services/command.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -22,10 +22,14 @@ export class DashboardComponent implements OnInit {
   productCommands:ProductCommand[]=[]
   commands:Command[]=[]
   products:Product[]=[]
+  payments:Payment[]=[]
   totalPriceSum = 0;
   totalItems=0
   totalProducts=0
   data:any
+  pieChartData!: any[];
+  pieChartLabels!: string[];
+  pieChartType: string = 'pie';
   constructor (private commandService:CommandService,private productService: ProductService,) { }
 
   ngOnInit(): void {
@@ -35,11 +39,10 @@ export class DashboardComponent implements OnInit {
     this.initMapConfig();
     this.ProductData()
     this.OrdersData();
+    this.PaymentData()
   }
 
-  /**
-   * initialize chart
-   */
+ 
   _initChart(): void {
     this.salesChart = {
       series: [
@@ -118,10 +121,7 @@ export class DashboardComponent implements OnInit {
   initMapConfig(): void {
     this.worldMapConfig = {
       markers: [
-        { name: 'New York', coords: [40.71, -74.0] },
-        { name: 'San Francisco', coords: [37.77, -122.41] },
-        { name: 'Sydney', coords: [-33.86, 151.2] },
-        { name: 'Singapore', coords: [1.3, 103.8] },
+        {name: 'Tunisia', coords: [34.0, 9.0] }
       ],
       markerStyle: {
         initial: {
@@ -167,9 +167,10 @@ export class DashboardComponent implements OnInit {
           const priceTotal = productCommand.priceTotal;
           this.totalPriceSum += priceTotal??0;
           
+          
         });
       });
-       console.log("or",this.data);
+     
        
         
      },
@@ -183,10 +184,33 @@ export class DashboardComponent implements OnInit {
    (response: any) => {
      this.products = response;
      this.totalProducts=this.products.length
+     const activeProducts = response.filter((product: { active: any; }) => product.active).length;
+     const inactiveProducts = response.filter((product: { active: any; }) => !product.active).length;
+     this.pieChartData = [
+       { name: 'Active Products', value: activeProducts },
+       { name: 'Inactive Products', value: inactiveProducts }
+     ];
+     this.pieChartLabels = ['Active Products', 'Inactive Products'];
    },
    (error: any) => {
      console.error('Error fetching products', error);
    }
  );
 }
+PaymentData(): void {
+  this.commandService.getAllPayments().subscribe(
+    (response: Payment[]) => {
+      this.payments = response;
+      console.log("payments", this.payments);
+      // Any other code that depends on 'this.payments' should be placed here
+    },
+    (error: any) => {
+      console.error(error);
+      // Handle the error here
+    }
+  );
+}
+
+
+
 }
