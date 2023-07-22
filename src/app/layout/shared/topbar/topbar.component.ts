@@ -121,56 +121,56 @@ export class TopbarComponent implements OnInit {
       subText: '1 min ago',
       icon: 'mdi mdi-comment-account-outline',
       bgColor: 'primary',
-      redirectTo: '/dashboard-1'
+      redirectTo: '/stat'
     },
     {
       text: 'New user registered.',
       subText: '5 min ago',
       icon: 'mdi mdi-account-plus',
       bgColor: 'info',
-      redirectTo: '/dashboard-1'
+      redirectTo: '/stat'
     },
     {
       text: 'Cristina Pride',
       subText: 'Hi, How are you? What about our next meeting',
       avatar: 'assets/images/users/user-4.jpg',
       bgColor: 'success',
-      redirectTo: '/dashboard-1'
+      redirectTo: '/stat'
     },
     {
       text: 'Caleb Flakelar commented on Admin',
       subText: '2 days ago',
       icon: 'mdi mdi-comment-account-outline',
       bgColor: 'danger',
-      redirectTo: '/dashboard-1'
+      redirectTo: '/stat'
     },
     {
       text: 'Caleb Flakelar commented on Admin',
       subText: '1 min ago',
       icon: 'mdi mdi-comment-account-outline',
       bgColor: 'primary',
-      redirectTo: '/dashboard-1'
+      redirectTo: '/stat'
     },
     {
       text: 'New user registered.',
       subText: '5 min ago',
       icon: 'mdi mdi-account-plus',
       bgColor: 'info',
-      redirectTo: '/dashboard-1'
+      redirectTo: '/stat'
     },
     {
       text: 'Cristina Pride',
       subText: 'Hi, How are you? What about our next meeting',
       avatar: 'assets/images/users/user-1.jpg',
       bgColor: 'success',
-      redirectTo: '/dashboard-1'
+      redirectTo: '/stat'
     },
     {
       text: 'Caleb Flakelar commented on Admin',
       subText: '2 days ago',
       icon: 'mdi mdi-comment-account-outline',
       bgColor: 'danger',
-      redirectTo: '/dashboard-1'
+      redirectTo: '/stat'
     }];
   }
 

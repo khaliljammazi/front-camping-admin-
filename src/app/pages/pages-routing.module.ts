@@ -5,7 +5,7 @@ import { SuperAdminGuard } from '../core/guards/super-admin.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard-1',
+    redirectTo: 'stat',
     pathMatch: "full"
   },
   {

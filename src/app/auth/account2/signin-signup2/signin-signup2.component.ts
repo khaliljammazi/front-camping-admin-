@@ -49,7 +49,7 @@ export class SigninSignup2Component implements OnInit {
 
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard-1';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/stat';
   }
 
 
