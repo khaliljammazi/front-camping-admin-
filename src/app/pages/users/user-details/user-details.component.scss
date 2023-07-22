@@ -1,0 +1,23 @@
+.user-avatar {
+    border-radius: 50%;
+    background-color: #ff0000; /* Set a default background color for the avatar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-size: 24px; /* Adjust the font size for the initials */
+    color: #fff; /* Set the text color for the initials */
+  }
+  
+  .user-avatar img {
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .user-avatar img.width-150 {
+    width: 150px; /* Set your desired width and height */
+    height: 150px ;
+  }
+.user-avatar.width-100{
+    width: 100px; /* Set your desired width and height */
+    height: 100px;
+}

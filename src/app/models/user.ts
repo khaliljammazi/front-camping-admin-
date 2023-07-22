@@ -12,7 +12,7 @@ export class User {
   active?: true | false;
   enabled?: true | false;
   emailValide?: true | false;
-  authorities?: any [];
+  authorities?: any[];
   username?: string;
   accountNonLocked?: true | false;
   accountNonExpired?: true | false;
@@ -21,4 +21,12 @@ export class User {
 export class Role {
   id?: number;
   name!: string;
+}
+export class UserStat {
+  revenue!: number;
+  countReservation!: number;
+  year!: Number;
+  month!: number;
+  date!:Date;
+  season?: string
 }

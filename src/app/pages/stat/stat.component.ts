@@ -206,14 +206,14 @@
   };
   });
 
-  this.activityService.TopActivities().subscribe((data:any) => {
-    this.listAvtivity = data.map((d: any[]) => {
-      const [name, imageUrl, id] = d;
-      return { name, imageUrl, id }; 
-    });
-    console.log(this.listAvtivity); 
+this.activityService.TopActivities().subscribe((data:any) => {
+  this.listAvtivity = data.map((d: any[]) => {
+    const [name, imageUrl, id] = d;
+    return { name, imageUrl, id };
   });
-  const initialMonthArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  console.log(this.listAvtivity); 
+});
+const initialMonthArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   this.ReservationService.getReservationStatisticsByMonth().subscribe((data)=>{
     this.statistics = data;

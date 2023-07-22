@@ -5,6 +5,7 @@ import { StatisticsCard1 } from 'src/app/shared/widget/statistics-card/statistic
 import { ChartOptions } from '../../charts/apex/apex-chart.model';
 import { RevenueHistory, UserBalance } from './dashboard-one.model';
 import { REVENUEHISTORYDATA, USERBALANCEDATA } from './data';
+import { BreadcrumbItem } from 'src/app/shared/page-title/page-title.model';
 
 /**
  * This Service handles how the date is rendered and parsed from keyboard i.e. in the bound input field.
@@ -52,10 +53,12 @@ export class DashboardOneComponent implements OnInit {
   revenueHistoryData: RevenueHistory[] = [];
 
   date!: NgbDateStruct;
+  pageTitle: BreadcrumbItem[] = [];
 
   constructor (private calendar: NgbCalendar) { }
 
   ngOnInit(): void {
+    this.pageTitle = [{ label: 'Dashboards', path: '/' }, { label: 'Dashboard', path: '/', active: true }];
     this.date = this.calendar.getToday();
     this._fetchStatisticsData();
     this.initChart();

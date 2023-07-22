@@ -53,6 +53,9 @@
                         </nav>
                     </div>
                     <div class="menu-right-content">
+                        <div class="d-flex pe-2 mt-1">
+                            <button *ngIf="isAdmin" type="button" class="btn btn-sm btn-success waves-effect" [routerLink]="['/admin']">Admin panel</button>
+                        </div>
                         <div class="search-box-outer">
                             <button *ngIf="isAdmin" type="button" class="btn w-sm " style="background-color:withe ; color:black;" [routerLink]="['/admin']"><i class="fas fa-user-cog font-24"></i></button>
                         </div>

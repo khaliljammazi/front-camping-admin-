@@ -14,13 +14,19 @@ import { QuillModule } from 'ngx-quill';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from 'src/environments/environment';
+import { UserStatisticsBySeasonComponent } from './user-statistics-by-season/user-statistics-by-season.component';
+import { UserStatisticsByMonthComponent } from './user-statistics-by-month/user-statistics-by-month.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { UiModule } from 'src/app/shared/ui/ui.module';
 
 @NgModule({
   declarations: [
     ListUsersComponent,
     UserDetailsComponent,
     AddUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    UserStatisticsBySeasonComponent,
+    UserStatisticsByMonthComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +36,8 @@ import { environment } from 'src/environments/environment';
     QuillModule,
     NgxDropzoneModule,
     Select2Module,
+    NgApexchartsModule,
+    UiModule,
     NgbTooltipModule,
     AgmCoreModule.forRoot({
         apiKey: environment.GOOGLE_MAPS_API_KEY
