@@ -98,14 +98,9 @@
                 </div>
             </div>
         </div>
-    </div> <!-- end col -->
+    </div> 
 
 </div>
-
-
-<!-- end row -->
-
-
 
     <div class="widget-chart text-center col-xl-4 col-md-6"> 
         <app-ui-portlet-card cardTitle=" Total Revenue per occupied capacity">
@@ -130,8 +125,135 @@
                         [options]="revenueChartOptions.chartOptions"></canvas>
                 </div>
             </div>
-        </div> <!-- end card-->
-    </div> <!-- end col -->
+        </div> 
+    </div> 
 
    
 </div>
+<div class="col-xl-12" *ngIf="getKeys(CampingFeedbacks).length > 0">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title">Camping Centers and General Rating</h4>
+        <div class="table-responsive">
+            <table class="table table-borderless table-hover table-nowrap table-centered table-fluid m-0">
+                <thead class="table-light">
+              <tr>
+                <th i18n>Name</th>
+                <th i18n>Rating</th>
+                <th i18n>Average Sentiment</th>
+                <th i18n>General Rating</th> 
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let campcenter of campcenters" >
+                <td>{{ campcenter.label }}</td>
+                <td>
+                  <div class="rating-stars" [innerHTML]="getRatingStars(campingRatings[campcenter.id])"></div>
+                </td>
+                <td>
+                  {{ calculateAverageSentimentPercentage(campingSentiments[campcenter.id]) | number: '1.1-2' }}%
+                </td>
+                <td>
+                    <div class="progress">
+                        <div [ngClass]="getProgressBarClass(calculateGeneralRating(campingRatings[campcenter.id], campingSentiments[campcenter.id]))"
+                             role="progressbar"
+                             [style.width.%]="calculateGeneralRating(campingRatings[campcenter.id], campingSentiments[campcenter.id])">
+                             {{ calculateGeneralRating(campingRatings[campcenter.id], campingSentiments[campcenter.id]) | number: '1.0-2' }}%
+                        </div>
+                      </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+    <div class="col-xl-12" *ngIf="getKeys(ActivityFeedbacks).length > 0">
+        <div class="card">
+        <div class="card-body">
+            <h4 class="header-title">Activities and General Rating</h4>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover table-nowrap table-centered table-fluid m-0">
+
+                <thead class="table-light">
+                <tr>
+                    <th i18n>Name</th>
+                    <th i18n>Rating</th>
+                    <th i18n>Average Sentiment</th>
+                    <th i18n>General Rating</th> 
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let activity of activities">
+                    <td>{{ activity.label }}</td>
+                    <td>
+                    <div class="rating-stars" [innerHTML]="getRatingStars(activityRatings[activity.id])"></div>
+                    </td>
+                    <td>
+                    {{ calculateAverageSentimentPercentage(activitySentiments[activity.id]) | number: '1.1-2' }}%
+                    </td>
+                    <td>
+                        <div class="progress">
+                            <div [ngClass]="getProgressBarClass(calculateGeneralRating(activityRatings[activity.id], activitySentiments[activity.id]))"
+                                 role="progressbar"
+                                 [style.width.%]="calculateGeneralRating(activityRatings[activity.id], activitySentiments[activity.id]) ">
+                                 {{ calculateGeneralRating(activityRatings[activity.id], activitySentiments[activity.id]) | number: '1.0-2' }}%
+                            </div>
+                          </div>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div> 
+  
+  <div class="col-xl-12" *ngIf="getKeys(ProductFeedbacks).length > 0">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="header-title">Products and General Rating</h4>
+        <div class="table-responsive">
+            <table class="table table-borderless table-hover table-nowrap table-centered table-fluid m-0">
+                <thead class="table-light">
+              <tr>
+                <th i18n>Name</th>
+                <th i18n>Rating</th>
+                <th i18n>Average Sentiment</th>
+                <th i18n>General Rating</th> 
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products">
+                <td>{{ product.name }}</td>
+                <td>
+
+                  <div class="rating-stars" [innerHTML]="getRatingStars(productRatings[product.id])"></div>
+                </td>
+                <td>
+                  {{ calculateAverageSentimentPercentage(productSentiments[product.id]) | number: '1.1-2' }}%
+                </td>
+                <td>
+                  <div class="rating-circle">
+                    {{ calculateGeneralRating(productRatings[product.id], productSentiments[product.id]) | number: '1.0-2' }}%
+                  </div>
+                                          <div class="progress">
+                            <div [ngClass]="getProgressBarClass(calculateGeneralRating(productRatings[product.id], productSentiments[product.id]))"
+                                 role="progressbar"
+                                 [style.width.%]="calculateGeneralRating(productRatings[product.id], productSentiments[product.id]) ">
+                                 {{ calculateGeneralRating(productRatings[product.id], productSentiments[product.id]) | number: '1.0-2' }}%
+                            </div>
+                          </div>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div> 
+  

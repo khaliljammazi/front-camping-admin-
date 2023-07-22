@@ -78,7 +78,9 @@ export class CampingsComponent implements OnInit {
       .getCampingCenterFeedbacks(this.camping.id)
       .subscribe(
         (feedbacks: FeedBack[]) => {
-          this.feedbacks = feedbacks;
+          this.feedbacks = feedbacks.filter((feedback) => feedback.rating > 3);
+        console.log('Fetched feedbacks:', this.feedbacks);
+
         },
         (error) => {
           console.error('Error fetching feedbacks:', error);

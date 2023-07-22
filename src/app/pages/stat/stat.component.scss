@@ -1,0 +1,15 @@
+/* Red color for < 30% */
+.progress-bar-danger {
+    background-color: #dc3545 !important;
+  }
+  
+  /* Yellow color for 30% to 60% */
+  .progress-bar-warning {
+    background-color: #ffc107 !important;
+  }
+  
+  /* Green color for > 60% */
+  .progress-bar-success {
+    background-color: #28a745 !important;
+  }
+  
